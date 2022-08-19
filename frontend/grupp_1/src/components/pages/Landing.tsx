@@ -1,3 +1,9 @@
+import { Button } from "../Styled/CustomButton";
+
 export default function Landing() {
-    return <></>;
+  return (
+    <>
+      <Button>skicka</Button>
+    </>
+  );
 }

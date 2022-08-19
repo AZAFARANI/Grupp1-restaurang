@@ -1,17 +1,29 @@
 *,
 *:after,
 *:before {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+@font-face {
+  font-family: "Sofia";
+  src: url("./assets/Sofia-Regular.ttf");
+}
+@font-face {
+  font-family: "Montez";
+  src: url("./assets/Montez-Regular.ttf");
+}
+
+:root {
+  --font-family-montez: url("./assets/Montez-Regular.ttf");
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
