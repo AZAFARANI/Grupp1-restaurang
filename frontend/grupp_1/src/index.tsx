@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.scss";
-import LandingPage from "./components/pages/LandingPage";
 import reportWebVitals from "./reportWebVitals";
+import Landing from "./components/pages/Landing";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
 );
 root.render(
     <React.StrictMode>
-        <LandingPage />
+        <Landing />
     </React.StrictMode>
 );
 

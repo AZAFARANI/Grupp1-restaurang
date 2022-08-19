@@ -1,5 +1,5 @@
 {
-  "name": "group_one_frontend",
+  "name": "grupp_1",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -39,12 +39,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@types/react-router-dom": "^5.3.3",
-    "@types/styled-components": "^5.1.26",
-    "react-router-dom": "^6.3.0",
-    "sass": "^1.54.4",
-    "styled-components": "^5.3.5"
   }
 }
