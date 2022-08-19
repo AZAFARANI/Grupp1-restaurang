@@ -5,15 +5,25 @@ interface IStyledInputText {
   color?: string;
   width?: string;
   height?: string;
+  fontSize?: string;
 }
 
 export const InputText = styled.input`
-  color: ${(props: IStyledInputText) => props.color || "hsla(0, 0%, 100%, 1)"};
+  background-color: ${(props: IStyledInputText) =>
+    props.color || "hsla(0, 0%, 100%, 1)"};
   border-radius: ${(props: IStyledInputText) => props.corner || "20px"};
 
   width: ${(props: IStyledInputText) => props.width || "600px"};
   height: ${(props: IStyledInputText) => props.height || "86px"};
 
+  font-size: ${(props: IStyledInputText) => props.fontSize || "36px"};
+
   border: none;
   box-shadow: 0px 0px 6px 3px hsla(0, 0%, 0%, 0.25) inset;
+
+  font-family: "Sofia";
+  color: black;
+
+  padding-left: 15px;
+  padding-right: 5px;
 `;
