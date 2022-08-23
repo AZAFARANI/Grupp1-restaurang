@@ -4,6 +4,9 @@ interface IGlassMorphProps {
   background?: string;
   blur?: string;
   border?: string;
+  padding?: string;
+  boxshadow?: string;
+  borderradius?: string;
 }
 
 export const GlassDiv = styled.div`
@@ -14,9 +17,17 @@ export const GlassDiv = styled.div`
   -webkit-backdrop-filter: ${(props: IGlassMorphProps) => props.blur};
 
   border: ${(props: IGlassMorphProps) =>
-    props.border || "border: 1px solid hsla( 255, 255, 255, 0.18 )"};
+    props.border || "1px solid hsla( 255, 255, 255, 0.18 )"};
 
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  padding: ${(props: IGlassMorphProps) => props.padding || "20px 20px"};
 
-  border-radius: 10px;
+  box-shadow: ${(props: IGlassMorphProps) =>
+    props.boxshadow || "0 8px 32px 0 rgba(31, 38, 135, 0.37)"};
+
+  border-radius: ${(props: IGlassMorphProps) => props.borderradius || "10px"};
+`;
+
+export const GlassDiv2 = styled(GlassDiv)`
+  height: 70vh;
+  width: 95%;
 `;
