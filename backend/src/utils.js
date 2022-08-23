@@ -1,6 +1,8 @@
 const emailRegexp =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+const dateISORegexp = !/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/;
+
 const BLANK_BOOKING = {
     firstName: "NONE",
     lastName: "NONE",
@@ -36,8 +38,19 @@ function validateBooking(recipe) {
     // ---------------------------------------------------------
     // ### SPECIFIC ###
     if (!emailRegexp.test(recipe.email)) throw "Invalid email format.";
-    if (new Date(recipe.timestamp).getTime() <= 0) throw "Invalid Date format.";
+    if (new Date(recipe.timestamp).getTime() <= 0)
+        throw "Missing time from timestamp.";
+    if (!isIsoDate(recipe.timeStamp)) throw "Invalid timestamp format.";
+
     // ---------------------------------------------------------
+}
+
+function isIsoDate(timeStamp) {
+    if (!dateISORegexp.test(timeStamp)) return false;
+    const date = new Date(timeStamp);
+    return (
+        date instanceof Date && !isNaN(date) && date.toISOString() === timeStamp
+    );
 }
 
 function validateAllowedProperties(recipe) {
