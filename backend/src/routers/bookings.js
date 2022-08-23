@@ -25,7 +25,7 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
-            throw "Invalid ID.";
+            throw "Invalid mongooseID.";
         const booking = await BookingsModel.findById(req.params.id);
         if (booking) {
             res.send({
@@ -51,6 +51,7 @@ router.post("/", async (req, res) => {
         const { booking } = req.body;
 
         utils.validateBooking(booking);
+
         // ### Check if we have reaccuring customer ###
         const customer = await CustomerModel.findOne({
             email: booking.email,
