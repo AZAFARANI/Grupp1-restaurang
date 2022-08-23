@@ -70,3 +70,8 @@ export const SeperatorLine = styled.div`
   background-color: ${(props: ICustomProps) =>
     props.background || "rgba(0, 0, 0, 0.25)"};
 `;
+
+export const GlassDiv2 = styled(GlassDiv)`
+  height: 70vh;
+  width: 95%;
+`;
