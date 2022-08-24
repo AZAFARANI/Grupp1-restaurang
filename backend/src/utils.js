@@ -1,3 +1,8 @@
+require("dotenv").config();
+
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
 const emailRegexp =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -59,8 +64,48 @@ function validateAllowedProperties(booking) {
     });
 }
 
+function comparePassword(password, hash) {
+    return bcrypt.compareSync(password, hash);
+}
+
+function forceAuthorize(req, res, next) {
+    const { token } = req.cookies;
+    if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+        next();
+    } else {
+        res.sendStatus(401);
+    }
+}
+
+function forceAdmin(req, res, next) {
+    const { token } = req.cookies;
+    if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+        const tokenData = jwt.decode(token, process.env.JWTSECRET);
+        if (tokenData.role === "admin") {
+            next();
+        } else {
+            res.status(401).send({
+                msg: "Unauthorized",
+                error: "You do not have correct permissions.",
+            });
+        }
+    } else {
+        res.status(401).send({
+            msg: "Unauthorized",
+        });
+    }
+}
+
+function hashPassword(password) {
+    return bcrypt.hashSync(password, 12);
+}
+
 module.exports = {
     validateBooking,
     validateAllowedProperties,
     BLANK_BOOKING,
+    comparePassword,
+    forceAuthorize,
+    forceAdmin,
+    hashPassword,
 };
