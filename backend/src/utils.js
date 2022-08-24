@@ -3,6 +3,10 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+const CustomerModel = require("./models/CustomerModel");
+const BookingModel = require("./models/BookingModel");
+const { default: mongoose } = require("mongoose");
+
 const emailRegexp =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -96,6 +100,38 @@ function forceAdmin(req, res, next) {
     }
 }
 
+async function forceLoggedInOrOwnBooking(req, res, next) {
+    try {
+        const { token } = req.cookies;
+        if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+            next();
+        } else {
+            const { customerId } = req.body;
+            const bookingId = req.params.id;
+            if (!customerId || !bookingId)
+                throw "No customerId / bookingId provided.";
+
+            if (!mongoose.Types.ObjectId.isValid(customerId))
+                throw "Invalid customer Id.";
+            if (!mongoose.Types.ObjectId.isValid(bookingId))
+                throw "Invalid booking Id.";
+
+            const customer = await CustomerModel.findById(customerId).lean();
+            if (!customer) throw "No customer found with ID: " + customerId;
+
+            const ownBookings = customer.bookings.map((id) => `${id}`);
+            if (!ownBookings.includes(bookingId))
+                throw "You cannot modify bookings other than your own.";
+            next();
+        }
+    } catch (error) {
+        res.status(401).send({
+            msg: "Unauthorized",
+            error: error,
+        });
+    }
+}
+
 function hashPassword(password) {
     return bcrypt.hashSync(password, 12);
 }
@@ -105,7 +141,8 @@ module.exports = {
     validateAllowedProperties,
     BLANK_BOOKING,
     comparePassword,
+    hashPassword,
     forceAuthorize,
     forceAdmin,
-    hashPassword,
+    forceLoggedInOrOwnBooking,
 };

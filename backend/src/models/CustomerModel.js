@@ -6,6 +6,9 @@ const CustomerSchema = new mongoose.Schema(
         lastName: { type: String, required: true },
         email: { type: String, required: true },
         phone: { type: String, required: true },
+        bookings: [
+            { type: mongoose.Types.ObjectId, required: true, ref: "bookings" },
+        ],
     },
     { versionKey: false }
 );

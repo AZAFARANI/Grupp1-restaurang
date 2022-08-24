@@ -65,6 +65,7 @@ router.post("/", async (req, res) => {
                 lastName: booking.lastName,
                 email: booking.email,
                 phone: booking.phone,
+                bookings: [],
             });
 
             await newCustomer.save();
@@ -79,6 +80,9 @@ router.post("/", async (req, res) => {
         });
 
         await newBooking.save();
+
+        customer.bookings.push(newBooking._id);
+        await customer.save();
 
         mailer
             .sendMail(
@@ -118,7 +122,7 @@ router.post("/", async (req, res) => {
 });
 
 // ### EDIT BOOKING ###
-router.put("/:id", async (req, res) => {
+router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid mongooseID.";
@@ -147,7 +151,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // ### DELETE BOOKING ###
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid mongooseID.";

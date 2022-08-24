@@ -9,8 +9,8 @@ const router = express.Router();
 
 // -------------------------------------------------------
 // ### MODELS ###
-const BookingsModel = require("../models/BookingModel");
-const CustomerModel = require("../models/CustomerModel");
+// const BookingsModel = require("../models/BookingModel");
+// const CustomerModel = require("../models/CustomerModel");
 const PersonalModel = require("../models/PersonalModel");
 // -------------------------------------------------------
 
