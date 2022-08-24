@@ -44,6 +44,24 @@ async function sendMail(emailTo, subject, text, html = "<span></span>") {
     }
 }
 
+function createMailHtml(booking) {
+    const date = new Date(booking.timestamp);
+    return `
+        <div>
+            <h2>Välkommen till Tramonto!</h2>
+            <hr/>
+            <p>Här kommer din bokning:</p>
+            <ul>
+                <li>Boknings ID: ${booking._id}</li>
+                <li>Antal personer: ${booking.guestCount}st.</li>
+                <li>Du har bokat bord den ${date.toLocaleDateString()} klockan ${date.toLocaleTimeString()}.</li>
+            </ul
+            <a href="https://www.google.com">Ändra bokning</a>
+        </div>   
+    `;
+}
+
 module.exports = {
     sendMail,
+    createMailHtml,
 };

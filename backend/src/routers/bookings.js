@@ -85,11 +85,7 @@ router.post("/", async (req, res) => {
             customer.email,
             `Tramonto Bokning - ${newBooking._id}`,
             "Här kommer din bokning!",
-            `
-                <h1>Välkommer till Tramonto! ${new Date(
-                    newBooking.timestamp
-                ).toDateString()}</h1>
-            `
+            mailer.createMailHtml(newBooking)
         )
         .then(async (result) => {
             // newBooking.mailId = result
