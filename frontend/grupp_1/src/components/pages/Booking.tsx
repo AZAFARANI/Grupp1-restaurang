@@ -39,14 +39,24 @@ export const Booking = () => {
               <CustomSpan fontSize="24px">Din epost</CustomSpan>
               <InputText width="90%" height="50px" corner="10px"></InputText>
             </CustomSpanDiv>
-            <CustomSpanDiv applyToNthChild="odd">
-              <CustomSpanDiv flexDirectionTablet="column">
+            <CustomSpanDiv applyToNthChild="odd" applyToNthChildTable="even">
+              <CustomSpanDiv flexDirectionTablet="column" widthTablet="300px">
                 <CustomSpan fontSize="24px">Förnamn</CustomSpan>
-                <InputText width="90%" height="50px" corner="10px"></InputText>
+                <InputText
+                  width="90%"
+                  height="50px"
+                  corner="10px"
+                  widthTablet="95%"
+                ></InputText>
               </CustomSpanDiv>
-              <CustomSpanDiv flexDirectionTablet="column">
+              <CustomSpanDiv flexDirectionTablet="column" widthTablet="300px">
                 <CustomSpan fontSize="24px">Efternamn</CustomSpan>
-                <InputText width="90%" height="50px" corner="10px"></InputText>
+                <InputText
+                  width="90%"
+                  height="50px"
+                  corner="10px"
+                  widthTablet="95%"
+                ></InputText>
               </CustomSpanDiv>
             </CustomSpanDiv>
             <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">

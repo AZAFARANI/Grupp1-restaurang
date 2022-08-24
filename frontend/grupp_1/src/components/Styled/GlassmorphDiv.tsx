@@ -26,6 +26,9 @@ interface ICustomProps {
   justifyContentTablet?: string;
   flexDirectionTablet?: string;
   flexDirectionMarginTop?: string;
+  applyToNthChildTable?: string;
+  alignItemsTablet?: string;
+  widthTablet?: string;
 }
 
 export const GlassDiv = styled.div`
@@ -99,5 +102,11 @@ export const CustomSpanDiv = styled.div`
       props.flexDirectionTablet || "row"};
     margin: ${(props: ICustomProps) =>
       props.flexDirectionMarginTop || "0 0 20px 0"};
+    width: ${(props: ICustomProps) => props.widthTablet || "100%"};
+    &
+      > :nth-child(${(props: ICustomProps) =>
+          props.applyToNthChildTable || 0}) {
+      margin: 0 0 35px 0;
+    }
   }
 `;
