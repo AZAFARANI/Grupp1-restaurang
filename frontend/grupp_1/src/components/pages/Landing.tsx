@@ -2,7 +2,7 @@ import { CustomSpan } from "../Styled/CustomSpan";
 import { GlassDiv, GlassDiv2 } from "../Styled/GlassmorphDiv";
 import { InputText } from "../Styled/StyledInputTypeText";
 import "../../scss/Landing.scss";
-import { CustomDiv, CustomDiv2 } from "../Styled/CustomDiv";
+import { CustomDiv } from "../Styled/CustomDiv";
 import { Link } from "react-router-dom";
 
 export default function Landing() {
@@ -11,7 +11,7 @@ export default function Landing() {
       <div className="bigContainer">
         <CustomDiv>
           <div className="hero-div">
-            <img src="/svg/Logo.svg"></img>
+            <img src="/svg/Logo.svg" className="logotype"></img>
 
             <Link to={"/booking"}>
               <GlassDiv

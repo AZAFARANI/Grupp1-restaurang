@@ -1,26 +1,34 @@
-.hero-div {
-  width: 100%;
+.bigContainer {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-  align-items: center;
+  .hero-div {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
 
-  a {
-    text-decoration: none;
-  }
+    a {
+      text-decoration: none;
+    }
 
-  .whiteArrow {
-    color: white;
-  }
+    .whiteArrow {
+      color: white;
+    }
 
-  .bookingButton {
-    border-right: hsla(0, 14%, 82%, 1) !important;
-    border-bottom: hsla(0, 14%, 82%, 1) !important;
-    cursor: pointer;
+    .bookingButton {
+      border-right: hsla(0, 14%, 82%, 1) !important;
+      border-bottom: hsla(0, 14%, 82%, 1) !important;
+      cursor: pointer;
 
-    &:hover {
-      transform: scale(1.1);
-      transition: 0.2s;
+      &:hover {
+        transform: scale(1.1);
+        transition: 0.2s;
+      }
+    }
+
+    .logotype {
+      width: 80% !important;
     }
   }
 }
@@ -61,7 +69,7 @@
 
 @media screen and (min-width: 1008px) {
   .bigContainer {
-    display: flex;
+    flex-direction: row;
 
     #whiteArrow {
       display: none;
