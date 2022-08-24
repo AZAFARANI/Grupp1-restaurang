@@ -1,6 +1,7 @@
 import "../../scss/Booking.scss";
 import { Button } from "../Styled/CustomButton";
 import { StyledForm } from "../Styled/CustomForm";
+import { StyledImage } from "../Styled/CustomImage";
 import { CustomSpan } from "../Styled/CustomSpan";
 import {
   ContainerDiv,
@@ -22,18 +23,32 @@ export const Booking = () => {
           width="90%"
           justifyContent="left"
           background="none"
+          backgroundDesktop="rgba(0, 0, 0, 0.50)"
+          widthDesktop="70%"
+          heightDekstop="143px"
         >
-          <CustomSpan fontSize="70px" fontType="Montez" color="white">
+          <CustomSpan
+            fontSize="70px"
+            fontType="Montez"
+            color="white"
+            displayDesktop="none"
+          >
             Boka
           </CustomSpan>
+          <StyledImage src="/svg/Logo.svg" alt="logotype"></StyledImage>
         </HeaderDiv>
-        <HeaderDiv height="100px" justifyContent="space-between">
+        <HeaderDiv
+          height="100px"
+          justifyContent="space-between"
+          widthDesktop="70%"
+          heightDekstop="120px"
+        >
           <CustomSpan fontSize="40px" fontType="Sofia" shadow="none">
             Låt oss boka!
           </CustomSpan>
           <SeperatorLine></SeperatorLine>
         </HeaderDiv>
-        <ContainerDiv flexDirection="column" height="100%">
+        <ContainerDiv flexDirection="column" height="100%" widthDesktop="70%">
           <StyledForm applyToNthChild="even">
             <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">
               <CustomSpan fontSize="24px">Din epost</CustomSpan>

@@ -29,6 +29,9 @@ interface ICustomProps {
   applyToNthChildTable?: string;
   alignItemsTablet?: string;
   widthTablet?: string;
+  backgroundDesktop?: string;
+  widthDesktop?: string;
+  heightDekstop?: string;
 }
 
 export const GlassDiv = styled.div`
@@ -68,12 +71,21 @@ export const HeaderDiv = styled(HeroDiv)`
     justify-content: ${(props: ICustomProps) =>
       props.justifyContentTablet || "center"};
   }
+  @media ${device.desktop} {
+    background-color: ${(props: ICustomProps) =>
+      props.backgroundDesktop || "none"};
+    width: ${(props: ICustomProps) => props.widthDesktop || "100%"};
+    height: ${(props: ICustomProps) => props.heightDekstop || "100%"};
+  }
 `;
 
 export const ContainerDiv = styled(HeroDiv)`
   padding-top: ${(props: ICustomProps) => props.paddingTop || "20px"};
   background-color: ${(props: ICustomProps) =>
     props.background || "rgba(255, 255, 255, 0.75)"};
+  @media ${device.desktop} {
+    width: ${(props: ICustomProps) => props.widthDesktop || "100%"};
+  }
 `;
 
 export const SeperatorLine = styled.div`
