@@ -4,6 +4,7 @@ import { StyledForm } from "../Styled/CustomForm";
 import { CustomSpan } from "../Styled/CustomSpan";
 import {
   ContainerDiv,
+  CustomSpanDiv,
   HeaderDiv,
   HeroDiv,
   SeperatorLine,
@@ -32,23 +33,33 @@ export const Booking = () => {
           </CustomSpan>
           <SeperatorLine></SeperatorLine>
         </HeaderDiv>
-        <ContainerDiv flexDirection="column" height="980px">
+        <ContainerDiv flexDirection="column" height="100%">
           <StyledForm applyToNthChild="even">
-            <CustomSpan fontSize="24px">Din epost</CustomSpan>
-            <InputText width="90%" height="50px" corner="10px"></InputText>
-            <CustomSpan fontSize="24px">Förnamn</CustomSpan>
-            <InputText width="90%" height="50px" corner="10px"></InputText>
-            <CustomSpan fontSize="24px">Efternamn</CustomSpan>
-            <InputText width="90%" height="50px" corner="10px"></InputText>
-            <CustomSpan fontSize="24px">Mobilnummer</CustomSpan>
-            <InputText width="90%" height="50px" corner="10px"></InputText>
-            <CustomSpan fontSize="24px">Har ni några allergier?</CustomSpan>
-            <InputText width="90%" height="200px" corner="10px"></InputText>
-            <Button padding="20px 70px" background="#A3A380">
-              <CustomSpan color="white" fontSize="40px">
-                Nästa
-              </CustomSpan>
-            </Button>
+            <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">
+              <CustomSpan fontSize="24px">Din epost</CustomSpan>
+              <InputText width="90%" height="50px" corner="10px"></InputText>
+            </CustomSpanDiv>
+            <CustomSpanDiv applyToNthChild="odd">
+              <CustomSpanDiv flexDirectionTablet="column">
+                <CustomSpan fontSize="24px">Förnamn</CustomSpan>
+                <InputText width="90%" height="50px" corner="10px"></InputText>
+              </CustomSpanDiv>
+              <CustomSpanDiv flexDirectionTablet="column">
+                <CustomSpan fontSize="24px">Efternamn</CustomSpan>
+                <InputText width="90%" height="50px" corner="10px"></InputText>
+              </CustomSpanDiv>
+            </CustomSpanDiv>
+            <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">
+              <CustomSpan fontSize="24px">Mobilnummer</CustomSpan>
+              <InputText width="90%" height="50px" corner="10px"></InputText>
+              <CustomSpan fontSize="24px">Har ni några allergier?</CustomSpan>
+              <InputText width="90%" height="200px" corner="10px"></InputText>
+              <Button padding="20px 70px" background="#A3A380">
+                <CustomSpan color="white" fontSize="40px">
+                  Nästa
+                </CustomSpan>
+              </Button>
+            </CustomSpanDiv>
           </StyledForm>
         </ContainerDiv>
       </HeroDiv>
