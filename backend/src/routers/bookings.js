@@ -1,5 +1,6 @@
 const express = require("express");
 const utils = require("../utils");
+const mailer = require("../services/Nodemailer");
 const { default: mongoose } = require("mongoose");
 
 const router = express.Router();
@@ -47,49 +48,76 @@ router.get("/:id", async (req, res) => {
 
 // ### CREATE BOOKING ###
 router.post("/", async (req, res) => {
-    try {
-        const { booking } = req.body;
+    // try {
+    const { booking } = req.body;
 
-        utils.validateBooking(booking);
+    utils.validateBooking(booking);
 
-        // ### Check if we have reaccuring customer ###
-        const customer = await CustomerModel.findOne({
+    // ### Check if we have reaccuring customer ###
+    let customer = await CustomerModel.findOne({
+        email: booking.email,
+    }).lean();
+
+    if (!customer) {
+        // Else create new customer
+        const newCustomer = new CustomerModel({
+            firstName: booking.firstName,
+            lastName: booking.lastName,
             email: booking.email,
-        }).lean();
-
-        let customerId;
-        if (!customer) {
-            // Else create new customer
-            const newCustomer = new CustomerModel({
-                firstName: booking.firstName,
-                lastName: booking.lastName,
-                email: booking.email,
-                phone: booking.phone,
-            });
-
-            await newCustomer.save();
-            customerId = newCustomer._id;
-        } else customerId = customer._id;
-        // ### Create new booking ###
-        const newBooking = new BookingsModel({
-            customerId: customerId,
-            guestCount: booking.guestCount,
-            timestamp: booking.timestamp,
-            allergies: booking.allergies,
+            phone: booking.phone,
         });
 
-        await newBooking.save();
-
-        res.send({
-            msg: "Created booking",
-            booking: newBooking,
-        });
-    } catch (error) {
-        res.status(400).send({
-            msg: "ERROR",
-            error: error,
-        });
+        await newCustomer.save();
+        customer = newCustomer;
     }
+    // ### Create new booking ###
+    const newBooking = new BookingsModel({
+        customerId: customer._id,
+        guestCount: booking.guestCount,
+        timestamp: booking.timestamp,
+        allergies: booking.allergies,
+    });
+
+    await newBooking.save();
+
+    mailer
+        .sendMail(
+            customer.email,
+            `Tramonto Bokning - ${newBooking._id}`,
+            "Här kommer din bokning!",
+            `
+                <h1>Välkommer till Tramonto! ${new Date(
+                    newBooking.timestamp
+                ).toDateString()}</h1>
+            `
+        )
+        .then(async (result) => {
+            // newBooking.mailId = result
+            // await newBooking.save();
+            res.send({
+                msg: "Created booking",
+                booking: newBooking,
+                result: result,
+            });
+        })
+        .catch(async (error) => {
+            console.log("ERROR", error);
+
+            await newBooking.delete();
+            res.status(400).send({
+                msg: "Failed to send confirmation email to " + customer.email,
+                error: error,
+            });
+        });
+
+    // ### SEND CONFIRMATION MAIL ###
+
+    // } catch (error) {
+    //     res.status(400).send({
+    //         msg: "ERROR",
+    //         error: error,
+    //     });
+    // }
 });
 
 // ### EDIT BOOKING ###

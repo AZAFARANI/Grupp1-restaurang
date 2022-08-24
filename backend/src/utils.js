@@ -40,7 +40,7 @@ function validateBooking(booking) {
     if (!emailRegexp.test(booking.email)) throw "Invalid email format.";
     if (!isIsoDate(booking.timestamp))
         throw "Invalid timestamp format. Must be ISO.";
-    if (new Date(booking.timestamp).getTime() <= date.now() - 1)
+    if (new Date(booking.timestamp).getTime() <= 0)
         throw "Missing time from timestamp.";
     // ---------------------------------------------------------
 }
