@@ -2,16 +2,16 @@ import { CustomSpan } from "../Styled/CustomSpan";
 import { GlassDiv, GlassDiv2 } from "../Styled/GlassmorphDiv";
 import { InputText } from "../Styled/StyledInputTypeText";
 import "../../scss/Landing.scss";
-import { CustomDiv, CustomDiv2 } from "../Styled/CustomDiv";
+import { CustomDiv } from "../Styled/CustomDiv";
 import { Link } from "react-router-dom";
 
 export default function Landing() {
   return (
     <>
       <div className="bigContainer">
-        <CustomDiv className="custom">
+        <CustomDiv>
           <div className="hero-div">
-            <img src="/svg/Logo.svg"></img>
+            <img src="/svg/Logo.svg" className="logotype"></img>
 
             <Link to={"/booking"}>
               <GlassDiv
@@ -65,12 +65,12 @@ export default function Landing() {
 
                 <div>
                   <div className="menuItems">
-                    <CustomSpan>pasta carbonara</CustomSpan>
+                    <CustomSpan>Pasta carbonara</CustomSpan>
                     <CustomSpan>149kr</CustomSpan>
                   </div>
                   <br></br>
                   <div className="menuItems">
-                    <CustomSpan>pasta carbonara</CustomSpan>
+                    <CustomSpan>Pasta Al Tonno</CustomSpan>
                     <CustomSpan>149kr</CustomSpan>
                   </div>
                 </div>
@@ -89,8 +89,13 @@ export default function Landing() {
                 </div>
                 <br></br>
                 <div className="menuItems">
-                  <CustomSpan>pasta carbonara</CustomSpan>
-                  <CustomSpan>149kr</CustomSpan>
+                  <CustomSpan>Pizza Mozarella</CustomSpan>
+                  <CustomSpan>199kr</CustomSpan>
+                </div>
+                <br></br>
+                <div className="menuItems">
+                  <CustomSpan>Pizza Caprese</CustomSpan>
+                  <CustomSpan>199kr</CustomSpan>
                 </div>
               </div>
             </div>
