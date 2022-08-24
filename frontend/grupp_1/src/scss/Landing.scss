@@ -4,57 +4,53 @@
   flex-direction: column;
   gap: 40px;
   align-items: center;
-}
 
-.whiteArrow {
-  color: white;
-}
+  a {
+    text-decoration: none;
+  }
 
-.bookingButton {
-  border-right: hsla(0, 14%, 82%, 1) !important;
-  border-bottom: hsla(0, 14%, 82%, 1) !important;
-}
-.bookingButton:hover {
-  transform: scale(1.1);
-  transition: 0.2s;
+  .whiteArrow {
+    color: white;
+  }
 
-  cursor: pointer;
-}
-.test2 {
-  display: flex;
-  flex-direction: row !important;
+  .bookingButton {
+    border-right: hsla(0, 14%, 82%, 1) !important;
+    border-bottom: hsla(0, 14%, 82%, 1) !important;
+    cursor: pointer;
 
-  width: 100%;
-
-  justify-content: space-between;
-}
-
-.menuContainer {
-  display: flex;
-  flex-direction: column;
-
-  justify-content: space-around;
-
-  gap: 20px;
-
-  align-items: center;
-}
-
-.menuItems {
-  display: flex;
-  justify-content: space-between;
+    &:hover {
+      transform: scale(1.1);
+      transition: 0.2s;
+    }
+  }
 }
 
 .customdiv {
   position: relative;
 
   padding-top: 20px;
-}
 
-#svgg {
-  position: absolute;
-  bottom: 0px;
-  right: 10%;
+  #svgg {
+    position: absolute;
+    bottom: 0px;
+    right: 10%;
+  }
+
+  .menuContainer {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+
+    gap: 20px;
+
+    align-items: center;
+
+    .menuItems {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
 }
 
 @media screen and (min-width: 641px) {
@@ -66,13 +62,15 @@
 @media screen and (min-width: 1008px) {
   .bigContainer {
     display: flex;
-  }
 
-  #whiteArrow {
-    display: none;
-  }
-}
+    #whiteArrow {
+      display: none;
+    }
 
-a {
-  text-decoration: none;
+    .menuContainer {
+      flex-direction: row;
+
+      align-items: flex-start;
+    }
+  }
 }
