@@ -58,7 +58,7 @@ router.post("/", utils.forceAdmin, async (req, res) => {
     try {
         const { personal } = req.body;
 
-        utils.validatePersonal(personal);
+        utils.validatePersonal({ ...utils.BLANK_PERSONAL, ...personal });
 
         const person = await PersonalModel.findOne({ email: personal.email });
         if (person) {
@@ -78,7 +78,14 @@ router.post("/", utils.forceAdmin, async (req, res) => {
             await newPersonal.save();
             res.send({
                 msg: "Created personal successfully!",
-                personal: newPersonal,
+                personal: {
+                    firstName: newPersonal.firstName,
+                    lastName: newPersonal.lastName,
+                    email: newPersonal.email,
+                    phone: newPersonal.phone,
+                    role: newPersonal.role,
+                    _id: newPersonal._id,
+                },
             });
         }
     } catch (error) {
@@ -92,14 +99,28 @@ router.post("/", utils.forceAdmin, async (req, res) => {
 // ### EDIT PERSONAL ###
 router.put("/:id", utils.forceAdmin, async (req, res) => {
     try {
+        const { personal } = req.body;
+
+        utils.validateAllowedPropertiesPersonal(personal);
+        utils.validatePersonal({ ...utils.BLANK_PERSONAL, ...personal });
+
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid personal ID.";
-        const personal = await PersonalModel.findById(req.params.id);
+        const personalToEdit = await PersonalModel.findById(req.params.id);
+        if (!personalToEdit) throw "No personal found with ID " + req.params.id;
 
-        if (!personal) throw "No personal found with ID " + req.params.id;
+        if (Object.keys(personal).includes("password")) {
+            const newHashedPassword = utils.hashPassword(personal.password);
+            delete personal.password;
+            personal.hashedPassword = newHashedPassword;
+        }
+
+        await personalToEdit.update(personal);
+        await personalToEdit.save();
 
         res.send({
-            msg: "Edit personal",
+            msg: "Updated personal " + personalToEdit.firstName,
+            changedPersonalId: personalToEdit._id,
         });
 
         // ### SEND CONFIRMATION MAIL ###
@@ -173,7 +194,7 @@ router.post("/login", async (req, res) => {
                 const accessToken = jwt.sign(userData, process.env.JWT_SECRET);
                 res.cookie("token", accessToken);
                 res.send({
-                    msg: "Login successful!",
+                    msg: `Logged in successfully as ${personal.firstName}!`,
                 });
             }
             // ### HANDLE INCORRECT PASSWORD ###
