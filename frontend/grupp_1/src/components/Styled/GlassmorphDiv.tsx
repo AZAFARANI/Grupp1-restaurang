@@ -35,6 +35,16 @@ interface ICustomProps {
   flexDirectionDesktop?: string;
 }
 
+interface ISettingsProp {
+  display?: String;
+}
+
+interface ITestProps {
+  desktop?: ISettingsProp;
+  tablet?: ISettingsProp;
+  mobile?: ISettingsProp;
+}
+
 export const GlassDiv = styled.div`
   background-color: ${(props: IGlassMorphProps) =>
     props.background || "hsla( 255, 255, 255, 0.45 )"};
