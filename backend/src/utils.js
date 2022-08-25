@@ -18,6 +18,15 @@ const BLANK_BOOKING = {
     allergies: "NONE",
     timestamp: "2000-01-01T01:01:01.030Z",
 };
+
+const BLANK_PERSONAL = {
+    firstName: "NONE",
+    lastName: "NONE",
+    email: "NONE@NONE.com",
+    phone: "NONE",
+    password: "NONE",
+    role: "staff",
+};
 // ----------------------------------------------------------
 // ### VALIDATION ###
 function validateBooking(booking) {
@@ -99,6 +108,7 @@ function validatePersonal(personal) {
     if (typeof personal.email !== "string") throw "Invalid email type.";
     if (typeof personal.phone !== "string") throw "Invalid phone type.";
     if (typeof personal.password !== "string") throw "Invalid password type.";
+    if (typeof personal.role !== "string") throw "Invalid role type.";
     // ---------------------------------------------------------
 
     // ---------------------------------------------------------
@@ -108,12 +118,29 @@ function validatePersonal(personal) {
     if (personal.email.length <= 0) throw "Too short email.";
     if (personal.phone.length <= 0) throw "Too short phonenumber.";
     if (personal.password.length <= 0) throw "Too short password.";
+    if (personal.role.length <= 0) throw "Too short role.";
     // ---------------------------------------------------------
 
     // ---------------------------------------------------------
     // ### SPECIFIC ###
     if (!emailRegexp.test(personal.email)) throw "Invalid email format.";
+    if (!["staff", "admin"].includes(personal.role)) throw "Unallowed role.";
     // ---------------------------------------------------------
+}
+function validateAllowedPropertiesPersonal(personal) {
+    Object.keys(personal).forEach((key) => {
+        if (
+            ![
+                "password",
+                "firstName",
+                "lastName",
+                "email",
+                "phone",
+                "role",
+            ].includes(key)
+        )
+            throw "Trying to change unallowed property.";
+    });
 }
 // ----------------------------------------------------------
 
@@ -193,7 +220,9 @@ module.exports = {
     validateAllowedProperties,
     validateCredentials,
     validatePersonal,
+    validateAllowedPropertiesPersonal,
     BLANK_BOOKING,
+    BLANK_PERSONAL,
     comparePassword,
     hashPassword,
     forceAuthorize,
