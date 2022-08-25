@@ -55,8 +55,8 @@ export const Booking = () => {
           </CustomSpan>
           <SeperatorLine></SeperatorLine>
         </HeaderDiv>
-        <ContainerDiv flexDirection="column" height="100%" widthDesktop="70%">
-          <StyledForm applyToNthChild="odd">
+        <ContainerDiv flexDirection="column" widthDesktop="70%">
+          <StyledForm>
             <CustomSpanDiv
               applyToNthChild="odd"
               applyToNthChildTable="even"
@@ -74,7 +74,7 @@ export const Booking = () => {
                 </CustomSpan>
                 <InputText width="90%" height="50px" corner="10px"></InputText>
               </CustomSpanDiv>
-              <CustomSpanDiv flexDirectionTablet="column">
+              <CustomSpanDiv flexDirectionTablet="column" marginBottom="35px">
                 <CustomSpan
                   fontSize="24px"
                   fontSizeTablet="22px"
@@ -90,6 +90,7 @@ export const Booking = () => {
               applyToNthChildTable="even"
               flexDirectionDesktop="row"
               widthDesktop="80%"
+              marginBottom="35px"
             >
               <CustomSpanDiv flexDirectionTablet="column" widthTablet="300px">
                 <CustomSpan

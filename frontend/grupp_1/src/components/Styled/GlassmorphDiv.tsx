@@ -23,9 +23,10 @@ interface ICustomProps {
   paddingTop?: string;
   backgroundImage?: string;
   applyToNthChild?: string;
+  marginBottom?: string;
+  marginBottomTablet?: string;
   justifyContentTablet?: string;
   flexDirectionTablet?: string;
-  flexDirectionMarginTop?: string;
   applyToNthChildTable?: string;
   alignItemsTablet?: string;
   widthTablet?: string;
@@ -68,7 +69,6 @@ export const HeroDiv = styled.div`
   justify-content: ${(props: ICustomProps) => props.justifyContent || "center"};
   align-items: ${(props: ICustomProps) => props.alignItems || "center"};
   flex-direction: ${(props: ICustomProps) => props.flexDirection || "column"};
-  height: ${(props: ICustomProps) => props.height || "100%"};
   width: ${(props: ICustomProps) => props.width || "100%"};
   background-image: ${(props: ICustomProps) => props.backgroundImage || "none"};
   background-size: cover;
@@ -120,12 +120,13 @@ export const CustomSpanDiv = styled.div`
   & > :nth-child(${(props: ICustomProps) => props.applyToNthChild || 0}) {
     margin: 0 0 35px 0;
   }
+  margin-bottom: ${(props: ICustomProps) => props.marginBottom || "0px"};
   @media ${device.tablet} {
     flex-direction: ${(props: ICustomProps) =>
       props.flexDirectionTablet || "row"};
-    margin: ${(props: ICustomProps) =>
-      props.flexDirectionMarginTop || "0 0 20px 0"};
     width: ${(props: ICustomProps) => props.widthTablet || "100%"};
+    margin-bottom: ${(props: ICustomProps) =>
+      props.marginBottomTablet || "0px"};
     &
       > :nth-child(${(props: ICustomProps) =>
           props.applyToNthChildTable || 0}) {
