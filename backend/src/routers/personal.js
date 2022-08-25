@@ -54,9 +54,11 @@ router.get("/:id", utils.forceAuthorize, async (req, res) => {
 });
 
 // ### CREATE PERSONAL ###
-router.post("/", utils.forceAuthorize, utils.forceAdmin, async (req, res) => {
+router.post("/", utils.forceAdmin, async (req, res) => {
     try {
         const { personal } = req.body;
+
+        utils.validatePersonal(personal);
 
         const person = await PersonalModel.findOne({ email: personal.email });
         if (person) {
@@ -79,8 +81,6 @@ router.post("/", utils.forceAuthorize, utils.forceAdmin, async (req, res) => {
                 personal: newPersonal,
             });
         }
-
-        // ### SEND CONFIRMATION MAIL ###
     } catch (error) {
         res.status(400).send({
             msg: "ERROR",
@@ -90,9 +90,13 @@ router.post("/", utils.forceAuthorize, utils.forceAdmin, async (req, res) => {
 });
 
 // ### EDIT PERSONAL ###
-router.put("/:id", utils.forceAuthorize, utils.forceAdmin, async (req, res) => {
+router.put("/:id", utils.forceAdmin, async (req, res) => {
     try {
-        const { personal } = req.body;
+        if (!mongoose.Types.ObjectId.isValid(req.params.id))
+            throw "Invalid personal ID.";
+        const personal = await PersonalModel.findById(req.params.id);
+
+        if (!personal) throw "No personal found with ID " + req.params.id;
 
         res.send({
             msg: "Edit personal",
@@ -108,27 +112,30 @@ router.put("/:id", utils.forceAuthorize, utils.forceAdmin, async (req, res) => {
 });
 
 // ### DELETE PERSONAL ###
-router.delete(
-    "/:id",
-    utils.forceAuthorize,
-    utils.forceAdmin,
-    async (req, res) => {
-        try {
-            const { personal } = req.body;
+router.delete("/:id", utils.forceAdmin, async (req, res) => {
+    try {
+        if (!mongoose.Types.ObjectId.isValid(req.params.id))
+            throw "Invalid ID provided.";
 
-            res.send({
-                msg: "Delete personal",
-            });
+        const personal = await PersonalModel.findById(req.params.id).select(
+            "-hashedPassword"
+        );
 
-            // ### SEND CONFIRMATION MAIL ###
-        } catch (error) {
-            res.status(400).send({
-                msg: "ERROR",
-                error: error,
-            });
-        }
+        if (!personal) throw "No personal found with Id " + req.params.id;
+
+        await personal.delete();
+
+        res.send({
+            msg: `Deleted personal ${personal.firstName} ${personal.lastName}`,
+            result: personal,
+        });
+    } catch (error) {
+        res.status(400).send({
+            msg: "ERROR",
+            error: error,
+        });
     }
-);
+});
 
 // ### LOGIN ###
 router.post("/login", async (req, res) => {

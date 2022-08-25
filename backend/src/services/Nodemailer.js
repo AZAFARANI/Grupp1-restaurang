@@ -37,7 +37,7 @@ async function sendMail(emailTo, subject, text, html = "<span></span>") {
             html: html,
         };
 
-        const result = transporter.sendMail(mailData);
+        const result = await transporter.sendMail(mailData);
         return result;
     } catch (error) {
         return error;

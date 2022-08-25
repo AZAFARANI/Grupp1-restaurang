@@ -3,7 +3,6 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const CustomerModel = require("./models/CustomerModel");
 const BookingModel = require("./models/BookingModel");
 const { default: mongoose } = require("mongoose");
 
@@ -70,25 +69,50 @@ function validateCredentials(credentials) {
     // ---------------------------------------------------------
     // ### EXISITENCE CHECK ###
     if (!credentials) throw "No credentials provided.";
-    const { email, password } = credentials;
-    if (!email || !password) throw "No email / password provided.";
     // ---------------------------------------------------------
 
     // ---------------------------------------------------------
     // ### TYPE CHECK ###
-    if (typeof email !== "string") throw "Invalid email type.";
-    if (typeof password !== "string") throw "Invalid password type.";
+    if (typeof credentials.email !== "string") throw "Invalid email type.";
+    if (typeof credentials.password !== "string")
+        throw "Invalid password type.";
     // ---------------------------------------------------------
 
     // ---------------------------------------------------------
     // ### LENGTH CHECK ###
-    if (email.length <= 0) throw "Email too short.";
-    if (password.length <= 0) throw "Password too short.";
+    if (credentials.email.length <= 0) throw "Email too short.";
+    if (credentials.password.length <= 0) throw "Password too short.";
     // ---------------------------------------------------------
 
     // ---------------------------------------------------------
     // ### SPECIFIC ###
-    if (!emailRegexp.test(email)) throw "Invalid email format.";
+    if (!emailRegexp.test(credentials.email)) throw "Invalid email format.";
+    // ---------------------------------------------------------
+}
+function validatePersonal(personal) {
+    // ---------------------------------------------------------
+    if (!personal) throw "No personal provided for validation.";
+    // ---------------------------------------------------------
+    // ### TYPE CHECK ###
+    if (typeof personal.firstName !== "string") throw "Invalid firstName type.";
+    if (typeof personal.lastName !== "string") throw "Invalid lastName type.";
+    if (typeof personal.email !== "string") throw "Invalid email type.";
+    if (typeof personal.phone !== "string") throw "Invalid phone type.";
+    if (typeof personal.password !== "string") throw "Invalid password type.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### VALUE CHECK ###
+    if (personal.firstName.length <= 0) throw "Too short firstName.";
+    if (personal.lastName.length <= 0) throw "Too short firstName.";
+    if (personal.email.length <= 0) throw "Too short email.";
+    if (personal.phone.length <= 0) throw "Too short phonenumber.";
+    if (personal.password.length <= 0) throw "Too short password.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### SPECIFIC ###
+    if (!emailRegexp.test(personal.email)) throw "Invalid email format.";
     // ---------------------------------------------------------
 }
 // ----------------------------------------------------------
@@ -147,11 +171,11 @@ async function forceLoggedInOrOwnBooking(req, res, next) {
             if (!mongoose.Types.ObjectId.isValid(bookingId))
                 throw "Invalid booking Id.";
 
-            const customer = await CustomerModel.findById(customerId).lean();
-            if (!customer) throw "No customer found with ID: " + customerId;
+            const booking = await BookingModel.findById(bookingId).lean();
 
-            const ownBookings = customer.bookings.map((id) => `${id}`);
-            if (!ownBookings.includes(bookingId))
+            if (!booking) throw "No booking found with ID: " + bookingId;
+
+            if (`${booking._id}` !== customerId)
                 throw "You cannot modify bookings other than your own.";
             next();
         }
@@ -168,6 +192,7 @@ module.exports = {
     validateBooking,
     validateAllowedProperties,
     validateCredentials,
+    validatePersonal,
     BLANK_BOOKING,
     comparePassword,
     hashPassword,

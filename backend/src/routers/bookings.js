@@ -65,7 +65,6 @@ router.post("/", async (req, res) => {
                 lastName: booking.lastName,
                 email: booking.email,
                 phone: booking.phone,
-                bookings: [],
             });
 
             await newCustomer.save();
@@ -80,9 +79,6 @@ router.post("/", async (req, res) => {
         });
 
         await newBooking.save();
-
-        customer.bookings.push(newBooking._id);
-        await customer.save();
 
         mailer
             .sendMail(
@@ -101,8 +97,6 @@ router.post("/", async (req, res) => {
                 });
             })
             .catch(async (error) => {
-                console.log("ERROR", error);
-
                 await newBooking.delete();
                 res.status(400).send({
                     msg:
