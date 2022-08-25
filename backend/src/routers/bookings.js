@@ -81,12 +81,7 @@ router.post("/", async (req, res) => {
         await newBooking.save();
 
         mailer
-            .sendMail(
-                customer.email,
-                `Tramonto Bokning - ${newBooking._id}`,
-                "Här kommer din bokning!",
-                mailer.createMailHtml(newBooking)
-            )
+            .sendMail(customer.email, newBooking)
             .then(async (result) => {
                 // newBooking.mailId = result
                 // await newBooking.save();

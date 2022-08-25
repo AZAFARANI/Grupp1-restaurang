@@ -1,0 +1,59 @@
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Tramonto Email</title>
+        <style>
+            html,
+            body {
+                min-height: 100vh;
+                background-color: rgb(253, 227, 212);
+            }
+
+            body {
+                display: flex;
+                flex-direction: column;
+            }
+            header {
+                display: flex;
+                justify-content: center;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+            main {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            footer {
+                display: flex;
+                justify-content: center;
+                background-color: rgba(0, 0, 0, 0.5);
+            }
+
+            main ul {
+                list-style: none;
+            }
+            main ul li {
+                padding: 10px;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <img src="cid:logo" />
+        </header>
+        <main>
+            <h2>Välkommen till Tramonto!</h2>
+            <p>Boknings ID: {{ id }}</p>
+            <ul>
+                <li>Tillfälle: {{ date }}</li>
+                <li>Antal personer: {{ guestCount }}st</li>
+                <li>Allergier {{ allergies }}</li>
+            </ul>
+            <a href="https://www.google.com">Ändra bokning</a>
+        </main>
+        <footer>
+            <p>Kontakt: +46 12 123 12 12</p>
+        </footer>
+    </body>
+</html>

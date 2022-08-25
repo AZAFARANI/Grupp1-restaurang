@@ -1,5 +1,8 @@
 require("dotenv").config();
 
+const fs = require("fs");
+const path = require("path");
+const hbs = require("handlebars");
 const nodemailer = require("nodemailer");
 const { google } = require("googleapis");
 
@@ -13,7 +16,7 @@ oAuth2Client.setCredentials({
     refresh_token: process.env.REFRESH_TOKEN,
 });
 
-async function sendMail(emailTo, subject, text, html = "<span></span>") {
+async function sendMail(emailTo, booking) {
     try {
         const accessToken = await oAuth2Client.getAccessToken();
         const transporter = nodemailer.createTransport({
@@ -27,14 +30,33 @@ async function sendMail(emailTo, subject, text, html = "<span></span>") {
                 refreshToken: process.env.REFRESH_TOKEN,
                 accessToken: accessToken,
             },
+            attachments: [
+                {
+                    filename: "Logo.png",
+                    path: __dirname + "/templates/Logo.png",
+                    cid: "logo",
+                },
+            ],
+        });
+
+        const emailTemplateSource = fs.readFileSync(
+            __dirname + "/templates/Email.hbs",
+            "utf-8"
+        );
+        const emailTemplate = hbs.compile(emailTemplateSource);
+        const date = new Date(booking.timestamp);
+        const htmlToSend = emailTemplate({
+            id: `${booking._id}`,
+            guestCount: `${booking.guestCount}`,
+            allergies: `${booking.allergies}`,
+            date: `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`,
         });
 
         const mailData = {
-            from: "Tramonto",
+            from: '"Tramonto" <tramonto.restaurant.sweden@gmail.com>',
             to: emailTo,
-            subject: subject,
-            text: text,
-            html: html,
+            subject: `Bokning ${booking._id}`,
+            html: htmlToSend,
         };
 
         const result = await transporter.sendMail(mailData);
@@ -44,24 +66,6 @@ async function sendMail(emailTo, subject, text, html = "<span></span>") {
     }
 }
 
-function createMailHtml(booking) {
-    const date = new Date(booking.timestamp);
-    return `
-        <div>
-            <h2>Välkommen till Tramonto!</h2>
-            <hr/>
-            <p>Här kommer din bokning:</p>
-            <ul>
-                <li>Boknings ID: ${booking._id}</li>
-                <li>Antal personer: ${booking.guestCount}st.</li>
-                <li>Du har bokat bord den ${date.toLocaleDateString()} klockan ${date.toLocaleTimeString()}.</li>
-            </ul
-            <a href="https://www.google.com">Ändra bokning</a>
-        </div>   
-    `;
-}
-
 module.exports = {
     sendMail,
-    createMailHtml,
 };
