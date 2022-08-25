@@ -1,5 +1,6 @@
 const express = require("express");
 const utils = require("../utils");
+const mailer = require("../services/Nodemailer");
 const { default: mongoose } = require("mongoose");
 
 const router = express.Router();
@@ -53,11 +54,10 @@ router.post("/", async (req, res) => {
         utils.validateBooking(booking);
 
         // ### Check if we have reaccuring customer ###
-        const customer = await CustomerModel.findOne({
+        let customer = await CustomerModel.findOne({
             email: booking.email,
         }).lean();
 
-        let customerId;
         if (!customer) {
             // Else create new customer
             const newCustomer = new CustomerModel({
@@ -65,14 +65,15 @@ router.post("/", async (req, res) => {
                 lastName: booking.lastName,
                 email: booking.email,
                 phone: booking.phone,
+                bookings: [],
             });
 
             await newCustomer.save();
-            customerId = newCustomer._id;
-        } else customerId = customer._id;
+            customer = newCustomer;
+        }
         // ### Create new booking ###
         const newBooking = new BookingsModel({
-            customerId: customerId,
+            customerId: customer._id,
             guestCount: booking.guestCount,
             timestamp: booking.timestamp,
             allergies: booking.allergies,
@@ -80,10 +81,38 @@ router.post("/", async (req, res) => {
 
         await newBooking.save();
 
-        res.send({
-            msg: "Created booking",
-            booking: newBooking,
-        });
+        customer.bookings.push(newBooking._id);
+        await customer.save();
+
+        mailer
+            .sendMail(
+                customer.email,
+                `Tramonto Bokning - ${newBooking._id}`,
+                "Här kommer din bokning!",
+                mailer.createMailHtml(newBooking)
+            )
+            .then(async (result) => {
+                // newBooking.mailId = result
+                // await newBooking.save();
+                res.send({
+                    msg: "Created booking",
+                    booking: newBooking,
+                    result: result,
+                });
+            })
+            .catch(async (error) => {
+                console.log("ERROR", error);
+
+                await newBooking.delete();
+                res.status(400).send({
+                    msg:
+                        "Failed to send confirmation email to " +
+                        customer.email,
+                    error: error,
+                });
+            });
+
+        // ### SEND CONFIRMATION MAIL ###
     } catch (error) {
         res.status(400).send({
             msg: "ERROR",
@@ -93,7 +122,7 @@ router.post("/", async (req, res) => {
 });
 
 // ### EDIT BOOKING ###
-router.put("/:id", async (req, res) => {
+router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid mongooseID.";
@@ -122,7 +151,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // ### DELETE BOOKING ###
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid mongooseID.";

@@ -1,3 +1,12 @@
+require("dotenv").config();
+
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+
+const CustomerModel = require("./models/CustomerModel");
+const BookingModel = require("./models/BookingModel");
+const { default: mongoose } = require("mongoose");
+
 const emailRegexp =
     /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -40,7 +49,7 @@ function validateBooking(booking) {
     if (!emailRegexp.test(booking.email)) throw "Invalid email format.";
     if (!isIsoDate(booking.timestamp))
         throw "Invalid timestamp format. Must be ISO.";
-    if (new Date(booking.timestamp).getTime() <= date.now() - 1)
+    if (new Date(booking.timestamp).getTime() <= 0)
         throw "Missing time from timestamp.";
     // ---------------------------------------------------------
 }
@@ -59,8 +68,81 @@ function validateAllowedProperties(booking) {
     });
 }
 
+function comparePassword(password, hash) {
+    return bcrypt.compareSync(password, hash);
+}
+
+function forceAuthorize(req, res, next) {
+    const { token } = req.cookies;
+    if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+        next();
+    } else {
+        res.sendStatus(401);
+    }
+}
+
+function forceAdmin(req, res, next) {
+    const { token } = req.cookies;
+    if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+        const tokenData = jwt.decode(token, process.env.JWTSECRET);
+        if (tokenData.role === "admin") {
+            next();
+        } else {
+            res.status(401).send({
+                msg: "Unauthorized",
+                error: "You do not have correct permissions.",
+            });
+        }
+    } else {
+        res.status(401).send({
+            msg: "Unauthorized",
+        });
+    }
+}
+
+async function forceLoggedInOrOwnBooking(req, res, next) {
+    try {
+        const { token } = req.cookies;
+        if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+            next();
+        } else {
+            const { customerId } = req.body;
+            const bookingId = req.params.id;
+            if (!customerId || !bookingId)
+                throw "No customerId / bookingId provided.";
+
+            if (!mongoose.Types.ObjectId.isValid(customerId))
+                throw "Invalid customer Id.";
+            if (!mongoose.Types.ObjectId.isValid(bookingId))
+                throw "Invalid booking Id.";
+
+            const customer = await CustomerModel.findById(customerId).lean();
+            if (!customer) throw "No customer found with ID: " + customerId;
+
+            const ownBookings = customer.bookings.map((id) => `${id}`);
+            if (!ownBookings.includes(bookingId))
+                throw "You cannot modify bookings other than your own.";
+            next();
+        }
+    } catch (error) {
+        res.status(401).send({
+            msg: "Unauthorized",
+            error: error,
+        });
+    }
+}
+
+function hashPassword(password) {
+    return bcrypt.hashSync(password, 12);
+}
+
 module.exports = {
     validateBooking,
     validateAllowedProperties,
     BLANK_BOOKING,
+    comparePassword,
+    hashPassword,
+    forceAuthorize,
+    forceAdmin,
+    forceLoggedInOrOwnBooking,
 };

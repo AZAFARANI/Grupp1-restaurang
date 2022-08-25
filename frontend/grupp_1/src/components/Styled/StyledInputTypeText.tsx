@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "./device/Responsive";
 
 interface IStyledInputText {
   corner?: string;
@@ -6,6 +7,7 @@ interface IStyledInputText {
   width?: string;
   height?: string;
   fontSize?: string;
+  widthTablet?: string;
 }
 
 export const InputText = styled.input`
@@ -26,4 +28,7 @@ export const InputText = styled.input`
 
   padding-left: 15px;
   padding-right: 5px;
+  @media ${device.tablet} {
+    width: ${(props: IStyledInputText) => props.widthTablet || "600px"};
+  }
 `;

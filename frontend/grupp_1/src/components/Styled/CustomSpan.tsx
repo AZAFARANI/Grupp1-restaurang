@@ -1,10 +1,12 @@
 import styled from "styled-components";
+import { device } from "./device/Responsive";
 
 interface ISpanProps {
   fontType?: string;
   fontSize?: string;
   color?: string;
   shadow?: string;
+  displayDesktop?: string;
 }
 
 export const CustomSpan = styled.span`
@@ -16,4 +18,8 @@ export const CustomSpan = styled.span`
 
   text-shadow: ${(props: ISpanProps) =>
     props.shadow || "0px 4px 4px hsla(0, 0%, 0%, 0.25)"};
+
+  @media ${device.desktop} {
+    display: ${(props: ISpanProps) => props.displayDesktop || "contains"};
+  }
 `;
