@@ -32,6 +32,7 @@ interface ICustomProps {
   backgroundDesktop?: string;
   widthDesktop?: string;
   heightDekstop?: string;
+  flexDirectionDesktop?: string;
 }
 
 export const GlassDiv = styled.div`
@@ -120,5 +121,11 @@ export const CustomSpanDiv = styled.div`
           props.applyToNthChildTable || 0}) {
       margin: 0 0 35px 0;
     }
+  }
+
+  @media ${device.desktop} {
+    flex-direction: ${(props: ICustomProps) =>
+      props.flexDirectionDesktop || "column"};
+    width: ${(props: ICustomProps) => props.widthDesktop || "100%"};
   }
 `;

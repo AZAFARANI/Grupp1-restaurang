@@ -8,6 +8,8 @@ interface IStyledInputText {
   height?: string;
   fontSize?: string;
   widthTablet?: string;
+  widthDesktop?: string;
+  fontSizeTablet?: string;
 }
 
 export const InputText = styled.input`
@@ -30,5 +32,10 @@ export const InputText = styled.input`
   padding-right: 5px;
   @media ${device.tablet} {
     width: ${(props: IStyledInputText) => props.widthTablet || "600px"};
+    font-size: ${(props: IStyledInputText) => props.fontSizeTablet || "22px"};
+  }
+
+  @media ${device.desktop} {
+    width: ${(props: IStyledInputText) => props.widthDesktop || "90%"};
   }
 `;

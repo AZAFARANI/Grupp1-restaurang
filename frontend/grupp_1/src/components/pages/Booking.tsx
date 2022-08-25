@@ -50,11 +50,28 @@ export const Booking = () => {
         </HeaderDiv>
         <ContainerDiv flexDirection="column" height="100%" widthDesktop="70%">
           <StyledForm applyToNthChild="even">
-            <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">
-              <CustomSpan fontSize="24px">Din epost</CustomSpan>
-              <InputText width="90%" height="50px" corner="10px"></InputText>
+            <CustomSpanDiv
+              applyToNthChild="odd"
+              applyToNthChildTable="even"
+              flexDirectionTablet="column"
+              flexDirectionDesktop="row"
+              widthDesktop="80%"
+            >
+              <CustomSpanDiv flexDirectionTablet="column">
+                <CustomSpan fontSize="24px">Din epost</CustomSpan>
+                <InputText width="90%" height="50px" corner="10px"></InputText>
+              </CustomSpanDiv>
+              <CustomSpanDiv flexDirectionTablet="column">
+                <CustomSpan fontSize="24px">Mobilnummer</CustomSpan>
+                <InputText width="90%" height="50px" corner="10px"></InputText>
+              </CustomSpanDiv>
             </CustomSpanDiv>
-            <CustomSpanDiv applyToNthChild="odd" applyToNthChildTable="even">
+            <CustomSpanDiv
+              applyToNthChild="odd"
+              applyToNthChildTable="even"
+              flexDirectionDesktop="row"
+              widthDesktop="80%"
+            >
               <CustomSpanDiv flexDirectionTablet="column" widthTablet="300px">
                 <CustomSpan fontSize="24px">Förnamn</CustomSpan>
                 <InputText
@@ -74,9 +91,11 @@ export const Booking = () => {
                 ></InputText>
               </CustomSpanDiv>
             </CustomSpanDiv>
-            <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">
-              <CustomSpan fontSize="24px">Mobilnummer</CustomSpan>
-              <InputText width="90%" height="50px" corner="10px"></InputText>
+            <CustomSpanDiv
+              applyToNthChild="even"
+              flexDirectionTablet="column"
+              widthDesktop="80%"
+            >
               <CustomSpan fontSize="24px">Har ni några allergier?</CustomSpan>
               <InputText width="90%" height="200px" corner="10px"></InputText>
               <Button padding="20px 70px" background="#A3A380">
