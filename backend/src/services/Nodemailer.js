@@ -30,13 +30,6 @@ async function sendMail(emailTo, booking) {
                 refreshToken: process.env.REFRESH_TOKEN,
                 accessToken: accessToken,
             },
-            attachments: [
-                {
-                    filename: "Logo.png",
-                    path: __dirname + "/templates/Logo.png",
-                    cid: "logo",
-                },
-            ],
         });
 
         const emailTemplateSource = fs.readFileSync(
@@ -57,6 +50,13 @@ async function sendMail(emailTo, booking) {
             to: emailTo,
             subject: `Bokning ${booking._id}`,
             html: htmlToSend,
+            attachments: [
+                {
+                    filename: "Logo.png",
+                    path: __dirname + "/templates/Logo.png",
+                    cid: "logo",
+                },
+            ],
         };
 
         const result = await transporter.sendMail(mailData);
