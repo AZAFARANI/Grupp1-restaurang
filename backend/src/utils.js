@@ -19,7 +19,8 @@ const BLANK_BOOKING = {
     allergies: "NONE",
     timestamp: "2000-01-01T01:01:01.030Z",
 };
-
+// ----------------------------------------------------------
+// ### VALIDATION ###
 function validateBooking(booking) {
     // ---------------------------------------------------------
     if (!booking) throw "No booking provided for validation.";
@@ -53,25 +54,57 @@ function validateBooking(booking) {
         throw "Missing time from timestamp.";
     // ---------------------------------------------------------
 }
-
 function isIsoDate(timeStamp) {
     const date = new Date(timeStamp);
     return (
         date instanceof Date && !isNaN(date) && date.toISOString() === timeStamp
     );
 }
-
 function validateAllowedProperties(booking) {
     Object.keys(booking).forEach((key) => {
         if (!["guestCount", "allergies", "timestamp"].includes(key))
             throw "Trying to change unallowed property.";
     });
 }
+function validateCredentials(credentials) {
+    // ---------------------------------------------------------
+    // ### EXISITENCE CHECK ###
+    if (!credentials) throw "No credentials provided.";
+    const { email, password } = credentials;
+    if (!email || !password) throw "No email / password provided.";
+    // ---------------------------------------------------------
 
+    // ---------------------------------------------------------
+    // ### TYPE CHECK ###
+    if (typeof email !== "string") throw "Invalid email type.";
+    if (typeof password !== "string") throw "Invalid password type.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### LENGTH CHECK ###
+    if (email.length <= 0) throw "Email too short.";
+    if (password.length <= 0) throw "Password too short.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### SPECIFIC ###
+    if (!emailRegexp.test(email)) throw "Invalid email format.";
+    // ---------------------------------------------------------
+}
+// ----------------------------------------------------------
+
+// ----------------------------------------------------------
+// ### PASSWORD HANDLING ###
 function comparePassword(password, hash) {
     return bcrypt.compareSync(password, hash);
 }
+function hashPassword(password) {
+    return bcrypt.hashSync(password, 12);
+}
+// ----------------------------------------------------------
 
+// ----------------------------------------------------------
+// ### MIDDLEWARE ###
 function forceAuthorize(req, res, next) {
     const { token } = req.cookies;
     if (token && jwt.verify(token, process.env.JWT_SECRET)) {
@@ -80,7 +113,6 @@ function forceAuthorize(req, res, next) {
         res.sendStatus(401);
     }
 }
-
 function forceAdmin(req, res, next) {
     const { token } = req.cookies;
     if (token && jwt.verify(token, process.env.JWT_SECRET)) {
@@ -99,7 +131,6 @@ function forceAdmin(req, res, next) {
         });
     }
 }
-
 async function forceLoggedInOrOwnBooking(req, res, next) {
     try {
         const { token } = req.cookies;
@@ -131,14 +162,12 @@ async function forceLoggedInOrOwnBooking(req, res, next) {
         });
     }
 }
-
-function hashPassword(password) {
-    return bcrypt.hashSync(password, 12);
-}
+// ----------------------------------------------------------
 
 module.exports = {
     validateBooking,
     validateAllowedProperties,
+    validateCredentials,
     BLANK_BOOKING,
     comparePassword,
     hashPassword,

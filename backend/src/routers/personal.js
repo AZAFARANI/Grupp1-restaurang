@@ -132,52 +132,57 @@ router.delete(
 
 // ### LOGIN ###
 router.post("/login", async (req, res) => {
-    // try {
-    const { credentials } = req.body;
+    try {
+        const { credentials } = req.body;
 
-    const personal = await PersonalModel.findOne({
-        email: credentials.email,
-    });
+        utils.validateCredentials(credentials);
 
-    // ### IF NO PERSONAL FOUND WITH EMAIL ###
-    if (!personal) {
-        res.status(400).send({
-            msg: "Login failed...",
-            error: "No personal found.",
+        const personal = await PersonalModel.findOne({
+            email: credentials.email,
         });
-    } else {
-        // ### WE FOUND USER, CHECK PASSWORD ###
-        if (
-            utils.comparePassword(credentials.password, personal.hashedPassword)
-        ) {
-            const userData = {
-                _id: personal._id,
-                firstName: personal.firstName,
-                lastName: personal.lastName,
-                email: personal.email,
-                phone: personal.phone,
-                role: personal.role,
-            };
-            const accessToken = jwt.sign(userData, process.env.JWT_SECRET);
-            res.cookie("token", accessToken);
-            res.send({
-                msg: "Login successful!",
-            });
-        }
-        // ### HANDLE INCORRECT PASSWORD ###
-        else {
-            res.send({
+
+        // ### IF NO PERSONAL FOUND WITH EMAIL ###
+        if (!personal) {
+            res.status(400).send({
                 msg: "Login failed...",
-                error: "Incorrect password or email.",
+                error: "No personal found.",
             });
+        } else {
+            // ### WE FOUND USER, CHECK PASSWORD ###
+            if (
+                utils.comparePassword(
+                    credentials.password,
+                    personal.hashedPassword
+                )
+            ) {
+                const userData = {
+                    _id: personal._id,
+                    firstName: personal.firstName,
+                    lastName: personal.lastName,
+                    email: personal.email,
+                    phone: personal.phone,
+                    role: personal.role,
+                };
+                const accessToken = jwt.sign(userData, process.env.JWT_SECRET);
+                res.cookie("token", accessToken);
+                res.send({
+                    msg: "Login successful!",
+                });
+            }
+            // ### HANDLE INCORRECT PASSWORD ###
+            else {
+                res.send({
+                    msg: "Login failed...",
+                    error: "Incorrect password or email.",
+                });
+            }
         }
+    } catch (error) {
+        res.status(400).send({
+            msg: "ERROR",
+            error: error,
+        });
     }
-    // } catch (error) {
-    //     res.status(400).send({
-    //         msg: "ERROR",
-    //         error: error,
-    //     });
-    // }
 });
 // -------------------------------------------------------
 
