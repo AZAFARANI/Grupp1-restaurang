@@ -1,9 +1,11 @@
 import styled from "styled-components";
+import { device } from "./device/Responsive";
 
 interface IStyledButtonProps {
   color?: string;
   background?: string;
   padding?: string;
+  paddingTablet?: string;
 }
 
 export const Button = styled.button`
@@ -21,4 +23,14 @@ export const Button = styled.button`
   border-radius: 10px;
 
   font-family: "Sofia";
+
+  @media ${device.tablet} {
+    padding: ${(props: IStyledButtonProps) =>
+      props.paddingTablet || "10px 50px"};
+  }
+
+  @media ${device.tablet} {
+    padding: ${(props: IStyledButtonProps) =>
+      props.paddingTablet || "10px 40px"};
+  }
 `;

@@ -32,6 +32,7 @@ export const Booking = () => {
             fontType="Montez"
             color="white"
             displayDesktop="none"
+            fontSizeTablet="60px"
           >
             Boka
           </CustomSpan>
@@ -43,20 +44,61 @@ export const Booking = () => {
           widthDesktop="70%"
           heightDekstop="120px"
         >
-          <CustomSpan fontSize="40px" fontType="Sofia" shadow="none">
+          <CustomSpan
+            fontSize="40px"
+            fontType="Sofia"
+            shadow="none"
+            fontSizeTablet="40px"
+            fontSizeDesktop="40px"
+          >
             Låt oss boka!
           </CustomSpan>
           <SeperatorLine></SeperatorLine>
         </HeaderDiv>
         <ContainerDiv flexDirection="column" height="100%" widthDesktop="70%">
-          <StyledForm applyToNthChild="even">
-            <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">
-              <CustomSpan fontSize="24px">Din epost</CustomSpan>
-              <InputText width="90%" height="50px" corner="10px"></InputText>
+          <StyledForm applyToNthChild="odd">
+            <CustomSpanDiv
+              applyToNthChild="odd"
+              applyToNthChildTable="even"
+              flexDirectionTablet="column"
+              flexDirectionDesktop="row"
+              widthDesktop="80%"
+            >
+              <CustomSpanDiv flexDirectionTablet="column">
+                <CustomSpan
+                  fontSize="24px"
+                  fontSizeTablet="22px"
+                  fontSizeDesktop="20px"
+                >
+                  Din epost
+                </CustomSpan>
+                <InputText width="90%" height="50px" corner="10px"></InputText>
+              </CustomSpanDiv>
+              <CustomSpanDiv flexDirectionTablet="column">
+                <CustomSpan
+                  fontSize="24px"
+                  fontSizeTablet="22px"
+                  fontSizeDesktop="20px"
+                >
+                  Mobilnummer
+                </CustomSpan>
+                <InputText width="90%" height="50px" corner="10px"></InputText>
+              </CustomSpanDiv>
             </CustomSpanDiv>
-            <CustomSpanDiv applyToNthChild="odd" applyToNthChildTable="even">
+            <CustomSpanDiv
+              applyToNthChild="odd"
+              applyToNthChildTable="even"
+              flexDirectionDesktop="row"
+              widthDesktop="80%"
+            >
               <CustomSpanDiv flexDirectionTablet="column" widthTablet="300px">
-                <CustomSpan fontSize="24px">Förnamn</CustomSpan>
+                <CustomSpan
+                  fontSize="24px"
+                  fontSizeTablet="22px"
+                  fontSizeDesktop="20px"
+                >
+                  Förnamn
+                </CustomSpan>
                 <InputText
                   width="90%"
                   height="50px"
@@ -65,7 +107,13 @@ export const Booking = () => {
                 ></InputText>
               </CustomSpanDiv>
               <CustomSpanDiv flexDirectionTablet="column" widthTablet="300px">
-                <CustomSpan fontSize="24px">Efternamn</CustomSpan>
+                <CustomSpan
+                  fontSize="24px"
+                  fontSizeTablet="22px"
+                  fontSizeDesktop="20px"
+                >
+                  Efternamn
+                </CustomSpan>
                 <InputText
                   width="90%"
                   height="50px"
@@ -74,13 +122,31 @@ export const Booking = () => {
                 ></InputText>
               </CustomSpanDiv>
             </CustomSpanDiv>
-            <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">
-              <CustomSpan fontSize="24px">Mobilnummer</CustomSpan>
-              <InputText width="90%" height="50px" corner="10px"></InputText>
-              <CustomSpan fontSize="24px">Har ni några allergier?</CustomSpan>
-              <InputText width="90%" height="200px" corner="10px"></InputText>
+            <CustomSpanDiv
+              applyToNthChild="even"
+              flexDirectionTablet="column"
+              widthDesktop="80%"
+            >
+              <CustomSpan
+                fontSize="24px"
+                fontSizeTablet="22px"
+                fontSizeDesktop="20px"
+              >
+                Har ni några allergier?
+              </CustomSpan>
+              <InputText
+                width="90%"
+                height="200px"
+                corner="10px"
+                widthDesktop="95%"
+              ></InputText>
               <Button padding="20px 70px" background="#A3A380">
-                <CustomSpan color="white" fontSize="40px">
+                <CustomSpan
+                  color="white"
+                  fontSize="40px"
+                  fontSizeTablet="30px"
+                  fontSizeDesktop="20px"
+                >
                   Nästa
                 </CustomSpan>
               </Button>

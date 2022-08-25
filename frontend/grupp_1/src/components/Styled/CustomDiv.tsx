@@ -8,6 +8,8 @@ interface Idiv {
   justifyContent?: string;
   alignItems?: string;
   backgroundImage?: string;
+  backgroundColor?: string;
+  padding?: string;
 }
 
 export const CustomDiv = styled.div`
@@ -27,3 +29,8 @@ export const CustomDiv = styled.div`
 `;
 
 export const CustomDiv2 = styled(CustomDiv)``;
+
+export const CustomDivFooter = styled(CustomDiv)`
+  background-color: ${(props: Idiv) => props.backgroundColor || "#CFC99B"};
+  padding: ${(props: Idiv) => props.padding || "20px 0px"};
+`;

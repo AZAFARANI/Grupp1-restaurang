@@ -7,6 +7,8 @@ interface ISpanProps {
   color?: string;
   shadow?: string;
   displayDesktop?: string;
+  fontSizeDesktop?: string;
+  fontSizeTablet?: string;
 }
 
 export const CustomSpan = styled.span`
@@ -19,7 +21,12 @@ export const CustomSpan = styled.span`
   text-shadow: ${(props: ISpanProps) =>
     props.shadow || "0px 4px 4px hsla(0, 0%, 0%, 0.25)"};
 
+  @media ${device.tablet} {
+    font-size: ${(props: ISpanProps) => props.fontSizeTablet || "12pt"};
+  }
+
   @media ${device.desktop} {
     display: ${(props: ISpanProps) => props.displayDesktop || "contains"};
+    font-size: ${(props: ISpanProps) => props.fontSizeDesktop || "12pt"};
   }
 `;
