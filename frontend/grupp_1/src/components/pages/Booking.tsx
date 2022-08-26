@@ -1,5 +1,7 @@
+import { useState } from "react";
 import "../../scss/Booking.scss";
 import { PersonalData } from "../forms/PersonalData";
+import { PersonCounter } from "../forms/PersonCounter";
 import { StyledImage } from "../Styled/CustomImage";
 import { CustomSpan } from "../Styled/CustomSpan";
 import {
@@ -53,7 +55,8 @@ export const Booking = () => {
           <SeperatorLine></SeperatorLine>
         </HeaderDiv>
         <ContainerDiv flexDirection="column" widthDesktop="70%">
-          <PersonalData></PersonalData>
+          {/* <PersonalData></PersonalData> */}
+          <PersonCounter></PersonCounter>
         </ContainerDiv>
       </HeroDiv>
     </>

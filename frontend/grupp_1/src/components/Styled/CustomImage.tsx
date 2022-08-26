@@ -6,6 +6,7 @@ interface IStyledImageProps {
   height?: string;
   display?: string;
   displayDesktop?: string;
+  fontSize?: string;
 }
 
 export const StyledImage = styled.img`
@@ -16,4 +17,9 @@ export const StyledImage = styled.img`
   @media ${device.desktop} {
     display: ${(props: IStyledImageProps) => props.displayDesktop || "block"};
   }
+`;
+
+export const StyledSVG = styled.img`
+  width: ${(props: IStyledImageProps) => props.width || "40px"};
+  height: ${(props: IStyledImageProps) => props.height || "40px"};
 `;

@@ -24,6 +24,8 @@ interface ICustomProps {
   backgroundImage?: string;
   applyToNthChild?: string;
   marginBottom?: string;
+  paddingTopDesktop?: string;
+  paddingTopTablet?: string;
   marginBottomTablet?: string;
   justifyContentTablet?: string;
   flexDirectionTablet?: string;
@@ -34,6 +36,7 @@ interface ICustomProps {
   widthDesktop?: string;
   heightDekstop?: string;
   flexDirectionDesktop?: string;
+  justifyContentDesktop?: string;
 }
 
 interface ISettingsProp {
@@ -94,7 +97,12 @@ export const ContainerDiv = styled(HeroDiv)`
   padding-top: ${(props: ICustomProps) => props.paddingTop || "20px"};
   background-color: ${(props: ICustomProps) =>
     props.background || "rgba(255, 255, 255, 0.75)"};
+  @media ${device.tablet} {
+    padding-top: ${(props: ICustomProps) => props.paddingTopTablet || "20px"};
+    width: ${(props: ICustomProps) => props.widthTablet || "100%"};
+  }
   @media ${device.desktop} {
+    padding-top: ${(props: ICustomProps) => props.paddingTopDesktop || "20px"};
     width: ${(props: ICustomProps) => props.widthDesktop || "100%"};
   }
 `;
@@ -139,4 +147,25 @@ export const CustomSpanDiv = styled.div`
       props.flexDirectionDesktop || "column"};
     width: ${(props: ICustomProps) => props.widthDesktop || "100%"};
   }
+`;
+
+export const ButtonContainerDiv = styled.div`
+  display: ${(props: ICustomProps) => props.display || "flex"};
+  justify-content: ${(props: ICustomProps) => props.justifyContent || "center"};
+  align-items: ${(props: ICustomProps) => props.alignItems || "center"};
+  flex-direction: ${(props: ICustomProps) => props.flexDirection || "column"};
+  width: ${(props: ICustomProps) => props.width || "100%"};
+
+  @media ${device.desktop} {
+    align-items: ${(props: ICustomProps) =>
+      props.justifyContentDesktop || "center"};
+  }
+`;
+
+export const TextContainerDiv = styled.div`
+  display: ${(props: ICustomProps) => props.display || "flex"};
+  justify-content: ${(props: ICustomProps) => props.justifyContent || "center"};
+  align-items: ${(props: ICustomProps) => props.alignItems || "center"};
+  flex-direction: ${(props: ICustomProps) => props.flexDirection || "column"};
+  width: ${(props: ICustomProps) => props.width || "100%"};
 `;

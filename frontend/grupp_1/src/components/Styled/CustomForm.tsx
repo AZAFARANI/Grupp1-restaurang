@@ -9,6 +9,8 @@ interface IStyledFormProps {
   direction?: string;
   gap?: string;
   applyToNthChild?: string;
+  heightTablet?: string;
+  heightDesktop?: string;
 }
 
 export const StyledForm = styled.form`
@@ -22,10 +24,10 @@ export const StyledForm = styled.form`
     margin: 0 0 35px 0;
   }
   @media ${device.tablet} {
-    height: ${(props: IStyledFormProps) => props.height || "800px"};
+    height: ${(props: IStyledFormProps) => props.heightTablet || "800px"};
   }
 
   @media ${device.desktop} {
-    height: ${(props: IStyledFormProps) => props.height || "650px"};
+    height: ${(props: IStyledFormProps) => props.heightDesktop || "650px"};
   }
 `;
