@@ -11,9 +11,13 @@ import {
   SeperatorLine,
   TextContainerDiv,
 } from "../Styled/GlassmorphDiv";
+interface IPersonCounterProps {
+  setStep(step: number): void;
+  bookingStep: number;
+}
 
-export const PersonCounter = () => {
-  const [Quantify, setQuantify] = useState<number>(0);
+export const PersonCounter = (props: IPersonCounterProps) => {
+  const [Quantify, setQuantify] = useState(0);
 
   function reduceQuantify() {
     if (Quantify >= 1) {
@@ -23,6 +27,18 @@ export const PersonCounter = () => {
 
   function increaseQuantify() {
     setQuantify(Quantify + 1);
+  }
+
+  function handleForwardStep() {
+    if (props.bookingStep === 2) {
+      props.setStep(props.bookingStep + 1);
+    }
+  }
+
+  function handleBackStep() {
+    if (props.bookingStep === 2) {
+      props.setStep(props.bookingStep - 1);
+    }
   }
 
   return (
@@ -87,9 +103,11 @@ export const PersonCounter = () => {
           >
             <ButtonContainerDiv justifyContentDesktop="flex-start">
               <Button
+                type="button"
                 padding="15px 35px"
                 paddingTablet="20px 45px"
                 background="#A3A380"
+                onClick={handleBackStep}
               >
                 <StyledSVG
                   src="/svg/left-arrow.svg"
@@ -101,10 +119,12 @@ export const PersonCounter = () => {
             </ButtonContainerDiv>
             <ButtonContainerDiv justifyContentDesktop="flex-end">
               <Button
+                type="button"
                 padding="15px 24px"
                 paddingTablet="19px 32px"
                 paddingDesktop="9px 27px"
                 background="#A3A380"
+                onClick={handleForwardStep}
               >
                 <CustomSpan
                   color="white"

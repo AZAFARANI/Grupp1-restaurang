@@ -5,7 +5,18 @@ import { CustomSpan } from "../Styled/CustomSpan";
 import { CustomSpanDiv } from "../Styled/GlassmorphDiv";
 import { InputText } from "../Styled/StyledInputTypeText";
 
-export const PersonalData = () => {
+interface IPersonDataProps {
+  setStep(step: number): void;
+  bookingStep: number;
+}
+
+export const PersonalData = (props: IPersonDataProps) => {
+  function handleForwardStep() {
+    if (props.bookingStep === 1) {
+      props.setStep(props.bookingStep + 1);
+    }
+  }
+
   return (
     <>
       <StyledForm>
@@ -93,7 +104,12 @@ export const PersonalData = () => {
             corner="10px"
             widthDesktop="95%"
           ></InputText>
-          <Button padding="20px 70px" background="#A3A380">
+          <Button
+            type="button"
+            padding="20px 70px"
+            background="#A3A380"
+            onClick={handleForwardStep}
+          >
             <CustomSpan
               color="white"
               fontSize="40px"

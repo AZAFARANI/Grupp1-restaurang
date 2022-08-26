@@ -12,6 +12,13 @@ import {
 } from "../Styled/GlassmorphDiv";
 
 export const Booking = () => {
+  const [step, setStep] = useState(1);
+
+  function handleStep(step: number) {
+    setStep(step);
+    console.log(step);
+  }
+
   return (
     <>
       <HeroDiv backgroundImage="url(images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)">
@@ -55,8 +62,23 @@ export const Booking = () => {
           <SeperatorLine></SeperatorLine>
         </HeaderDiv>
         <ContainerDiv flexDirection="column" widthDesktop="70%">
-          {/* <PersonalData></PersonalData> */}
-          <PersonCounter></PersonCounter>
+          {(() => {
+            if (step === 1) {
+              return (
+                <PersonalData
+                  setStep={handleStep}
+                  bookingStep={step}
+                ></PersonalData>
+              );
+            } else if (step === 2) {
+              return (
+                <PersonCounter
+                  setStep={handleStep}
+                  bookingStep={step}
+                ></PersonCounter>
+              );
+            }
+          })()}
         </ContainerDiv>
       </HeroDiv>
     </>
