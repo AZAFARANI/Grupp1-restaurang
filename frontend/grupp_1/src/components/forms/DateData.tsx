@@ -25,6 +25,8 @@ export const DateData = () => {
         setCurrentDate(currentDate);
     }
 
+    console.log(currentDate);
+
     return (
         <>
             <Form>
