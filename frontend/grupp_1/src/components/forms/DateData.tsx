@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "../../scss/Booking.scss";
 import { Button } from "../Styled/CustomButton";
 import { StyledForm } from "../Styled/CustomForm";
@@ -11,6 +12,24 @@ import {
 } from "../Styled/GlassmorphDiv";
 
 export const DateData = () => {
+  const [date, setDate] = useState(0);
+  const [currentDate, setCurrentDate] = useState<Date>();
+
+  useEffect(() => {
+    handleDate();
+  }, []);
+
+  function handleDate() {
+    let currentDate = new Date();
+    var oneJan = new Date(currentDate.getFullYear(), 0, 1);
+    var numberOfDays = Math.floor(
+      (currentDate.getTime() - oneJan.getTime()) / (24 * 60 * 60 * 1000)
+    );
+    var result = Math.ceil((currentDate.getDay() + 1 + numberOfDays) / 7);
+    setDate(result);
+    setCurrentDate(currentDate);
+  }
+
   return (
     <>
       <StyledForm>
@@ -44,7 +63,7 @@ export const DateData = () => {
                 fontSizeTablet="26pt"
                 fontSizeDesktop="24pt"
               >
-                Vecka 42
+                {date}
               </CustomSpan>
             </TextContainerDiv>
             <ButtonContainerDiv>
