@@ -10,7 +10,6 @@ interface Idiv {
   backgroundImage?: string;
   backgroundColor?: string;
   padding?: string;
-  boxShadow?: string;
 }
 
 export const CustomDiv = styled.div`
@@ -20,16 +19,12 @@ export const CustomDiv = styled.div`
   justify-content: ${(props: Idiv) => props.justifyContent || "space-around"};
   align-items: ${(props: Idiv) => props.alignItems || "center"};
   gap: ${(props: Idiv) => props.gap || "10vh"};
-  background-color: ${(props: Idiv) => props.backgroundColor || "#CFC99B"};
-  padding: ${(props: Idiv) => props.padding || "20px 0px"};
-
-  box-shadow: ${(props: Idiv) =>
-    props.boxShadow || "0 8px 32px 0 rgba(31, 38, 135, 0.37)"};
 
   display: flex;
 
   background-image: ${(props: Idiv) =>
     props.backgroundImage || "url(/images/CapreseBackground.webp)"};
+  background-color: ${(props: Idiv) => props.backgroundColor || "none"};
   background-position: center;
   background-size: cover;
 `;

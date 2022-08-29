@@ -65,7 +65,6 @@ router.post("/", async (req, res) => {
                 lastName: booking.lastName,
                 email: booking.email,
                 phone: booking.phone,
-                bookings: [],
             });
 
             await newCustomer.save();
@@ -81,16 +80,8 @@ router.post("/", async (req, res) => {
 
         await newBooking.save();
 
-        customer.bookings.push(newBooking._id);
-        await customer.save();
-
         mailer
-            .sendMail(
-                customer.email,
-                `Tramonto Bokning - ${newBooking._id}`,
-                "Här kommer din bokning!",
-                mailer.createMailHtml(newBooking)
-            )
+            .sendMail(customer.email, newBooking)
             .then(async (result) => {
                 // newBooking.mailId = result
                 // await newBooking.save();
@@ -101,8 +92,6 @@ router.post("/", async (req, res) => {
                 });
             })
             .catch(async (error) => {
-                console.log("ERROR", error);
-
                 await newBooking.delete();
                 res.status(400).send({
                     msg:

@@ -1,18 +1,26 @@
+import { useState } from "react";
 import "../../scss/Booking.scss";
-import { Button } from "../Styled/CustomButton";
-import { StyledForm } from "../Styled/CustomForm";
+import { DateData } from "../forms/DateData";
+import { PersonalData } from "../forms/PersonalData";
+import { PersonCounter } from "../forms/PersonCounter";
 import { StyledImage } from "../Styled/CustomImage";
 import { CustomSpan } from "../Styled/CustomSpan";
 import {
   ContainerDiv,
-  CustomSpanDiv,
+  FormStepDiv,
   HeaderDiv,
   HeroDiv,
   SeperatorLine,
 } from "../Styled/GlassmorphDiv";
-import { InputText } from "../Styled/StyledInputTypeText";
 
 export const Booking = () => {
+  const [step, setStep] = useState(1);
+  // let newBooking = new Booking();
+
+  function handleStep(step: number) {
+    setStep(step);
+  }
+
   return (
     <>
       <HeroDiv backgroundImage="url(images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)">
@@ -32,6 +40,7 @@ export const Booking = () => {
             fontType="Montez"
             color="white"
             displayDesktop="none"
+            fontSizeTablet="60px"
           >
             Boka
           </CustomSpan>
@@ -43,49 +52,33 @@ export const Booking = () => {
           widthDesktop="70%"
           heightDekstop="120px"
         >
-          <CustomSpan fontSize="40px" fontType="Sofia" shadow="none">
+          <CustomSpan
+            fontSize="40px"
+            fontType="Sofia"
+            shadow="none"
+            fontSizeTablet="40px"
+            fontSizeDesktop="40px"
+          >
             Låt oss boka!
           </CustomSpan>
           <SeperatorLine></SeperatorLine>
         </HeaderDiv>
-        <ContainerDiv flexDirection="column" height="100%" widthDesktop="70%">
-          <StyledForm applyToNthChild="even">
-            <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">
-              <CustomSpan fontSize="24px">Din epost</CustomSpan>
-              <InputText width="90%" height="50px" corner="10px"></InputText>
-            </CustomSpanDiv>
-            <CustomSpanDiv applyToNthChild="odd" applyToNthChildTable="even">
-              <CustomSpanDiv flexDirectionTablet="column" widthTablet="300px">
-                <CustomSpan fontSize="24px">Förnamn</CustomSpan>
-                <InputText
-                  width="90%"
-                  height="50px"
-                  corner="10px"
-                  widthTablet="95%"
-                ></InputText>
-              </CustomSpanDiv>
-              <CustomSpanDiv flexDirectionTablet="column" widthTablet="300px">
-                <CustomSpan fontSize="24px">Efternamn</CustomSpan>
-                <InputText
-                  width="90%"
-                  height="50px"
-                  corner="10px"
-                  widthTablet="95%"
-                ></InputText>
-              </CustomSpanDiv>
-            </CustomSpanDiv>
-            <CustomSpanDiv applyToNthChild="even" flexDirectionTablet="column">
-              <CustomSpan fontSize="24px">Mobilnummer</CustomSpan>
-              <InputText width="90%" height="50px" corner="10px"></InputText>
-              <CustomSpan fontSize="24px">Har ni några allergier?</CustomSpan>
-              <InputText width="90%" height="200px" corner="10px"></InputText>
-              <Button padding="20px 70px" background="#A3A380">
-                <CustomSpan color="white" fontSize="40px">
-                  Nästa
-                </CustomSpan>
-              </Button>
-            </CustomSpanDiv>
-          </StyledForm>
+        <ContainerDiv flexDirection="column" widthDesktop="70%">
+          <FormStepDiv className={`${step === 3 ? "visible" : "hidden"}`}>
+            <PersonalData
+              setStep={handleStep}
+              bookingStep={step}
+            ></PersonalData>
+          </FormStepDiv>
+          <FormStepDiv className={`${step === 2 ? "visible" : "hidden"}`}>
+            <PersonCounter
+              setStep={handleStep}
+              bookingStep={step}
+            ></PersonCounter>
+          </FormStepDiv>
+          <FormStepDiv className={`${step === 1 ? "visible" : "hidden"}`}>
+            <DateData></DateData>
+          </FormStepDiv>
         </ContainerDiv>
       </HeroDiv>
     </>

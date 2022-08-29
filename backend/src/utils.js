@@ -3,7 +3,6 @@ require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const CustomerModel = require("./models/CustomerModel");
 const BookingModel = require("./models/BookingModel");
 const { default: mongoose } = require("mongoose");
 
@@ -20,6 +19,16 @@ const BLANK_BOOKING = {
     timestamp: "2000-01-01T01:01:01.030Z",
 };
 
+const BLANK_PERSONAL = {
+    firstName: "NONE",
+    lastName: "NONE",
+    email: "NONE@NONE.com",
+    phone: "NONE",
+    password: "NONE",
+    role: "staff",
+};
+// ----------------------------------------------------------
+// ### VALIDATION ###
 function validateBooking(booking) {
     // ---------------------------------------------------------
     if (!booking) throw "No booking provided for validation.";
@@ -53,25 +62,100 @@ function validateBooking(booking) {
         throw "Missing time from timestamp.";
     // ---------------------------------------------------------
 }
-
 function isIsoDate(timeStamp) {
     const date = new Date(timeStamp);
     return (
         date instanceof Date && !isNaN(date) && date.toISOString() === timeStamp
     );
 }
-
 function validateAllowedProperties(booking) {
     Object.keys(booking).forEach((key) => {
         if (!["guestCount", "allergies", "timestamp"].includes(key))
             throw "Trying to change unallowed property.";
     });
 }
+function validateCredentials(credentials) {
+    // ---------------------------------------------------------
+    // ### EXISITENCE CHECK ###
+    if (!credentials) throw "No credentials provided.";
+    // ---------------------------------------------------------
 
+    // ---------------------------------------------------------
+    // ### TYPE CHECK ###
+    if (typeof credentials.email !== "string") throw "Invalid email type.";
+    if (typeof credentials.password !== "string")
+        throw "Invalid password type.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### LENGTH CHECK ###
+    if (credentials.email.length <= 0) throw "Email too short.";
+    if (credentials.password.length <= 0) throw "Password too short.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### SPECIFIC ###
+    if (!emailRegexp.test(credentials.email)) throw "Invalid email format.";
+    // ---------------------------------------------------------
+}
+function validatePersonal(personal) {
+    // ---------------------------------------------------------
+    if (!personal) throw "No personal provided for validation.";
+    // ---------------------------------------------------------
+    // ### TYPE CHECK ###
+    if (typeof personal.firstName !== "string") throw "Invalid firstName type.";
+    if (typeof personal.lastName !== "string") throw "Invalid lastName type.";
+    if (typeof personal.email !== "string") throw "Invalid email type.";
+    if (typeof personal.phone !== "string") throw "Invalid phone type.";
+    if (typeof personal.password !== "string") throw "Invalid password type.";
+    if (typeof personal.role !== "string") throw "Invalid role type.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### VALUE CHECK ###
+    if (personal.firstName.length <= 0) throw "Too short firstName.";
+    if (personal.lastName.length <= 0) throw "Too short firstName.";
+    if (personal.email.length <= 0) throw "Too short email.";
+    if (personal.phone.length <= 0) throw "Too short phonenumber.";
+    if (personal.password.length <= 0) throw "Too short password.";
+    if (personal.role.length <= 0) throw "Too short role.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### SPECIFIC ###
+    if (!emailRegexp.test(personal.email)) throw "Invalid email format.";
+    if (!["staff", "admin"].includes(personal.role)) throw "Unallowed role.";
+    // ---------------------------------------------------------
+}
+function validateAllowedPropertiesPersonal(personal) {
+    Object.keys(personal).forEach((key) => {
+        if (
+            ![
+                "password",
+                "firstName",
+                "lastName",
+                "email",
+                "phone",
+                "role",
+            ].includes(key)
+        )
+            throw "Trying to change unallowed property.";
+    });
+}
+// ----------------------------------------------------------
+
+// ----------------------------------------------------------
+// ### PASSWORD HANDLING ###
 function comparePassword(password, hash) {
     return bcrypt.compareSync(password, hash);
 }
+function hashPassword(password) {
+    return bcrypt.hashSync(password, 12);
+}
+// ----------------------------------------------------------
 
+// ----------------------------------------------------------
+// ### MIDDLEWARE ###
 function forceAuthorize(req, res, next) {
     const { token } = req.cookies;
     if (token && jwt.verify(token, process.env.JWT_SECRET)) {
@@ -80,7 +164,6 @@ function forceAuthorize(req, res, next) {
         res.sendStatus(401);
     }
 }
-
 function forceAdmin(req, res, next) {
     const { token } = req.cookies;
     if (token && jwt.verify(token, process.env.JWT_SECRET)) {
@@ -99,7 +182,6 @@ function forceAdmin(req, res, next) {
         });
     }
 }
-
 async function forceLoggedInOrOwnBooking(req, res, next) {
     try {
         const { token } = req.cookies;
@@ -116,11 +198,11 @@ async function forceLoggedInOrOwnBooking(req, res, next) {
             if (!mongoose.Types.ObjectId.isValid(bookingId))
                 throw "Invalid booking Id.";
 
-            const customer = await CustomerModel.findById(customerId).lean();
-            if (!customer) throw "No customer found with ID: " + customerId;
+            const booking = await BookingModel.findById(bookingId).lean();
 
-            const ownBookings = customer.bookings.map((id) => `${id}`);
-            if (!ownBookings.includes(bookingId))
+            if (!booking) throw "No booking found with ID: " + bookingId;
+
+            if (`${booking._id}` !== customerId)
                 throw "You cannot modify bookings other than your own.";
             next();
         }
@@ -131,15 +213,16 @@ async function forceLoggedInOrOwnBooking(req, res, next) {
         });
     }
 }
-
-function hashPassword(password) {
-    return bcrypt.hashSync(password, 12);
-}
+// ----------------------------------------------------------
 
 module.exports = {
     validateBooking,
     validateAllowedProperties,
+    validateCredentials,
+    validatePersonal,
+    validateAllowedPropertiesPersonal,
     BLANK_BOOKING,
+    BLANK_PERSONAL,
     comparePassword,
     hashPassword,
     forceAuthorize,
