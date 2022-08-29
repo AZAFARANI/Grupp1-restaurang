@@ -6,6 +6,7 @@ import { StyledImage } from "../Styled/CustomImage";
 import { CustomSpan } from "../Styled/CustomSpan";
 import {
   ContainerDiv,
+  FormStepDiv,
   HeaderDiv,
   HeroDiv,
   SeperatorLine,
@@ -13,10 +14,10 @@ import {
 
 export const Booking = () => {
   const [step, setStep] = useState(1);
+  // let newBooking = new Booking();
 
   function handleStep(step: number) {
     setStep(step);
-    console.log(step);
   }
 
   return (
@@ -62,23 +63,21 @@ export const Booking = () => {
           <SeperatorLine></SeperatorLine>
         </HeaderDiv>
         <ContainerDiv flexDirection="column" widthDesktop="70%">
-          {(() => {
-            if (step === 1) {
-              return (
-                <PersonalData
-                  setStep={handleStep}
-                  bookingStep={step}
-                ></PersonalData>
-              );
-            } else if (step === 2) {
-              return (
-                <PersonCounter
-                  setStep={handleStep}
-                  bookingStep={step}
-                ></PersonCounter>
-              );
-            }
-          })()}
+          <FormStepDiv className={`${step === 1 ? "visible" : "hidden"}`}>
+            <PersonalData
+              setStep={handleStep}
+              bookingStep={step}
+            ></PersonalData>
+          </FormStepDiv>
+          <FormStepDiv className={`${step === 2 ? "visible" : "hidden"}`}>
+            <PersonCounter
+              setStep={handleStep}
+              bookingStep={step}
+            ></PersonCounter>
+          </FormStepDiv>
+          <FormStepDiv
+            className={`${step === 3 ? "visible" : "hidden"}`}
+          ></FormStepDiv>
         </ContainerDiv>
       </HeroDiv>
     </>

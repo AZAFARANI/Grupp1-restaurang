@@ -14,6 +14,7 @@ interface ICustomProps {
   display?: string;
   flexDirection?: string;
   justifyContent?: string;
+  position?: string;
   alignItems?: string;
   border?: string;
   height?: string;
@@ -24,6 +25,7 @@ interface ICustomProps {
   backgroundImage?: string;
   applyToNthChild?: string;
   marginBottom?: string;
+  heightTablet?: string;
   paddingTopDesktop?: string;
   paddingTopTablet?: string;
   marginBottomTablet?: string;
@@ -168,4 +170,23 @@ export const TextContainerDiv = styled.div`
   align-items: ${(props: ICustomProps) => props.alignItems || "center"};
   flex-direction: ${(props: ICustomProps) => props.flexDirection || "column"};
   width: ${(props: ICustomProps) => props.width || "100%"};
+`;
+
+export const FormStepDiv = styled.div`
+  display: ${(props: ICustomProps) => props.display || "flex"};
+  align-items: ${(props: ICustomProps) => props.alignItems || "center"};
+  flex-direction: ${(props: ICustomProps) => props.flexDirection || "column"};
+  width: ${(props: ICustomProps) => props.width || "100%"};
+  height: ${(props: ICustomProps) => props.height || "1000px"};
+
+  & > :nth-child(${(props: ICustomProps) => props.applyToNthChild || 0}) {
+    margin: 0 0 35px 0;
+  }
+  @media ${device.tablet} {
+    height: ${(props: ICustomProps) => props.heightTablet || "800px"};
+  }
+
+  @media ${device.desktop} {
+    height: ${(props: ICustomProps) => props.heightDekstop || "650px"};
+  }
 `;

@@ -11,6 +11,7 @@ import {
   SeperatorLine,
   TextContainerDiv,
 } from "../Styled/GlassmorphDiv";
+
 interface IPersonCounterProps {
   setStep(step: number): void;
   bookingStep: number;
