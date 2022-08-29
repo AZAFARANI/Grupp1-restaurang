@@ -8,12 +8,16 @@ interface ISpanProps {
     padding?: string;
 
     fontType?: string;
-    fontSize?: string;
     color?: string;
     shadow?: string;
 
-    tabletFontSize?: string;
-    laptopFontSize?: string;
+    fontSize?: string;
+    fontSizeTablet?: string;
+    fontSizeLaptop?: string;
+
+    display?: string;
+    displayTablet?: string;
+    displayLaptop?: string;
 }
 
 export const Span = styled.span`
@@ -24,15 +28,18 @@ export const Span = styled.span`
 
     font-family: ${(props: ISpanProps) => props.fontType || "Sofia"};
     font-size: ${(props: ISpanProps) => props.fontSize || "12pt"};
-    color: ${(props: ISpanProps) => props.padding || "none"};
+    color: ${(props: ISpanProps) => props.color || "none"};
     text-shadow: ${(props: ISpanProps) =>
         props.shadow || "0px 4px 4px hsla(0, 0%, 0%, 0.25)"};
+    display: ${(props: ISpanProps) => props.display || "block"};
 
     @media ${device.tablet} {
-        font-size: ${(props: ISpanProps) => props.fontSize || "auto"};
+        font-size: ${(props: ISpanProps) => props.fontSize || ""};
+        display: ${(props: ISpanProps) => props.displayTablet || ""};
     }
 
     @media ${device.laptop} {
-        font-size: ${(props: ISpanProps) => props.fontSize || "auto"};
+        font-size: ${(props: ISpanProps) => props.fontSize || ""};
+        display: ${(props: ISpanProps) => props.displayLaptop || ""};
     }
 `;

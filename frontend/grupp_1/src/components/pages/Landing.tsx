@@ -1,29 +1,28 @@
-import { CustomSpan } from "../Styled/CustomSpan";
-import { GlassDiv, GlassDiv2 } from "../Styled/GlassmorphDiv";
-import { InputText } from "../Styled/StyledInputTypeText";
 import "../../scss/Landing.scss";
-import { CustomDiv } from "../Styled/CustomDiv";
 import { Link } from "react-router-dom";
+import { Div } from "../Styled/Div";
+import { GlassmorphDiv } from "../Styled/GlassmorphDiv";
+import { Span } from "../Styled/Span";
 
 export default function Landing() {
     return (
         <>
             <div className="bigContainer">
-                <CustomDiv>
+                <Div>
                     <div className="hero-div">
                         <img src="/svg/Logo.svg" className="logotype"></img>
 
                         <Link to={"/booking"}>
-                            <GlassDiv
+                            <GlassmorphDiv
                                 className="bookingButton"
                                 border="solid 1px hsla(0, 14%, 82%, 1)"
                                 background="hsla(357, 48%, 70%, 0.85)"
                                 blur="hsla(0, 0%, 0%, 0.25)"
                             >
-                                <CustomSpan fontSize="1.4rem" color="white">
+                                <Span fontSize="1.4rem" color="white">
                                     Boka bord
-                                </CustomSpan>
-                            </GlassDiv>
+                                </Span>
+                            </GlassmorphDiv>
                         </Link>
                     </div>
 
@@ -38,69 +37,71 @@ export default function Landing() {
                     >
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
                     </svg>
-                </CustomDiv>
+                </Div>
 
-                <CustomDiv
+                <Div
                     gap="2vh"
                     justifyContent="unset"
-                    className="customdiv"
+                    className="Div"
                     backgroundImage="url(/images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)"
                 >
                     <img src="/svg/Title.svg"></img>
                     <img id="svgg" src="/svg/Vinflaska.svg"></img>
 
-                    <GlassDiv2
+                    <GlassmorphDiv
+                        height="70vh"
+                        width="95%"
                         background="hsla(0, 0%, 100%, 0.8);
 
 "
                     >
                         <div className="menuContainer">
                             <div>
-                                <CustomSpan>
+                                <Span>
                                     <img src="/svg/Vector 6.svg"></img> Pasta
                                     <img src="/svg/Vector 7.svg"></img>
                                     <hr></hr>
                                     <br></br>
-                                </CustomSpan>
+                                </Span>
 
                                 <div>
                                     <div className="menuItems">
-                                        <CustomSpan>Pasta carbonara</CustomSpan>
-                                        <CustomSpan>149kr</CustomSpan>
+                                        <Span>Pasta carbonara</Span>
+                                        <Span>149kr</Span>
                                     </div>
                                     <br></br>
                                     <div className="menuItems">
-                                        <CustomSpan>Pasta Al Tonno</CustomSpan>
-                                        <CustomSpan>149kr</CustomSpan>
+                                        <Span>Pasta Al Tonno</Span>
+                                        <Span>149kr</Span>
                                     </div>
                                 </div>
                             </div>
 
                             <div>
-                                <CustomSpan>
+                                <Span>
                                     <img src="/svg/Vector 6.svg"></img> Pizza
                                     <img src="/svg/Vector 7.svg"></img>
                                     <hr></hr>
                                     <br></br>
-                                </CustomSpan>
+                                </Span>
                                 <div className="menuItems">
-                                    <CustomSpan>Pizza Capriociosa</CustomSpan>
-                                    <CustomSpan>190kr</CustomSpan>
+                                    <Span>Pizza Capriociosa</Span>
+                                    <Span>190kr</Span>
                                 </div>
                                 <br></br>
                                 <div className="menuItems">
-                                    <CustomSpan>Pizza Mozarella</CustomSpan>
-                                    <CustomSpan>199kr</CustomSpan>
+                                    <Span>Pizza Mozarella</Span>
+                                    <Span>199kr</Span>
                                 </div>
                                 <br></br>
                                 <div className="menuItems">
-                                    <CustomSpan>Pizza Caprese</CustomSpan>
-                                    <CustomSpan>199kr</CustomSpan>
+                                    <Span>Pizza Caprese</Span>
+                                    <Span>199kr</Span>
                                 </div>
                             </div>
                         </div>
-                    </GlassDiv2>
-                </CustomDiv>
+                    </GlassmorphDiv>
+                </Div>
             </div>
         </>
     );

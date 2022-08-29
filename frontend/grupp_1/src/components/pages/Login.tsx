@@ -1,8 +1,8 @@
 import { FormEvent, useState } from "react";
-import { Button } from "../Styled/CustomButton";
+import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
-import { LoginForm } from "../Styled/LoginForm";
-import { InputText } from "../Styled/StyledInputTypeText";
+import { Form } from "../Styled/Form";
+import { Input } from "../Styled/Input";
 import { Span } from "../Styled/Span";
 
 export default function Login() {
@@ -19,17 +19,17 @@ export default function Login() {
             <Div
                 backgroundColor="hsla(0, 0%, 100%, 0.8)"
                 justifyContent="start"
-                tabletWidth="80%"
+                widthTablet="80%"
             >
                 <Div backgroundColor="hsla(0, 0%, 0%, 0.5)" height="auto">
                     <img src="/svg/Logo.svg" alt="Logotype" />
                 </Div>
                 <Div justifyContent="start" padding="20px">
-                    <LoginForm onSubmit={submit} applyToNthChild="even">
-                        <Span fontSize="20pt" laptopFontSize="20pt">
+                    <Form onSubmit={submit} applyToNthChild="even">
+                        <Span fontSize="20pt" fontSizeLaptop="20pt">
                             Email
                         </Span>
-                        <InputText
+                        <Input
                             width="80%"
                             type="text"
                             id="email"
@@ -37,11 +37,11 @@ export default function Login() {
                             onChange={(e) => {
                                 setEmail(e.target.value);
                             }}
-                        ></InputText>
-                        <Span fontSize="20pt" laptopFontSize="20pt">
+                        ></Input>
+                        <Span fontSize="20pt" fontSizeLaptop="20pt">
                             Lösenord
                         </Span>
-                        <InputText
+                        <Input
                             width="80%"
                             type="password"
                             id="password"
@@ -49,13 +49,13 @@ export default function Login() {
                             onChange={(e) => {
                                 setPassword(e.target.value);
                             }}
-                        ></InputText>
+                        ></Input>
                         <Button type="submit" onSubmit={submit} padding="20px">
                             <Span color="white" fontSize="20pt">
                                 Logga In
                             </Span>
                         </Button>
-                    </LoginForm>
+                    </Form>
                 </Div>
             </Div>
         </Div>

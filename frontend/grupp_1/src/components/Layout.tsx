@@ -1,21 +1,20 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Outlet } from "react-router-dom";
-import { CustomSpan } from "./Styled/CustomSpan";
 
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { MenuIcon } from "./Styled/MenuIcon";
 import { useState } from "react";
 import "../scss/Layout.scss";
 import { Link } from "react-router-dom";
-import { CustomDiv, CustomDivFooter } from "./Styled/CustomDiv";
+import { Icon } from "./Styled/Icon";
+import { Div } from "./Styled/Div";
+import { Span } from "./Styled/Span";
 
 export const Layout = () => {
     const [isClicked, setIsClicked] = useState<boolean>(false);
 
     return (
         <>
-            <MenuIcon
+            <Icon
                 className={`${isClicked ? "hidden" : "visible"} open-menu`}
                 onClick={() => {
                     setIsClicked(!isClicked);
@@ -26,16 +25,16 @@ export const Layout = () => {
             <div className="nav-wrapper">
                 <div className={`${isClicked ? "slide-in" : "slide-out"} menu`}>
                     <div className="heading">
-                        <CustomSpan
+                        <Span
                             id="menuHeading"
                             fontSize="30pt"
                             color="white"
                             fontType="Montez"
                         >
                             Meny
-                        </CustomSpan>
+                        </Span>
 
-                        <MenuIcon
+                        <Icon
                             icon={faXmark}
                             onClick={() => {
                                 setIsClicked(false);
@@ -52,9 +51,9 @@ export const Layout = () => {
                                 to={"/"}
                             >
                                 <li>
-                                    <CustomSpan color="white" fontSize="30px">
+                                    <Span color="white" fontSize="30px">
                                         Startsida
-                                    </CustomSpan>
+                                    </Span>
                                 </li>
                             </Link>
                             <li>
@@ -64,9 +63,9 @@ export const Layout = () => {
                                     }}
                                     to={"/booking"}
                                 >
-                                    <CustomSpan color="white" fontSize="30px">
+                                    <Span color="white" fontSize="30px">
                                         Boka bord
-                                    </CustomSpan>
+                                    </Span>
                                 </Link>
                             </li>
 
@@ -77,9 +76,9 @@ export const Layout = () => {
                                 to={"/contact"}
                             >
                                 <li>
-                                    <CustomSpan color="white" fontSize="30px">
+                                    <Span color="white" fontSize="30px">
                                         Kontaktsida
-                                    </CustomSpan>
+                                    </Span>
                                 </li>
                             </Link>
                         </ul>
@@ -90,7 +89,8 @@ export const Layout = () => {
             <main>
                 <Outlet />
             </main>
-            <CustomDivFooter
+
+            <Div
                 className="contactContainer"
                 gap="0"
                 justifyContent="unset"
@@ -99,7 +99,7 @@ export const Layout = () => {
                 backgroundColor="black"
                 padding="0px 0px"
             >
-                <CustomDivFooter
+                <Div
                     className="contactFirstSection"
                     flexDirection="column"
                     justifyContent="unset"
@@ -115,9 +115,9 @@ export const Layout = () => {
                                     className="contactIcon2"
                                     src="/svg/Vector-2.svg"
                                 ></img>
-                                <CustomSpan color="white" fontSize="1.3rem">
+                                <Span color="white" fontSize="1.3rem">
                                     Hem
-                                </CustomSpan>
+                                </Span>
                             </div>
                         </Link>
 
@@ -127,18 +127,18 @@ export const Layout = () => {
                                     className="contactIcon"
                                     src="/svg/fluent_contact-card-48-regular.svg"
                                 ></img>
-                                <CustomSpan color="white" fontSize="1.3rem">
+                                <Span color="white" fontSize="1.3rem">
                                     Kontakt
-                                </CustomSpan>
+                                </Span>
                             </div>
                         </Link>
 
                         <Link to={"/booking"}>
                             <div className="contactItem notVisible">
                                 <img src="/svg/Vector.svg"></img>
-                                <CustomSpan color="white" fontSize="1.3rem">
+                                <Span color="white" fontSize="1.3rem">
                                     Boka bord
-                                </CustomSpan>
+                                </Span>
                             </div>
                         </Link>
                     </div>
@@ -147,8 +147,8 @@ export const Layout = () => {
                         className="arrowUp"
                         src="/svg/bi_arrow-down-circle-fill.svg"
                     ></img>
-                </CustomDivFooter>
-                <CustomDivFooter
+                </Div>
+                <Div
                     className="contactContainer"
                     flexDirection="row"
                     justifyContent="center"
@@ -164,8 +164,8 @@ export const Layout = () => {
                             src="/svg/Tramonto.svg"
                         ></img>
                     </div>
-                </CustomDivFooter>
-            </CustomDivFooter>
+                </Div>
+            </Div>
         </>
     );
 };
