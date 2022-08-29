@@ -65,9 +65,15 @@ export const Contact = () => {
                     <div className="informationDiv">
                         <div className="iconDiv">
                             <div className="icons">
-                                <img src="/svg/fxemoji_telephonereceiver2.svg"></img>
-                                <img src="/svg/carbon_location-filled.svg"></img>
-                                <img src="/svg/Klocka.svg"></img>
+                                <img
+                                    src="/svg/fxemoji_telephonereceiver2.svg"
+                                    alt="Phonenumber"
+                                ></img>
+                                <img
+                                    src="/svg/carbon_location-filled.svg"
+                                    alt="Location"
+                                ></img>
+                                <img src="/svg/Klocka.svg" alt="Clock"></img>
                             </div>
                         </div>
                         <div className="contactInfo">
