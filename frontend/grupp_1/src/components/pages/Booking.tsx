@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../../scss/Booking.scss";
+import { DateData } from "../forms/DateData";
 import { PersonalData } from "../forms/PersonalData";
 import { PersonCounter } from "../forms/PersonCounter";
 import { StyledImage } from "../Styled/CustomImage";
@@ -63,7 +64,7 @@ export const Booking = () => {
           <SeperatorLine></SeperatorLine>
         </HeaderDiv>
         <ContainerDiv flexDirection="column" widthDesktop="70%">
-          <FormStepDiv className={`${step === 1 ? "visible" : "hidden"}`}>
+          <FormStepDiv className={`${step === 3 ? "visible" : "hidden"}`}>
             <PersonalData
               setStep={handleStep}
               bookingStep={step}
@@ -75,9 +76,9 @@ export const Booking = () => {
               bookingStep={step}
             ></PersonCounter>
           </FormStepDiv>
-          <FormStepDiv
-            className={`${step === 3 ? "visible" : "hidden"}`}
-          ></FormStepDiv>
+          <FormStepDiv className={`${step === 1 ? "visible" : "hidden"}`}>
+            <DateData></DateData>
+          </FormStepDiv>
         </ContainerDiv>
       </HeroDiv>
     </>
