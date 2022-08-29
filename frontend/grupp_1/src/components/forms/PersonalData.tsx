@@ -19,7 +19,7 @@ export const PersonalData = (props: IPersonDataProps) => {
     }
 
     return (
-        <Form gap="35px" width="90%" height="auto" justifyContent="center">
+        <Form gap="35px" width="90%" height="auto">
             {/* EMAIL / MOBILE */}
             <Div
                 applyToNthChild="odd"
@@ -81,11 +81,7 @@ export const PersonalData = (props: IPersonDataProps) => {
                 >
                     Har ni några allergier?
                 </Span>
-                <Textarea
-                    height="200px"
-                    borderRadius="10px"
-                    widthLaptop="95%"
-                ></Textarea>
+                <Textarea height="200px" borderRadius="10px"></Textarea>
                 <Button
                     type="button"
                     padding="20px 70px"

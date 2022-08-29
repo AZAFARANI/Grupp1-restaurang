@@ -65,8 +65,6 @@ export const Booking = () => {
                         <Div>
                             {/* STEP 1 */}
                             <Div
-                                position="absolute"
-                                top="0px"
                                 className={`${
                                     step === 1 ? "visible" : "hidden"
                                 }`}
@@ -78,8 +76,6 @@ export const Booking = () => {
                             </Div>
                             {/* STEP 2 */}
                             <Div
-                                position="absolute"
-                                top="0px"
                                 className={`${
                                     step === 2 ? "visible" : "hidden"
                                 }`}
@@ -91,8 +87,6 @@ export const Booking = () => {
                             </Div>
                             {/* STEP 3 */}
                             <Div
-                                position="absolute"
-                                top="0px"
                                 className={`${
                                     step === 3 ? "visible" : "hidden"
                                 }`}

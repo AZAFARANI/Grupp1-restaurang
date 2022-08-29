@@ -41,6 +41,7 @@ export const Textarea = styled.textarea`
         props.backgroundColor || "hsla(0, 0%, 100%, 1)"};
 
     padding: ${(props: ITextareaProps) => props.padding || "20px"};
+    resize: none;
 
     /* &:focus {
         outline: 50px solid red;
