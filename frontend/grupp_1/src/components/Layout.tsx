@@ -114,6 +114,7 @@ export const Layout = () => {
                                 <img
                                     className="contactIcon2"
                                     src="/svg/Vector-2.svg"
+                                    alt="Home"
                                 ></img>
                                 <Span color="white" fontSize="1.3rem">
                                     Hem
@@ -126,6 +127,7 @@ export const Layout = () => {
                                 <img
                                     className="contactIcon"
                                     src="/svg/fluent_contact-card-48-regular.svg"
+                                    alt="Contact"
                                 ></img>
                                 <Span color="white" fontSize="1.3rem">
                                     Kontakt
@@ -135,7 +137,10 @@ export const Layout = () => {
 
                         <Link to={"/booking"}>
                             <div className="contactItem notVisible">
-                                <img src="/svg/Vector.svg"></img>
+                                <img
+                                    src="/svg/Vector.svg"
+                                    alt="Create a booking"
+                                ></img>
                                 <Span color="white" fontSize="1.3rem">
                                     Boka bord
                                 </Span>
@@ -146,6 +151,7 @@ export const Layout = () => {
                     <img
                         className="arrowUp"
                         src="/svg/bi_arrow-down-circle-fill.svg"
+                        alt="Scroll back up"
                     ></img>
                 </Div>
                 <Div
@@ -158,10 +164,14 @@ export const Layout = () => {
                     alignItems="center"
                 >
                     <div>
-                        <img src="/svg/ph_copyright-light.svg"></img>
+                        <img
+                            src="/svg/ph_copyright-light.svg"
+                            alt="Copyright"
+                        ></img>
                         <img
                             className="contactIcon"
                             src="/svg/Tramonto.svg"
+                            alt="Logotype"
                         ></img>
                     </div>
                 </Div>
