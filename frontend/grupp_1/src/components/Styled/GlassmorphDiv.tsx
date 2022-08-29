@@ -100,6 +100,13 @@ export const GlassDiv2 = styled(GlassDiv)`
   width: 95%;
 `;
 
+export const GlassDiv3 = styled(GlassDiv)`
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 export const CustomSpanDiv = styled.div`
   display: ${(props: ICustomProps) => props.display || "flex"};
   justify-content: ${(props: ICustomProps) => props.justifyContent || "center"};

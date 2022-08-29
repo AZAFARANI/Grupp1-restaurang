@@ -1,0 +1,101 @@
+body {
+  background-image: url("../assets/pexels-mat-brown-1395967.jpg");
+  background-position: center;
+  background-size: cover;
+
+  .contactRoot {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 10%;
+
+    align-items: center;
+
+    gap: 80px;
+
+    .contactForm {
+      display: flex;
+      flex-direction: column;
+      gap: 10vh;
+      width: 95%;
+      align-items: center;
+
+      .formDiv {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 100%;
+      }
+    }
+  }
+
+  .infoRootDiv {
+    width: 100%;
+    text-align: center;
+    margin-top: 20%;
+
+    .contactHeading {
+      margin-top: 20%;
+    }
+
+    .informationDiv {
+      width: 100%;
+
+      height: 60vh;
+      display: flex;
+
+      background-color: white;
+
+      margin-top: 10%;
+
+      .iconDiv {
+        width: 20%;
+        height: 60vh;
+
+        background-color: bisque;
+
+        .icons {
+          display: flex;
+          flex-direction: column;
+          gap: 10%;
+
+          height: 60vh;
+          align-items: center;
+          width: 100%;
+
+          padding-top: 10px;
+        }
+      }
+
+      .contactInfo {
+        padding: 20px 20px;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        gap: 15%;
+
+        align-items: flex-end;
+      }
+    }
+  }
+  .textArea {
+    margin-top: 10%;
+  }
+}
+
+@media screen and (min-width: 1008px) {
+  .bigContainer {
+    display: flex !important;
+    flex-direction: row !important;
+
+    background-color: hsla(255, 255, 255, 0.45);
+
+    .infoRootDiv {
+      margin-top: 0;
+      .informationDiv {
+        margin-top: 0 !important;
+      }
+    }
+  }
+}
