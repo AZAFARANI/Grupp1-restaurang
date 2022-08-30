@@ -21,19 +21,13 @@ export const PersonalData = (props: IPersonDataProps) => {
   return (
     <Form gap="35px" width="90%" height="auto">
       {/* EMAIL / MOBILE */}
-      <Div
-        applyToNthChild="odd"
-        flexDirectionLaptop="row"
-        widthLaptop="80%"
-        gap="35px"
-      >
+      <Div flexDirectionLaptop="row" widthLaptop="80%" gap="35px">
         <Div>
           <Span fontSize="24px" fontSizeTablet="22px" fontSizeLaptop="20px">
             Din epost
           </Span>
           <Input height="50px" borderRadius="10px"></Input>
         </Div>
-        {/* margin="0 0 35px 0" */}
         <Div>
           <Span fontSize="24px" fontSizeTablet="22px" fontSizeLaptop="20px">
             Mobilnummer

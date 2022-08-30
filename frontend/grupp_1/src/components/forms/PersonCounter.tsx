@@ -54,14 +54,14 @@ export const PersonCounter = (props: IPersonCounterProps) => {
               type="button"
               onClick={reduceQuantify}
               padding="10px 15px"
-              paddingTablet="8px 14px"
+              paddingTablet="6px 8px"
               background="#A3A380"
             >
               <Image
                 src="/svg/Reduce.svg"
                 alt="Reduce svg"
-                width="40px"
-                height="40px"
+                width="30px"
+                height="30px"
               ></Image>
             </Button>
           </Div>
@@ -76,10 +76,10 @@ export const PersonCounter = (props: IPersonCounterProps) => {
               type="button"
               onClick={increaseQuantify}
               padding="10px 15px"
-              paddingTablet="8px 14px"
+              paddingTablet="6px 8px"
               background="#A3A380"
             >
-              <Image width="40px" height="40px" src="/svg/Add.svg"></Image>
+              <Image width="30px" height="30px" src="/svg/Add.svg"></Image>
             </Button>
           </Div>
         </Div>

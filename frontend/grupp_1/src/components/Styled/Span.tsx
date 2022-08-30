@@ -10,6 +10,7 @@ interface ISpanProps {
   fontType?: string;
   color?: string;
   shadow?: string;
+  fontWeight?: string;
 
   fontSize?: string;
   fontSizeTablet?: string;
@@ -31,6 +32,7 @@ export const Span = styled.span`
   color: ${(props: ISpanProps) => props.color || "none"};
   text-shadow: ${(props: ISpanProps) =>
     props.shadow || "0px 4px 4px hsla(0, 0%, 0%, 0.25)"};
+  font-weight: ${(props: ISpanProps) => props.fontWeight || "normal"};
   display: ${(props: ISpanProps) => props.display || "block"};
 
   @media ${device.tablet} {
