@@ -6,11 +6,13 @@ export default class BookingModel {
     public guestCount: number = -1;
     public timestamp: Date;
     public allergies: string = "";
+    public id: string = "";
 
     constructor(IBooking: IBooking) {
         this.customer = new CustomerModel(IBooking.customerId);
         this.guestCount = parseInt(IBooking.guestCount);
         this.timestamp = new Date(IBooking.timestamp);
         this.allergies = IBooking.allergies;
+        this.id = IBooking._id;
     }
 }

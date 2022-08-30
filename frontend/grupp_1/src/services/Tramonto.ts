@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import IBooking from "../interfaces/IBooking";
 import ITromontoResponse from "../interfaces/ITromontoResponse";
 import BookingModel from "../models/Booking";
@@ -12,12 +12,7 @@ export default class TramontoService {
         );
 
         if (response.data.error) {
-            console.warn(
-                "!!!!!!!!!!!! ERROR !!!!!!!!!!!!\n",
-                response.data.msg || "No msg provided.",
-                response.data.error,
-                response.status
-            );
+            this.handleError(response);
             return [];
         }
 
@@ -27,31 +22,34 @@ export default class TramontoService {
             (IBook: IBooking) => new BookingModel(IBook)
         );
     }
-    public async getBookingById(id: string) {
+    public async getBookingById(id: string): Promise<BookingModel | null> {
         const response = await axios.get<ITromontoResponse>(
             this.url + "/bookings/" + id
         );
 
         if (response.data.error) {
-            console.warn(
-                "!!!!!!!!!!!! ERROR !!!!!!!!!!!!\n",
-                response.data.msg || "No msg provided.",
-                response.data.error,
-                response.status
-            );
-            return [];
+            this.handleError(response);
+            return null;
         }
 
-        if (!response.data.bookings) return [];
+        if (!response.data.booking) return null;
 
-        return response.data.bookings.map(
-            (IBook: IBooking) => new BookingModel(IBook)
-        );
+        return new BookingModel(response.data.booking);
     }
+
     public async getCustomers() {}
     public async getCustomerById() {}
     public async getPersonal() {}
     public async getPersonalById() {}
+
+    private handleError(response: AxiosResponse) {
+        console.warn(
+            "!!!!!!!!!!!! ERROR !!!!!!!!!!!!\n",
+            response.data.msg || "No msg provided.",
+            response.data.error || "No error provided.",
+            response.status
+        );
+    }
 
     // public async getMovies(searchText: string): Promise<IMovie[]> {
     //     const response = await axios.get<IOmbdResponse>(

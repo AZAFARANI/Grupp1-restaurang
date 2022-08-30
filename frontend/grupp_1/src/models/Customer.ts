@@ -10,8 +10,8 @@ export default class CustomerModel {
     constructor(ICustomer: ICustomer) {
         this.firstName = ICustomer.firstName;
         this.lastName = ICustomer.lastName;
-        this.email = ICustomer.firstName;
-        this.phone = ICustomer.firstName;
+        this.email = ICustomer.email;
+        this.phone = ICustomer.phone;
         this.id = ICustomer._id;
     }
 }
