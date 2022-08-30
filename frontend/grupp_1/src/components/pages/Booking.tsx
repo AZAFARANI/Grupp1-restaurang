@@ -13,7 +13,7 @@ import { Span } from "../Styled/Span";
 export const Booking = () => {
     const [step, setStep] = useState(1);
     const [bookings, setBookings] = useState<BookingModel[]>([]);
-    let haveFetched = false;
+    let shouldFetch = true;
     // let newBooking = new Booking();
 
     function handleStep(step: number) {
@@ -21,16 +21,21 @@ export const Booking = () => {
     }
 
     function fetchBookings() {
-        haveFetched = true;
+        shouldFetch = false;
         const service = new TramontoService();
-        service.getBookings().then((bookings: BookingModel[]) => {
-            setBookings(bookings);
-            console.log(bookings);
-        });
+        // service.getBookings().then((bookings: BookingModel[]) => {
+        //     setBookings(bookings);
+        //     console.log(bookings);
+        // });
+        console.log("STARTED FETCH");
+        // service.addBooking().then((result) => {
+        //     if (result?.error) console.log("ERROR", result.error);
+        //     else console.log("FETCHED");
+        // });
     }
 
     useEffect(() => {
-        if (!haveFetched) fetchBookings();
+        if (shouldFetch) fetchBookings();
     }, []);
 
     return (

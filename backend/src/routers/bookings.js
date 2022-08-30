@@ -26,7 +26,9 @@ router.get("/:id", async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid mongooseID.";
-        const booking = await BookingsModel.findById(req.params.id);
+        const booking = await BookingsModel.findById(req.params.id).populate(
+            "customerId"
+        );
         if (booking) {
             res.send({
                 msg: "Found booking",

@@ -1,7 +1,7 @@
-import IBooking from "./IBooking";
+import IBooking from "./IBookingExtended";
 import IPersonal from "./IPersonal";
 
-export default interface ITromontoResponse {
+export default interface ITramontoResponse {
     msg?: string;
     bookings?: IBooking[];
     booking?: IBooking;

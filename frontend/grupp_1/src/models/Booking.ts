@@ -1,4 +1,4 @@
-import IBooking from "../interfaces/IBooking";
+import IBookingExtended from "../interfaces/IBookingExtended";
 import CustomerModel from "./Customer";
 
 export default class BookingModel {
@@ -8,7 +8,7 @@ export default class BookingModel {
     public allergies: string = "";
     public id: string = "";
 
-    constructor(IBooking: IBooking) {
+    constructor(IBooking: IBookingExtended) {
         this.customer = new CustomerModel(IBooking.customerId);
         this.guestCount = parseInt(IBooking.guestCount);
         this.timestamp = new Date(IBooking.timestamp);

@@ -1,7 +1,5 @@
-import ICustomer from "./ICustomer";
-
 export default interface IBooking {
-    customerId: ICustomer;
+    customerId: string;
     guestCount: string;
     timestamp: string;
     allergies: string;
