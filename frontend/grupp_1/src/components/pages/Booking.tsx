@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import BookingModel from "../../models/Booking";
 import "../../scss/Booking.scss";
 import TramontoService from "../../services/Tramonto";
+import { ConfirmData } from "../forms/ConfirmData";
 import { DateData } from "../forms/DateData";
 import { PersonalData } from "../forms/PersonalData";
 import { PersonCounter } from "../forms/PersonCounter";
@@ -101,6 +102,13 @@ export const Booking = () => {
             {/* STEP 3 */}
             <Div className={`${step === 3 ? "visible" : "hidden"}`}>
               <DateData setStep={handleStep} bookingStep={step}></DateData>
+            </Div>
+            {/* STEP 4 */}
+            <Div className={`${step === 4 ? "visible" : "hidden"}`}>
+              <ConfirmData
+                setStep={handleStep}
+                bookingStep={step}
+              ></ConfirmData>
             </Div>
           </Div>
         </Div>
