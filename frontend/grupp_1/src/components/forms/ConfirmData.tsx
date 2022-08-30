@@ -24,93 +24,129 @@ export const ConfirmData = (props: IConfirmData) => {
   }
   return (
     <Form height="auto">
-      <Div width="90%" backgroundColor="#F3EFD8">
-        <Div padding="20px 0 0 0">
-          <Image width="60%" src="/svg/Logo.svg" alt="logotype"></Image>
-        </Div>
-        <Div padding="20px 0 0 0">
-          <SeperatorLine></SeperatorLine>
-        </Div>
-        <Div padding="40px 0 0 0">
-          <Div padding="0 0 10px 0">
-            <Span fontSize="20pt" color="#686868">
-              Onsdag 21:a Augusti
-            </Span>
+      <Div
+        flexDirectionLaptop="row"
+        justifyContentLaptop="center"
+        gapLaptop="50px"
+      >
+        <Div
+          width="90%"
+          widthTablet="70%"
+          widthLaptop="50%"
+          backgroundColor="#F3EFD8"
+        >
+          <Div padding="20px 0 0 0" displayLaptop="none">
+            <Image width="60%" src="/svg/Logo.svg" alt="logotype"></Image>
           </Div>
-          <Div>
-            <Span fontSize="18pt" color="#686868">
-              18:00 - 21:00
-            </Span>
+          <Div padding="0 0 40px 0">
+            <SeperatorLine displayLaptop="none"></SeperatorLine>
+          </Div>
+          <Div padding="40px 0 0 0" paddingLaptop="0">
+            <Div padding="0 0 10px 0" paddingLaptop="0">
+              <Span fontSize="20pt" color="#686868">
+                Onsdag 21:a Augusti
+              </Span>
+            </Div>
+            <Div>
+              <Span fontSize="18pt" color="#686868">
+                18:00 - 21:00
+              </Span>
+            </Div>
+          </Div>
+          <Div
+            padding="60px 0 0 0"
+            paddingLaptop="0"
+            flexDirectionLaptop="row"
+            justifyContentLaptop="center"
+            gapLaptop="20px"
+          >
+            <SeperatorLine widthLaptop="30%"></SeperatorLine>
+            <Image
+              width="30px"
+              height="30px"
+              display="none"
+              displayLaptop="block"
+              src="/svg/circle.svg"
+              alt="circle"
+            ></Image>
+            <SeperatorLine
+              display="none"
+              displayTablet="block"
+              widthLaptop="30%"
+            ></SeperatorLine>
           </Div>
         </Div>
-        <Div padding="40px 0 0 0">
-          <SeperatorLine></SeperatorLine>
+        <Div
+          width="90%"
+          widthTablet="70%"
+          widthLaptop="30%"
+          backgroundColor="#F3EFD8"
+          paddingLaptop="40px"
+        >
+          <Div padding="20px 0 0 0">
+            <Div alignItems="flex-start" width="90%">
+              <Span fontSize="16pt" textDecoration="underline">
+                Bokad av
+              </Span>
+            </Div>
+            <Div alignItems="flex-start" width="80%">
+              <Span fontSize="12pt" color="#808080">
+                Filip Engberg
+              </Span>
+            </Div>
+          </Div>
+          <Div padding="20px 0 0 0">
+            <Div alignItems="flex-start" width="90%">
+              <Span fontSize="16pt" textDecoration="underline">
+                Epost
+              </Span>
+            </Div>
+            <Div alignItems="flex-start" width="80%">
+              <Span fontSize="12pt" color="#808080">
+                Filip.Engberg@medieinsitutet.se
+              </Span>
+            </Div>
+          </Div>
+          <Div padding="20px 0 0 0">
+            <Div alignItems="flex-start" width="90%">
+              <Span fontSize="16pt" textDecoration="underline">
+                Mobilnummer
+              </Span>
+            </Div>
+            <Div alignItems="flex-start" width="80%">
+              <Span fontSize="12pt" color="#808080">
+                0707712715
+              </Span>
+            </Div>
+          </Div>
+          <Div padding="20px 0 0 0">
+            <Div alignItems="flex-start" width="90%">
+              <Span fontSize="16pt" textDecoration="underline">
+                Antal Personer
+              </Span>
+            </Div>
+            <Div alignItems="flex-start" width="80%">
+              <Span fontSize="12pt" color="#808080">
+                5 Personer
+              </Span>
+            </Div>
+          </Div>
+          <Div padding="20px 0 20px 0">
+            <Div alignItems="flex-start" width="90%">
+              <Span fontSize="16pt" textDecoration="underline">
+                Allergier
+              </Span>
+            </Div>
+            <Div alignItems="flex-start" width="80%">
+              <Span fontSize="12pt" color="#808080">
+                Jordnötter, Äpple
+              </Span>
+            </Div>
+          </Div>
         </Div>
       </Div>
-      <Div width="90%" backgroundColor="#F3EFD8">
-        <Div padding="20px 0 0 0">
-          <Div alignItems="flex-start" width="90%">
-            <Span fontSize="16pt" textDecoration="underline">
-              Bokad av
-            </Span>
-          </Div>
-          <Div alignItems="flex-start" width="80%">
-            <Span fontSize="12pt" color="#808080">
-              Filip Engberg
-            </Span>
-          </Div>
-        </Div>
-        <Div padding="20px 0 0 0">
-          <Div alignItems="flex-start" width="90%">
-            <Span fontSize="16pt" textDecoration="underline">
-              Epost
-            </Span>
-          </Div>
-          <Div alignItems="flex-start" width="80%">
-            <Span fontSize="12pt" color="#808080">
-              Filip.Engberg@medieinsitutet.se
-            </Span>
-          </Div>
-        </Div>
-        <Div padding="20px 0 0 0">
-          <Div alignItems="flex-start" width="90%">
-            <Span fontSize="16pt" textDecoration="underline">
-              Mobilnummer
-            </Span>
-          </Div>
-          <Div alignItems="flex-start" width="80%">
-            <Span fontSize="12pt" color="#808080">
-              0707712715
-            </Span>
-          </Div>
-        </Div>
-        <Div padding="20px 0 0 0">
-          <Div alignItems="flex-start" width="90%">
-            <Span fontSize="16pt" textDecoration="underline">
-              Antal Personer
-            </Span>
-          </Div>
-          <Div alignItems="flex-start" width="80%">
-            <Span fontSize="12pt" color="#808080">
-              5 Personer
-            </Span>
-          </Div>
-        </Div>
-        <Div padding="20px 0 20px 0">
-          <Div alignItems="flex-start" width="90%">
-            <Span fontSize="16pt" textDecoration="underline">
-              Allergier
-            </Span>
-          </Div>
-          <Div alignItems="flex-start" width="80%">
-            <Span fontSize="12pt" color="#808080">
-              Jordnötter, Äpple
-            </Span>
-          </Div>
-        </Div>
-      </Div>
-      <Div flexDirection="row" padding="40px 0 40px 0" widthLaptop="90%">
-        <Div justifyContentLaptop="flex-start">
+      <Div flexDirection="row" padding="40px 0 40px 0" widthTablet="85%">
+        <Div alignItemsLaptop="flex-start">
           <Button
             type="button"
             padding="15px 35px"
@@ -126,7 +162,7 @@ export const ConfirmData = (props: IConfirmData) => {
             ></Image>
           </Button>
         </Div>
-        <Div justifyContentLaptop="flex-end">
+        <Div alignItemsLaptop="flex-end">
           <Button
             type="button"
             padding="12px 26px"
