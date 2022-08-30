@@ -13,6 +13,7 @@ import { Span } from "../Styled/Span";
 export const Booking = () => {
     const [step, setStep] = useState(1);
     const [bookings, setBookings] = useState<BookingModel[]>([]);
+    let haveFetched = false;
     // let newBooking = new Booking();
 
     function handleStep(step: number) {
@@ -20,6 +21,7 @@ export const Booking = () => {
     }
 
     function fetchBookings() {
+        haveFetched = true;
         const service = new TramontoService();
         service.getBookings().then((bookings: BookingModel[]) => {
             setBookings(bookings);
@@ -28,7 +30,7 @@ export const Booking = () => {
     }
 
     useEffect(() => {
-        fetchBookings();
+        if (!haveFetched) fetchBookings();
     }, []);
 
     return (

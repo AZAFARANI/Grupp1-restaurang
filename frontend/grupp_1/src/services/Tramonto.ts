@@ -4,12 +4,6 @@ import ITromontoResponse from "../interfaces/ITromontoResponse";
 import BookingModel from "../models/Booking";
 
 export default class TramontoService {
-    private config = {
-        headers: {
-            "Access-Control-Allow-Origin": "*",
-        },
-    };
-
     private url = "http://localhost:8000";
 
     public async getBookings(): Promise<BookingModel[]> {
@@ -17,13 +11,43 @@ export default class TramontoService {
             this.url + "/bookings"
         );
 
-        if (response.data.bookings)
-            return response.data.bookings.map(
-                (IBook: IBooking) => new BookingModel(IBook)
+        if (response.data.error) {
+            console.warn(
+                "!!!!!!!!!!!! ERROR !!!!!!!!!!!!\n",
+                response.data.msg || "No msg provided.",
+                response.data.error,
+                response.status
             );
-        else return [];
+            return [];
+        }
+
+        if (!response.data.bookings) return [];
+
+        return response.data.bookings.map(
+            (IBook: IBooking) => new BookingModel(IBook)
+        );
     }
-    public async getBookingById() {}
+    public async getBookingById(id: string) {
+        const response = await axios.get<ITromontoResponse>(
+            this.url + "/bookings/" + id
+        );
+
+        if (response.data.error) {
+            console.warn(
+                "!!!!!!!!!!!! ERROR !!!!!!!!!!!!\n",
+                response.data.msg || "No msg provided.",
+                response.data.error,
+                response.status
+            );
+            return [];
+        }
+
+        if (!response.data.bookings) return [];
+
+        return response.data.bookings.map(
+            (IBook: IBooking) => new BookingModel(IBook)
+        );
+    }
     public async getCustomers() {}
     public async getCustomerById() {}
     public async getPersonal() {}
