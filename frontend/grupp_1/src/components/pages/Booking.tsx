@@ -4,6 +4,7 @@ import "../../scss/Booking.scss";
 import TramontoService from "../../services/Tramonto";
 import { ConfirmData } from "../forms/ConfirmData";
 import { DateData } from "../forms/DateData";
+import { FinishData } from "../forms/FinishData";
 import { PersonalData } from "../forms/PersonalData";
 import { PersonCounter } from "../forms/PersonCounter";
 import { Div } from "../Styled/Div";
@@ -14,11 +15,17 @@ import { Span } from "../Styled/Span";
 export const Booking = () => {
   const [step, setStep] = useState(1);
   const [bookings, setBookings] = useState<BookingModel[]>([]);
+  const [title, setTitle] = useState<string>("Låt oss boka!");
+
   let shouldFetch = true;
   // let newBooking = new Booking();
 
   function handleStep(step: number) {
     setStep(step);
+  }
+
+  function handleTitle(title: string) {
+    setTitle(title);
   }
 
   function fetchBookings() {
@@ -79,7 +86,7 @@ export const Booking = () => {
               fontSizeLaptop="40px"
               padding="10px"
             >
-              Låt oss boka!
+              {title}
             </Span>
             <SeperatorLine></SeperatorLine>
           </Div>
@@ -90,6 +97,7 @@ export const Booking = () => {
               <PersonalData
                 setStep={handleStep}
                 bookingStep={step}
+                setTitle={handleTitle}
               ></PersonalData>
             </Div>
             {/* STEP 2 */}
@@ -97,18 +105,28 @@ export const Booking = () => {
               <PersonCounter
                 setStep={handleStep}
                 bookingStep={step}
+                setTitle={handleTitle}
               ></PersonCounter>
             </Div>
             {/* STEP 3 */}
             <Div className={`${step === 3 ? "visible" : "hidden"}`}>
-              <DateData setStep={handleStep} bookingStep={step}></DateData>
+              <DateData
+                setStep={handleStep}
+                bookingStep={step}
+                setTitle={handleTitle}
+              ></DateData>
             </Div>
             {/* STEP 4 */}
             <Div className={`${step === 4 ? "visible" : "hidden"}`}>
               <ConfirmData
                 setStep={handleStep}
                 bookingStep={step}
+                setTitle={handleTitle}
               ></ConfirmData>
+            </Div>
+            {/* STEP 5 */}
+            <Div className={`${step === 5 ? "visible" : "hidden"}`}>
+              <FinishData setStep={handleStep} bookingStep={step}></FinishData>
             </Div>
           </Div>
         </Div>

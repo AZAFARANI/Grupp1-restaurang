@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
@@ -5,26 +6,12 @@ import { Image } from "../Styled/Image";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 
-interface IConfirmDataProps {
+interface IFinishDataProps {
   setStep(step: number): void;
   bookingStep: number;
-  setTitle(title: string): void;
 }
 
-export const ConfirmData = (props: IConfirmDataProps) => {
-  function handleForwardStep() {
-    if (props.bookingStep === 4) {
-      props.setStep(props.bookingStep + 1);
-      props.setTitle("Klar!");
-    }
-  }
-
-  function handleBackStep() {
-    if (props.bookingStep === 4) {
-      props.setStep(props.bookingStep - 1);
-      props.setTitle("Ser allt bra ut?");
-    }
-  }
+export const FinishData = (props: IFinishDataProps) => {
   return (
     <Form height="auto">
       <Div
@@ -149,34 +136,19 @@ export const ConfirmData = (props: IConfirmDataProps) => {
         </Div>
       </Div>
       <Div flexDirection="row" padding="40px 0 40px 0" widthTablet="85%">
-        <Div alignItemsLaptop="flex-start">
-          <Button
-            type="button"
-            padding="15px 35px"
-            paddingTablet="12px 38px"
-            background="#A3A380"
-            onClick={handleBackStep}
-          >
-            <Image
-              src="/svg/left-arrow.svg"
-              alt="left-arrow"
-              height="30px"
-              width="40px"
-            ></Image>
-          </Button>
-        </Div>
-        <Div alignItemsLaptop="flex-end">
-          <Button
-            type="button"
-            padding="12px 26px"
-            paddingTablet="9px 27px"
-            background="#A3A380"
-            onClick={handleForwardStep}
-          >
-            <Span color="white" fontSize="17pt" fontSizeTablet="18pt">
-              Boka
-            </Span>
-          </Button>
+        <Div alignItemsLaptop="center">
+          <Link to={"/"}>
+            <Button
+              type="button"
+              padding="12px 26px"
+              paddingTablet="9px 27px"
+              background="#A3A380"
+            >
+              <Span color="white" fontSize="17pt" fontSizeTablet="18pt">
+                Klar
+              </Span>
+            </Button>
+          </Link>
         </Div>
       </Div>
     </Form>

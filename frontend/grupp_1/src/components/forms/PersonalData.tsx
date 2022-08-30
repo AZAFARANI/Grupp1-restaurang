@@ -9,12 +9,14 @@ import { Textarea } from "../Styled/Textarea";
 interface IPersonDataProps {
   setStep(step: number): void;
   bookingStep: number;
+  setTitle(title: string): void;
 }
 
 export const PersonalData = (props: IPersonDataProps) => {
   function handleForwardStep() {
     if (props.bookingStep === 1) {
       props.setStep(props.bookingStep + 1);
+      props.setTitle("Hur många är ni?");
     }
   }
 

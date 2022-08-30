@@ -8,6 +8,7 @@ import { Span } from "../Styled/Span";
 
 interface IDateDataProps {
   setStep(step: number): void;
+  setTitle(title: string): void;
   bookingStep: number;
 }
 
@@ -33,12 +34,14 @@ export const DateData = (props: IDateDataProps) => {
   function handleForwardStep() {
     if (props.bookingStep === 3) {
       props.setStep(props.bookingStep + 1);
+      props.setTitle("Ser allt bra ut?");
     }
   }
 
   function handleBackStep() {
     if (props.bookingStep === 3) {
       props.setStep(props.bookingStep - 1);
+      props.setTitle("När vill ni äta?");
     }
   }
   // console.log(currentDate);

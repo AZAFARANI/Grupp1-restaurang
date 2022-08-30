@@ -10,6 +10,7 @@ import { Span } from "../Styled/Span";
 interface IPersonCounterProps {
   setStep(step: number): void;
   bookingStep: number;
+  setTitle(title: string): void;
 }
 
 export const PersonCounter = (props: IPersonCounterProps) => {
@@ -28,12 +29,14 @@ export const PersonCounter = (props: IPersonCounterProps) => {
   function handleForwardStep() {
     if (props.bookingStep === 2) {
       props.setStep(props.bookingStep + 1);
+      props.setTitle("När vill ni äta?");
     }
   }
 
   function handleBackStep() {
     if (props.bookingStep === 2) {
       props.setStep(props.bookingStep - 1);
+      props.setTitle("Låt oss boka!");
     }
   }
 
