@@ -14,8 +14,7 @@ const CustomerModel = require("../models/CustomerModel");
 // -------------------------------------------------------
 // ### GET ALL BOOKINGS ###
 router.get("/", async (req, res) => {
-    const bookings = await BookingsModel.find().lean();
-    // const bookings = await BookingsModel.find().select("-customerId").lean();
+    const bookings = await BookingsModel.find().populate("customerId").lean();
     res.send({
         msg: "All bookings",
         bookings: bookings,
@@ -27,7 +26,9 @@ router.get("/:id", async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid mongooseID.";
-        const booking = await BookingsModel.findById(req.params.id);
+        const booking = await BookingsModel.findById(req.params.id).populate(
+            "customerId"
+        );
         if (booking) {
             res.send({
                 msg: "Found booking",

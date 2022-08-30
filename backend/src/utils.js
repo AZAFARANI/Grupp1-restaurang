@@ -213,6 +213,7 @@ async function forceLoggedInOrOwnBooking(req, res, next) {
         });
     }
 }
+
 // ----------------------------------------------------------
 
 module.exports = {

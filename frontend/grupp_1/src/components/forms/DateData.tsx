@@ -41,6 +41,7 @@ export const DateData = (props: IDateDataProps) => {
       props.setStep(props.bookingStep - 1);
     }
   }
+  // console.log(currentDate);
 
   return (
     <>

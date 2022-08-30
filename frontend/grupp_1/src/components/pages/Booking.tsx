@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import BookingModel from "../../models/Booking";
 import "../../scss/Booking.scss";
+import TramontoService from "../../services/Tramonto";
 import { DateData } from "../forms/DateData";
 import { PersonalData } from "../forms/PersonalData";
 import { PersonCounter } from "../forms/PersonCounter";
@@ -10,11 +12,31 @@ import { Span } from "../Styled/Span";
 
 export const Booking = () => {
   const [step, setStep] = useState(1);
+  const [bookings, setBookings] = useState<BookingModel[]>([]);
+  let shouldFetch = true;
   // let newBooking = new Booking();
 
   function handleStep(step: number) {
     setStep(step);
   }
+
+  function fetchBookings() {
+    shouldFetch = false;
+    const service = new TramontoService();
+    // service.getBookings().then((bookings: BookingModel[]) => {
+    //     setBookings(bookings);
+    //     console.log(bookings);
+    // });
+    console.log("STARTED FETCH");
+    // service.addBooking().then((result) => {
+    //     if (result?.error) console.log("ERROR", result.error);
+    //     else console.log("FETCHED");
+    // });
+  }
+
+  useEffect(() => {
+    if (shouldFetch) fetchBookings();
+  }, []);
 
   return (
     <Div backgroundImage="url(images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)">
