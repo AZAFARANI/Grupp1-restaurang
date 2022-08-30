@@ -12,15 +12,12 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 
 // -------------------------------------------------------
-// ### AUTH MIDDLEWARE ###
-// app.use((req, res, next) => {
-//     const { token } = req.cookies;
-//     if (token && jwt.verify(token, process.env.JWTSECRET)) {
-//         const tokenData = jwt.decode(token, process.env.JWTSECRET);
-//         res.locals.tokenData = tokenData;
-//     } else res.locals.tokenData = null;
-//     next();
-// });
+// ### ADD CROSS ORIGIN ACCESS ###
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
 
 // -------------------------------------------------------
 // ### ROUTERS ###
@@ -33,7 +30,7 @@ app.use("/personal", PersonalRouter);
 
 // -------------------------------------------------------
 // ### HOME ###
-app.get("/", (req, res) => {
+app.get("*", (req, res) => {
     res.send({
         msg: "Hello World!",
     });
