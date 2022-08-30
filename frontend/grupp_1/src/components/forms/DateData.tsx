@@ -47,105 +47,134 @@ export const DateData = (props: IDateDataProps) => {
       <Form>
         <Div>
           <Div
-            flexDirection="row"
-            padding="120px 0 0 0"
-            widthTablet="50%"
-            widthLaptop="45%"
+            flexDirectionLaptop="row"
+            width="80%"
+            widthLaptop="90%"
+            justifyContentLaptop="space-between"
           >
-            <Div>
-              <Button type="button" padding="8px 14px" background="#A3A380">
-                <Image
-                  src="/svg/left-arrow-form.svg"
-                  alt="left-arrow"
-                  width="40px"
-                  height="30px"
-                ></Image>
-              </Button>
-            </Div>
-            <Div>
-              <Span fontSize="20pt" fontSizeTablet="26pt" fontSizeLaptop="24pt">
-                Vecka {date}
-              </Span>
-            </Div>
-            <Div>
-              <Button type="button" padding="8px 14px" background="#A3A380">
-                <Image
-                  src="/svg/right-arrow.svg"
-                  alt="right-arrow"
-                  width="40px"
-                  height="30px"
-                ></Image>
-              </Button>
-            </Div>
-          </Div>
-          <Div padding="60px 0 0 0" widthTablet="50%" widthLaptop="45%">
-            <Button type="button" background="#A3A380">
-              <Image
-                src="/svg/Refresh.svg"
-                alt="Refresh Weeks"
-                width="50px"
-                height="50px"
-              ></Image>
-            </Button>
-          </Div>
-          <Div>
             <Div
               flexDirection="row"
-              justifyContent="space-between"
-              width="80%"
-              padding="20px 0 0 0"
+              padding="120px 0 0 0"
+              paddingLaptop="0 0 0 0"
+              widthTablet="60%"
+              widthLaptop="100%"
             >
-              <Span color="#FFFFFF" shadow="2px 4px 4px hsla(0, 0%, 0%, 0.80)">
-                Måndag
-              </Span>
-              <Span color="#FFFFFF" shadow="2px 4px 4px hsla(0, 0%, 0%, 0.80)">
-                29 augusti
-              </Span>
-            </Div>
-            <Div
-              flexDirection="row"
-              justifyContent="space-between"
-              padding="15px 0 0 0"
-              width="80%"
-            >
-              <Button
-                type="button"
-                border="1px solid white"
-                borderRadius="none"
-                padding="20px 35px"
-                background="#D9D9D9"
-              >
-                <Span color="#000000">18:00-21:00</Span>
-              </Button>
-              <Button
-                type="button"
-                border="1px solid white"
-                borderRadius="none"
-                padding="20px 35px"
-                background="#D9D9D9"
-              >
-                <Span color="#000000">21:00-00:00</Span>
-              </Button>
-            </Div>
-            <Div padding="60px 0 0 0">
-              <Div padding="0 0 20px 0">
-                <Span fontSize="14pt" fontWeight="bold">
-                  Du har valt :
-                </Span>
+              <Div>
+                <Button type="button" padding="8px 14px" background="#A3A380">
+                  <Image
+                    src="/svg/left-arrow-form.svg"
+                    alt="left-arrow"
+                    width="40px"
+                    height="30px"
+                  ></Image>
+                </Button>
               </Div>
-              <Div padding="0 0 10px 0">
-                <Span fontSize="20pt" color="#686868">
-                  Onsdag 21:a Augusti
+              <Div>
+                <Span fontSize="20pt" fontSizeLaptop="16pt">
+                  Vecka {date}
                 </Span>
               </Div>
               <Div>
-                <Span fontSize="18pt" color="#686868">
-                  18:00 - 21:00
+                <Button type="button" padding="8px 14px" background="#A3A380">
+                  <Image
+                    src="/svg/right-arrow.svg"
+                    alt="right-arrow"
+                    width="40px"
+                    height="30px"
+                  ></Image>
+                </Button>
+              </Div>
+            </Div>
+            <Div
+              padding="60px 0 0 0"
+              paddingLaptop="0 30px 0 0"
+              alignItemsLaptop="flex-end"
+            >
+              <Button type="button" background="#A3A380" padding="8px 14px">
+                <Image
+                  src="/svg/Refresh-date.svg"
+                  alt="Refresh Weeks"
+                  width="30px"
+                  height="30px"
+                ></Image>
+              </Button>
+            </Div>
+          </Div>
+          <Div flexDirectionLaptop="row">
+            <Div widthLaptop="20%">
+              <Div
+                flexDirection="row"
+                flexDirectionLaptop="column"
+                justifyContent="space-between"
+                width="80%"
+                padding="20px 0 0 0"
+              >
+                <Span
+                  color="#FFFFFF"
+                  shadow="2px 4px 4px hsla(0, 0%, 0%, 0.80)"
+                  fontSizeLaptop="18pt"
+                >
+                  Måndag
                 </Span>
+                <Span
+                  color="#FFFFFF"
+                  shadow="2px 4px 4px hsla(0, 0%, 0%, 0.80)"
+                  fontSizeLaptop="12pt"
+                >
+                  29 augusti
+                </Span>
+              </Div>
+              <Div
+                flexDirection="row"
+                flexDirectionLaptop="column"
+                justifyContent="space-between"
+                padding="15px 0 0 0"
+                gap="20px"
+                width="80%"
+              >
+                <Button
+                  type="button"
+                  border="1px solid white"
+                  borderRadius="none"
+                  padding="20px 12px"
+                  paddingTablet="20px 70px"
+                  paddingLaptop="12px 50px"
+                  background="#D9D9D9"
+                >
+                  <Span color="#000000">18:00-21:00</Span>
+                </Button>
+                <Button
+                  type="button"
+                  border="1px solid white"
+                  borderRadius="none"
+                  padding="20px 12px"
+                  paddingTablet="20px 70px"
+                  paddingLaptop="12px 50px"
+                  background="#D9D9D9"
+                >
+                  <Span color="#000000">21:00-00:00</Span>
+                </Button>
               </Div>
             </Div>
           </Div>
-          <Div flexDirection="row" padding="40px 0 0 0" widthLaptop="90%">
+          <Div padding="60px 0 0 0">
+            <Div padding="0 0 20px 0">
+              <Span fontSize="14pt" fontWeight="bold">
+                Du har valt :
+              </Span>
+            </Div>
+            <Div padding="0 0 10px 0">
+              <Span fontSize="20pt" color="#686868">
+                Onsdag 21:a Augusti
+              </Span>
+            </Div>
+            <Div>
+              <Span fontSize="18pt" color="#686868">
+                18:00 - 21:00
+              </Span>
+            </Div>
+          </Div>
+          <Div flexDirection="row" padding="40px 0 40px 0" widthLaptop="90%">
             <Div justifyContentLaptop="flex-start">
               <Button
                 type="button"
