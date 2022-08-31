@@ -72,16 +72,16 @@ export const Booking = () => {
         // service.tryLogin("elias.e.fredriksson@gmail.com", "123");
         // service.tryLogout();
 
-        service
-            .tryLogin("elias.e.fredriksson@gmail.com", "123")
-            .then((response) => {
-                if (!response.error)
-                    service
-                        .getPersonalById("63076f76636a83901567ea14")
-                        .then((employee) => {
-                            if (employee) console.table(employee);
-                        });
-            });
+        // service
+        //     .tryLogin("elias.e.fredriksson@gmail.com", "123")
+        //     .then((response) => {
+        //         if (!response.error)
+        //             service
+        //                 .getPersonalById("63076f76636a83901567ea14")
+        //                 .then((employee) => {
+        //                     if (employee) console.table(employee);
+        //                 });
+        //     });
 
         // service.getPersonal().then((data) => {
         //     console.log(data);
