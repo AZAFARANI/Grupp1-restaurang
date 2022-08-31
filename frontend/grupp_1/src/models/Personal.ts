@@ -1,6 +1,6 @@
 import IPersonal from "../interfaces/IPersonal";
 
-export default class CustomerModel {
+export default class PersonalModel {
     public firstName: string = "";
     public lastName: string = "";
     public email: string = "";

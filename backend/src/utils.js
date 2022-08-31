@@ -161,7 +161,10 @@ function forceAuthorize(req, res, next) {
     if (token && jwt.verify(token, process.env.JWT_SECRET)) {
         next();
     } else {
-        res.sendStatus(401);
+        res.status(401).send({
+            msg: "Unauthorized.",
+            error: "You need to be logged in.",
+        });
     }
 }
 function forceAdmin(req, res, next) {
@@ -202,7 +205,7 @@ async function forceLoggedInOrOwnBooking(req, res, next) {
 
             if (!booking) throw "No booking found with ID: " + bookingId;
 
-            if (`${booking._id}` !== customerId)
+            if (`${booking.customerId}` !== customerId)
                 throw "You cannot modify bookings other than your own.";
             next();
         }

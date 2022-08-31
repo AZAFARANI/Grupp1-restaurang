@@ -7,4 +7,5 @@ export default interface ITramontoResponse {
     booking?: IBooking;
     error?: string;
     personal?: IPersonal[];
+    employee?: IPersonal;
 }

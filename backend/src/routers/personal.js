@@ -27,7 +27,7 @@ router.get("/", utils.forceAuthorize, async (req, res) => {
     });
 });
 
-// ### GET SINGLE PERSONAL ###
+// ### GET SINGLE EMPLOYEE ###
 router.get("/:id", utils.forceAuthorize, async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
@@ -38,7 +38,7 @@ router.get("/:id", utils.forceAuthorize, async (req, res) => {
         if (personal) {
             res.send({
                 msg: `Found ${personal.firstName}`,
-                personal: personal,
+                employee: personal,
             });
         } else {
             res.send({
