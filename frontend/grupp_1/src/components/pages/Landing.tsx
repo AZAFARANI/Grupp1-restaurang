@@ -1,124 +1,204 @@
-import "../../scss/Landing.scss";
 import { Link } from "react-router-dom";
+import { A } from "../Styled/A";
 import { Div } from "../Styled/Div";
 import { GlassmorphDiv } from "../Styled/GlassmorphDiv";
+import { Image } from "../Styled/Image";
+import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 
 export default function Landing() {
-    return (
-        <div className="bigContainer">
-            <Div>
-                <div className="hero-div">
-                    <img
-                        src="/svg/Logo.svg"
-                        className="logotype"
-                        alt="Logotype"
-                    ></img>
+  return (
+    <>
+      <Div display="flex" flexDirection="column" flexDirectionLaptop="row">
+        <Div>
+          <Div
+            backgroundImage="url(/images/CapreseBackground.webp)"
+            width="100%"
+            height="100vh"
+            justifyContent="space-around"
+          >
+            <Div width="100%" height="30vh" gap="20px">
+              <Image
+                width="80%"
+                height="40vh"
+                src="/svg/Logo.svg"
+                className="logotype"
+                alt="Logotype"
+              ></Image>
 
-                    <Link to={"/booking"}>
-                        <GlassmorphDiv
-                            className="bookingButton"
-                            border="solid 1px hsla(0, 14%, 82%, 1)"
-                            background="hsla(357, 48%, 70%, 0.85)"
-                            blur="hsla(0, 0%, 0%, 0.25)"
-                        >
-                            <Span fontSize="1.4rem" color="white">
-                                Boka bord
-                            </Span>
-                        </GlassmorphDiv>
-                    </Link>
-                </div>
-
-                <svg
-                    id="whiteArrow"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="60"
-                    height="60"
-                    fill="white"
-                    className="bi bi-arrow-down-circle-fill"
-                    viewBox="0 0 16 16"
-                >
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z" />
-                </svg>
-            </Div>
-
-            <Div
-                gap="2vh"
-                justifyContent="unset"
-                className="Div"
-                backgroundImage="url(/images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)"
-            >
-                <img src="/svg/Title.svg" alt="Title"></img>
-                <img id="svgg" src="/svg/Vinflaska.svg" alt="Winebottle"></img>
-
+              <Link to={"/booking"}>
                 <GlassmorphDiv
-                    height="70vh"
-                    width="95%"
-                    background="hsla(0, 0%, 100%, 0.8);
+                  className="bookingButton"
+                  border="solid 0px 1px 1px 0px hsla(0, 14%, 82%, 1)"
+                  background="hsla(357, 48%, 70%, 0.85)"
+                  blur="hsla(0, 0%, 0%, 0.25)"
+                >
+                  <Span fontSize="1.4rem" color="white">
+                    Boka bord
+                  </Span>
+                </GlassmorphDiv>
+              </Link>
+            </Div>
+            <A width="60%" href="#menuLandning">
+              <Image
+                displayLaptop="none"
+                width="20%"
+                height="10vh"
+                src="/svg/Vector-3.svg"
+              ></Image>
+            </A>
+          </Div>
+        </Div>
+
+        <Div
+          id="menuLandning"
+          gap="2vh"
+          padding="50px 0px"
+          justifyContent="unset"
+          className="Div"
+          backgroundImage="url(/images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)"
+        >
+          <Image
+            width="70%"
+            height="10vh"
+            src="/svg/Title.svg"
+            alt="Title"
+          ></Image>
+
+          <GlassmorphDiv
+            padding="10px 5px 200px 5px"
+            height="70vh"
+            width="90%"
+            background="hsla(0, 0%, 100%, 0.8);
 
 "
+            display="flex"
+            flexDirection="column"
+            justifyContent="unset"
+            alignItems="unset"
+          >
+            <Div
+              display="flex"
+              flexDirection="column"
+              justifyContent="space-around"
+              gap="20px"
+              alignItems="center"
+              flexDirectionTablet="row"
+              height="100%"
+            >
+              <Div
+                flexDirection="column"
+                gap="0px"
+                justifyContent="unset"
+                alignItems="unset"
+              >
+                <Div
+                  padding="0"
+                  display="flex"
+                  width="100%"
+                  flexDirection="row"
+                  justifyContent="center"
+                  gap="10px"
                 >
-                    <div className="menuContainer">
-                        <div>
-                            <Span>
-                                <img
-                                    src="/svg/Vector 6.svg"
-                                    alt="Menu Decoration Left"
-                                ></img>
-                                Pasta
-                                <img
-                                    src="/svg/Vector 7.svg"
-                                    alt="Menu Decoration Right"
-                                ></img>
-                                <hr></hr>
-                                <br></br>
-                            </Span>
+                  <Image
+                    width="25%"
+                    height="15vh"
+                    src="/svg/Vector 6.svg"
+                    alt="Menu Decoration Left"
+                  ></Image>
+                  <Span fontSize="1.5rem">Pasta</Span>
+                  <Image
+                    width="25%"
+                    height="15vh"
+                    src="/svg/Vector 7.svg"
+                    alt="Menu Decoration Right"
+                  ></Image>
+                </Div>
+                <SeperatorLine width="100%"></SeperatorLine>
 
-                            <div>
-                                <div className="menuItems">
-                                    <Span>Pasta carbonara</Span>
-                                    <Span>149kr</Span>
-                                </div>
-                                <br></br>
-                                <div className="menuItems">
-                                    <Span>Pasta Al Tonno</Span>
-                                    <Span>149kr</Span>
-                                </div>
-                            </div>
-                        </div>
+                <Div gap="20px">
+                  <Div
+                    display="flex"
+                    justifyContent="space-between"
+                    flexDirection="row"
+                  >
+                    <Span>Pasta carbonara</Span>
+                    <Span>149kr</Span>
+                  </Div>
 
-                        <div>
-                            <Span>
-                                <img
-                                    src="/svg/Vector 6.svg"
-                                    alt="Menu Decoration Left"
-                                ></img>{" "}
-                                Pizza
-                                <img
-                                    src="/svg/Vector 7.svg"
-                                    alt="Menu Decoration Right"
-                                ></img>
-                                <hr></hr>
-                                <br></br>
-                            </Span>
-                            <div className="menuItems">
-                                <Span>Pizza Capriociosa</Span>
-                                <Span>190kr</Span>
-                            </div>
-                            <br></br>
-                            <div className="menuItems">
-                                <Span>Pizza Mozarella</Span>
-                                <Span>199kr</Span>
-                            </div>
-                            <br></br>
-                            <div className="menuItems">
-                                <Span>Pizza Caprese</Span>
-                                <Span>199kr</Span>
-                            </div>
-                        </div>
-                    </div>
-                </GlassmorphDiv>
+                  <Div
+                    display="flex"
+                    justifyContent="space-between"
+                    flexDirection="row"
+                  >
+                    <Span>Pasta Al Tonno</Span>
+                    <Span>149kr</Span>
+                  </Div>
+
+                  <Div
+                    display="flex"
+                    justifyContent="space-between"
+                    flexDirection="row"
+                  >
+                    <Span>Pasta Bolognese</Span>
+                    <Span>149kr</Span>
+                  </Div>
+                </Div>
+              </Div>
+
+              <Div>
+                <Div
+                  display="flex"
+                  flexDirection="row"
+                  justifyContent="center"
+                  gap="10px"
+                >
+                  <Image
+                    width="25%"
+                    height="15vh"
+                    src="/svg/Vector 6.svg"
+                    alt="Menu Decoration Left"
+                  ></Image>
+                  <Span fontSize="1.5rem">Pizza</Span>
+                  <Image
+                    height="15vh"
+                    width="25%"
+                    src="/svg/Vector 7.svg"
+                    alt="Menu Decoration Right"
+                  ></Image>
+                </Div>
+                <SeperatorLine width="100%"></SeperatorLine>
+                <Div
+                  display="flex"
+                  justifyContent="space-between"
+                  flexDirection="row"
+                >
+                  <Span>Pizza Capriociosa</Span>
+                  <Span>190kr</Span>
+                </Div>
+                <br></br>
+                <Div
+                  display="flex"
+                  justifyContent="space-between"
+                  flexDirection="row"
+                >
+                  <Span>Pizza Mozarella</Span>
+                  <Span>199kr</Span>
+                </Div>
+                <br></br>
+                <Div
+                  display="flex"
+                  justifyContent="space-between"
+                  flexDirection="row"
+                >
+                  <Span>Pizza Caprese</Span>
+                  <Span>199kr</Span>
+                </Div>
+              </Div>
             </Div>
-        </div>
-    );
+          </GlassmorphDiv>
+        </Div>
+      </Div>{" "}
+    </>
+  );
 }

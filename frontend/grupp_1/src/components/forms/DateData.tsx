@@ -74,9 +74,7 @@ export const DateData = (props: IDateDataProps) => {
                 </Button>
               </Div>
               <Div>
-                <Span fontSize="20pt" fontSizeLaptop="16pt">
-                  Vecka {date}
-                </Span>
+                <Span fontSize="16pt">Vecka {date}</Span>
               </Div>
               <Div>
                 <Button type="button" padding="8px 14px" background="#A3A380">

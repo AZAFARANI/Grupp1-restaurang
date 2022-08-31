@@ -1,45 +1,48 @@
 import styled from "styled-components";
 
 interface IGlassMorphProps {
-    background?: string;
-    blur?: string;
-    border?: string;
-    padding?: string;
-    boxshadow?: string;
-    borderRadius?: string;
+  background?: string;
+  blur?: string;
+  border?: string;
+  padding?: string;
+  boxshadow?: string;
+  borderRadius?: string;
 
-    display?: string;
-    flexDirection?: string;
-    justifyContent?: string;
-    alignItems?: string;
+  display?: string;
+  flexDirection?: string;
+  justifyContent?: string;
+  alignItems?: string;
 
-    height?: string;
-    width?: string;
+  height?: string;
+  width?: string;
+
+  cursor?: string;
 }
 
 export const GlassmorphDiv = styled.div`
-    background-color: ${(props: IGlassMorphProps) =>
-        props.background || "hsla( 255, 255, 255, 0.45 )"};
+  background-color: ${(props: IGlassMorphProps) =>
+    props.background || "hsla( 255, 255, 255, 0.45 )"};
 
-    backdrop-filter: ${(props: IGlassMorphProps) => props.blur || "blur(6px)"};
-    -webkit-backdrop-filter: ${(props: IGlassMorphProps) => props.blur};
+  backdrop-filter: ${(props: IGlassMorphProps) => props.blur || "blur(6px)"};
+  -webkit-backdrop-filter: ${(props: IGlassMorphProps) => props.blur};
 
-    border: ${(props: IGlassMorphProps) =>
-        props.border || "1px solid hsla( 255, 255, 255, 0.18 )"};
-    border-radius: ${(props: IGlassMorphProps) => props.borderRadius || "10px"};
+  border: ${(props: IGlassMorphProps) =>
+    props.border || "1px solid hsla( 255, 255, 255, 0.18 )"};
+  border-radius: ${(props: IGlassMorphProps) => props.borderRadius || "10px"};
 
-    padding: ${(props: IGlassMorphProps) => props.padding || "20px 20px"};
+  padding: ${(props: IGlassMorphProps) => props.padding || "20px 20px"};
 
-    box-shadow: ${(props: IGlassMorphProps) =>
-        props.boxshadow || "0 8px 32px 0 rgba(31, 38, 135, 0.37)"};
+  box-shadow: ${(props: IGlassMorphProps) =>
+    props.boxshadow || "0 8px 32px 0 rgba(31, 38, 135, 0.37)"};
 
-    display: ${(props: IGlassMorphProps) => props.display || "flex"};
-    flex-direction: ${(props: IGlassMorphProps) =>
-        props.flexDirection || "row"};
+  display: ${(props: IGlassMorphProps) => props.display || "flex"};
+  flex-direction: ${(props: IGlassMorphProps) => props.flexDirection || "row"};
 
-    justify-content: ${(props: IGlassMorphProps) =>
-        props.justifyContent || "center"};
-    align-items: ${(props: IGlassMorphProps) => props.alignItems || "center"};
+  justify-content: ${(props: IGlassMorphProps) =>
+    props.justifyContent || "center"};
+  align-items: ${(props: IGlassMorphProps) => props.alignItems || "center"};
+
+  width: ${(props: IGlassMorphProps) => props.width || "100%"};
 `;
 
 // export const HeroDiv = styled.div`
