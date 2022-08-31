@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 // ### INTERFACE ###
 import IBooking from "../interfaces/IBooking";
 import IBookingChanges from "../interfaces/IBookingChanges";
@@ -10,7 +10,7 @@ import ITramontoResponse from "../interfaces/ITramontoResponse";
 import BookingModelExtended from "../models/Booking";
 import PersonalModel from "../models/Personal";
 
-const transport = axios.create({
+const transport: AxiosInstance = axios.create({
     withCredentials: true, // Needed to tell Axios we want to send cookies.
 });
 
@@ -83,7 +83,6 @@ export default class TramontoService {
                 data: {
                     customerId: customerId,
                 },
-                withCredentials: true,
             })
             .catch((error) => {
                 return error.response;

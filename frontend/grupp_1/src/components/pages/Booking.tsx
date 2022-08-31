@@ -72,10 +72,9 @@ export const Booking = () => {
         service
             .tryLogin("elias.e.fredriksson@gmail.com", "123")
             .then((data) => {
-                console.log("LOGIN: ", data.msg);
+                console.log("LOGIN: ", data);
             });
         service.getPersonal().then((data) => {
-            // console.log("####### RESPONSE #######\n");
             console.log(data);
         });
     }
