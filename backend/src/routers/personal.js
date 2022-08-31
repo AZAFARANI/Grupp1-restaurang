@@ -32,13 +32,13 @@ router.get("/:id", utils.forceAuthorize, async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid mongooseID.";
-        const personal = await PersonalModel.findById(req.params.id).select(
-            "-hashedPassword -role"
+        const employee = await PersonalModel.findById(req.params.id).select(
+            "-hashedPassword"
         );
-        if (personal) {
+        if (employee) {
             res.send({
-                msg: `Found ${personal.firstName}`,
-                employee: personal,
+                msg: `Found ${employee.firstName}.`,
+                employee: employee,
             });
         } else {
             res.send({
@@ -53,32 +53,32 @@ router.get("/:id", utils.forceAuthorize, async (req, res) => {
     }
 });
 
-// ### CREATE PERSONAL ###
+// ### CREATE EMPLOYEE ###
 router.post("/", utils.forceAdmin, async (req, res) => {
     try {
-        const { personal } = req.body;
+        const { employee } = req.body;
 
-        utils.validatePersonal({ ...utils.BLANK_PERSONAL, ...personal });
+        utils.validatePersonal({ ...utils.BLANK_PERSONAL, ...employee });
 
-        const person = await PersonalModel.findOne({ email: personal.email });
+        const person = await PersonalModel.findOne({ email: employee.email });
         if (person) {
             res.send({
                 msg: "You are already registered.",
             });
         } else {
             const newPersonal = new PersonalModel({
-                firstName: personal.firstName,
-                lastName: personal.lastName,
-                email: personal.email,
-                phone: personal.phone,
-                hashedPassword: utils.hashPassword(personal.password),
+                firstName: employee.firstName,
+                lastName: employee.lastName,
+                email: employee.email,
+                phone: employee.phone,
+                hashedPassword: utils.hashPassword(employee.password),
                 role: "staff",
             });
 
             await newPersonal.save();
             res.send({
-                msg: "Created personal successfully!",
-                personal: {
+                msg: "Created employee successfully!",
+                employee: {
                     firstName: newPersonal.firstName,
                     lastName: newPersonal.lastName,
                     email: newPersonal.email,
@@ -96,31 +96,31 @@ router.post("/", utils.forceAdmin, async (req, res) => {
     }
 });
 
-// ### EDIT PERSONAL ###
+// ### EDIT EMPLOYEE ###
 router.put("/:id", utils.forceAdmin, async (req, res) => {
     try {
-        const { personal } = req.body;
+        const { employee } = req.body;
 
-        utils.validateAllowedPropertiesPersonal(personal);
-        utils.validatePersonal({ ...utils.BLANK_PERSONAL, ...personal });
+        utils.validateAllowedPropertiesPersonal(employee);
+        utils.validatePersonal({ ...utils.BLANK_PERSONAL, ...employee });
 
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid personal ID.";
-        const personalToEdit = await PersonalModel.findById(req.params.id);
-        if (!personalToEdit) throw "No personal found with ID " + req.params.id;
+        const employeeToEdit = await PersonalModel.findById(req.params.id);
+        if (!employeeToEdit) throw "No employee found with ID " + req.params.id;
 
-        if (Object.keys(personal).includes("password")) {
-            const newHashedPassword = utils.hashPassword(personal.password);
-            delete personal.password;
-            personal.hashedPassword = newHashedPassword;
+        if (Object.keys(employee).includes("password")) {
+            const newHashedPassword = utils.hashPassword(employee.password);
+            delete employee.password;
+            employee.hashedPassword = newHashedPassword;
         }
 
-        await personalToEdit.update(personal);
-        await personalToEdit.save();
+        await employeeToEdit.update(employee);
+        await employeeToEdit.save();
 
         res.send({
-            msg: "Updated personal " + personalToEdit.firstName,
-            changedPersonalId: personalToEdit._id,
+            msg: "Updated employee " + employeeToEdit.firstName,
+            employeeId: employeeToEdit._id,
         });
 
         // ### SEND CONFIRMATION MAIL ###
@@ -132,7 +132,7 @@ router.put("/:id", utils.forceAdmin, async (req, res) => {
     }
 });
 
-// ### DELETE PERSONAL ###
+// ### DELETE EMPLOYEE ###
 router.delete("/:id", utils.forceAdmin, async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
@@ -192,7 +192,7 @@ router.post("/login", async (req, res) => {
                     role: personal.role,
                 };
                 const accessToken = jwt.sign(userData, process.env.JWT_SECRET);
-                res.cookie("token", accessToken);
+                res.cookie("TramontoToken", accessToken);
                 res.status(200).send({
                     msg: `Logged in successfully as ${personal.firstName}!`,
                 });
@@ -217,7 +217,7 @@ router.post("/login", async (req, res) => {
 // -------------------------------------------------------
 // ### LOGOUT ###
 router.post("/logout", utils.forceAuthorize, (req, res) => {
-    res.clearCookie("token");
+    res.clearCookie("TramontoToken");
     res.send({
         msg: "Logout successful!",
     });

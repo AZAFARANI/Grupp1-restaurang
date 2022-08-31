@@ -69,14 +69,27 @@ export const Booking = () => {
         // -----------------------------------------------------------
         // ### PERSONAL ###
 
+        // service.tryLogin("elias.e.fredriksson@gmail.com", "123");
+        // service.tryLogout();
+
         service
             .tryLogin("elias.e.fredriksson@gmail.com", "123")
-            .then((data) => {
-                console.log("LOGIN: ", data);
+            .then((response) => {
+                if (!response.error)
+                    service
+                        .getPersonalById("63076f76636a83901567ea14")
+                        .then((employee) => {
+                            if (employee) console.table(employee);
+                        });
             });
-        service.getPersonal().then((data) => {
-            console.log(data);
-        });
+
+        // service.getPersonal().then((data) => {
+        //     console.log(data);
+        // });
+
+        // service.tryLogout().then((data) => {
+        //     // console.log("LOGOUT: ", data);
+        // });
     }
 
     useEffect(() => {

@@ -157,8 +157,8 @@ function hashPassword(password) {
 // ----------------------------------------------------------
 // ### MIDDLEWARE ###
 function forceAuthorize(req, res, next) {
-    const { token } = req.cookies;
-    if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+    const { TramontoToken } = req.cookies;
+    if (TramontoToken && jwt.verify(TramontoToken, process.env.JWT_SECRET)) {
         next();
     } else {
         res.status(401).send({
@@ -168,9 +168,9 @@ function forceAuthorize(req, res, next) {
     }
 }
 function forceAdmin(req, res, next) {
-    const { token } = req.cookies;
-    if (token && jwt.verify(token, process.env.JWT_SECRET)) {
-        const tokenData = jwt.decode(token, process.env.JWTSECRET);
+    const { TramontoToken } = req.cookies;
+    if (TramontoToken && jwt.verify(TramontoToken, process.env.JWT_SECRET)) {
+        const tokenData = jwt.decode(TramontoToken, process.env.JWTSECRET);
         if (tokenData.role === "admin") {
             next();
         } else {
@@ -188,8 +188,11 @@ function forceAdmin(req, res, next) {
 }
 async function forceLoggedInOrOwnBooking(req, res, next) {
     try {
-        const { token } = req.cookies;
-        if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+        const { TramontoToken } = req.cookies;
+        if (
+            TramontoToken &&
+            jwt.verify(TramontoToken, process.env.JWT_SECRET)
+        ) {
             next();
         } else {
             const { customerId } = req.body;

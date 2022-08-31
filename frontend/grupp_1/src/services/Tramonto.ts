@@ -107,11 +107,26 @@ export default class TramontoService {
             (IPers: IPersonal) => new PersonalModel(IPers)
         );
     }
-    public async getPersonalById() {}
+    public async getPersonalById(
+        employeeId: string
+    ): Promise<PersonalModel | null> {
+        const axiosResponse = await transport
+            .get<ITramontoResponse>(this.url + "/personal/" + employeeId)
+            .catch((error) => {
+                return error.response;
+            });
+
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.employee) return null;
+        return new PersonalModel(axiosResponse.data.employee);
+    }
     public async addPersonal() {}
     public async editPersonal() {}
     public async deletePersonal() {}
-    public async tryLogin(email: string, password: string) {
+    public async tryLogin(
+        email: string,
+        password: string
+    ): Promise<ITramontoResponse> {
         const axiosResponse = await transport
             .post<ITramontoResponse>(this.url + "/personal/login", {
                 credentials: {
@@ -126,8 +141,15 @@ export default class TramontoService {
         if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
         return axiosResponse.data;
     }
-    public async tryLogout() {
-        document.cookie;
+    public async tryLogout(): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .post<ITramontoResponse>(this.url + "/personal/logout", {})
+            .catch((error) => {
+                return error.response;
+            });
+
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
     }
     // ---------------------------------------------------------------
 
@@ -143,14 +165,17 @@ export default class TramontoService {
             ].join(";")
         );
         console.log(
-            "%cSTATUS:\t" +
+            "%cURL:\t" +
+                response.request.responseURL +
+                "\n" +
+                "STATUS:\t" +
                 (response.status || "No status provided.") +
                 "\n" +
                 "MSG:\t" +
                 (response.data.msg || "No msg provided.") +
-                "\n" +
-                "ERROR: \t" +
-                (response.data.error || "No error."),
+                (response.data.error
+                    ? "\n" + "ERROR: \t" + response.data.error
+                    : ""),
             ["padding: 2px 10px", "font-size: 10pt", "font-style: italic"].join(
                 ";"
             )
