@@ -9,6 +9,8 @@ interface IDivProps {
   bottom?: string;
 
   boxShadow?: string;
+  animation?: string;
+  overflow?: string;
 
   gap?: string;
   gapTablet?: string;
@@ -83,6 +85,8 @@ export const Div = styled.div`
   align-items: ${(props: IDivProps) => props.alignItems || "center"};
   gap: ${(props: IDivProps) => props.gap || "0px"};
   box-shadow: ${(props: IDivProps) => props.boxShadow || ""};
+  animation: ${(props: IDivProps) => props.animation || ""};
+  overflow: ${(props: IDivProps) => props.overflow || ""};
 
   background-image: ${(props: IDivProps) => props.backgroundImage || "none"};
   background-color: ${(props: IDivProps) => props.backgroundColor || "none"};
@@ -125,16 +129,38 @@ export const Div = styled.div`
       props.backgroundColorLaptop || ""};
   }
 
-  transition: opacity 1s ease;
-
   .visible {
-    opacity: 1;
-    pointer-events: all;
+    animation: slide 500ms 250ms ease-in-out both;
   }
 
   .hidden {
-    opacity: 0;
-    pointer-events: none;
+    display: none;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(200%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade {
+    0% {
+      transform: scale(1);
+      opacity: 0;
+    }
+
+    50% {
+      transform: scale(0.75);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(0);
+    }
   }
 
   /* & > :nth-child(${(props: IDivProps) => props.applyToNthChild || ""}) {

@@ -95,7 +95,7 @@ export const PersonCounter = (props: IPersonCounterProps) => {
           <SeperatorLine></SeperatorLine>
         </Div>
         {/* CONTAINER DIV */}
-        <Div flexDirection="row" padding="40px 0 0 0" widthLaptop="90%">
+        <Div flexDirection="row" padding="40px 0 40px 0" widthLaptop="90%">
           <Div justifyContentLaptop="flex-start">
             <Button
               type="button"

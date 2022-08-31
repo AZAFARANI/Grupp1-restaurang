@@ -76,9 +76,77 @@ export const Booking = () => {
           ></Image>
         </Div>
         {/* MAIN */}
-        <Div backgroundColor="rgba(255, 255, 255, 0.75)">
+        <Div overflow="hidden" backgroundColor="rgba(255, 255, 255, 0.75)">
           {/* LÅT OSS BOKA */}
-          <Div padding="10px" height="auto">
+          <Div
+            className={`${step === 1 ? "visible" : "hidden"}`}
+            padding="10px"
+            height="auto"
+          >
+            <Span
+              fontSize="40px"
+              shadow="none"
+              fontSizeTablet="40px"
+              fontSizeLaptop="40px"
+              padding="10px"
+            >
+              {title}
+            </Span>
+            <SeperatorLine></SeperatorLine>
+          </Div>
+          <Div
+            className={`${step === 2 ? "visible" : "hidden"}`}
+            padding="10px"
+            height="auto"
+          >
+            <Span
+              fontSize="40px"
+              shadow="none"
+              fontSizeTablet="40px"
+              fontSizeLaptop="40px"
+              padding="10px"
+            >
+              {title}
+            </Span>
+            <SeperatorLine></SeperatorLine>
+          </Div>
+          <Div
+            className={`${step === 3 ? "visible" : "hidden"}`}
+            padding="10px"
+            height="auto"
+          >
+            <Span
+              fontSize="40px"
+              shadow="none"
+              fontSizeTablet="40px"
+              fontSizeLaptop="40px"
+              padding="10px"
+            >
+              {title}
+            </Span>
+            <SeperatorLine></SeperatorLine>
+          </Div>
+          <Div
+            className={`${step === 4 ? "visible" : "hidden"}`}
+            padding="10px"
+            height="auto"
+          >
+            <Span
+              fontSize="40px"
+              shadow="none"
+              fontSizeTablet="40px"
+              fontSizeLaptop="40px"
+              padding="10px"
+            >
+              {title}
+            </Span>
+            <SeperatorLine></SeperatorLine>
+          </Div>
+          <Div
+            className={`${step === 5 ? "visible" : "hidden"}`}
+            padding="10px"
+            height="auto"
+          >
             <Span
               fontSize="40px"
               shadow="none"
@@ -93,7 +161,10 @@ export const Booking = () => {
           {/* FORM STEPS */}
           <Div>
             {/* STEP 1 */}
-            <Div className={`${step === 1 ? "visible" : "hidden"}`}>
+            <Div
+              animation="fade 250ms 125ms ease-in-out forwards"
+              className={`${step === 1 ? "visible" : "hidden"}`}
+            >
               <PersonalData
                 setStep={handleStep}
                 bookingStep={step}
@@ -101,7 +172,10 @@ export const Booking = () => {
               ></PersonalData>
             </Div>
             {/* STEP 2 */}
-            <Div className={`${step === 2 ? "visible" : "hidden"}`}>
+            <Div
+              animation="fade 250ms 125ms ease-in-out forwards"
+              className={`${step === 2 ? "visible" : "hidden"}`}
+            >
               <PersonCounter
                 setStep={handleStep}
                 bookingStep={step}
@@ -109,7 +183,10 @@ export const Booking = () => {
               ></PersonCounter>
             </Div>
             {/* STEP 3 */}
-            <Div className={`${step === 3 ? "visible" : "hidden"}`}>
+            <Div
+              animation="fade 250ms 125ms ease-in-out forwards"
+              className={`${step === 3 ? "visible" : "hidden"}`}
+            >
               <DateData
                 setStep={handleStep}
                 bookingStep={step}
@@ -117,7 +194,10 @@ export const Booking = () => {
               ></DateData>
             </Div>
             {/* STEP 4 */}
-            <Div className={`${step === 4 ? "visible" : "hidden"}`}>
+            <Div
+              animation="fade 250ms 125ms ease-in-out forwards"
+              className={`${step === 4 ? "visible" : "hidden"}`}
+            >
               <ConfirmData
                 setStep={handleStep}
                 bookingStep={step}
@@ -125,7 +205,10 @@ export const Booking = () => {
               ></ConfirmData>
             </Div>
             {/* STEP 5 */}
-            <Div className={`${step === 5 ? "visible" : "hidden"}`}>
+            <Div
+              animation="fade 250ms 125ms ease-in-out forwards"
+              className={`${step === 5 ? "visible" : "hidden"}`}
+            >
               <FinishData setStep={handleStep} bookingStep={step}></FinishData>
             </Div>
           </Div>

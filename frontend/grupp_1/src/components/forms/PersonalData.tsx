@@ -28,13 +28,13 @@ export const PersonalData = (props: IPersonDataProps) => {
           <Span fontSize="24px" fontSizeTablet="22px" fontSizeLaptop="20px">
             Din epost
           </Span>
-          <Input height="50px" borderRadius="10px"></Input>
+          <Input type="email" height="50px" borderRadius="10px"></Input>
         </Div>
         <Div>
           <Span fontSize="24px" fontSizeTablet="22px" fontSizeLaptop="20px">
             Mobilnummer
           </Span>
-          <Input height="50px" borderRadius="10px"></Input>
+          <Input type="number" height="50px" borderRadius="10px"></Input>
         </Div>
       </Div>
       {/* FIRST NAME / LAST NAME */}
@@ -43,17 +43,17 @@ export const PersonalData = (props: IPersonDataProps) => {
           <Span fontSize="24px" fontSizeTablet="22px" fontSizeLaptop="20px">
             Förnamn
           </Span>
-          <Input height="50px" borderRadius="10px"></Input>
+          <Input type="text" height="50px" borderRadius="10px"></Input>
         </Div>
         <Div>
           <Span fontSize="24px" fontSizeTablet="22px" fontSizeLaptop="20px">
             Efternamn
           </Span>
-          <Input height="50px" borderRadius="10px"></Input>
+          <Input type="text" height="50px" borderRadius="10px"></Input>
         </Div>
       </Div>
       {/* ALLERGIES / BUTTONS */}
-      <Div widthLaptop="80%" gap="35px">
+      <Div widthLaptop="80%" gap="35px" padding="0 0 40px 0">
         <Span fontSize="24px" fontSizeTablet="22px" fontSizeLaptop="20px">
           Har ni några allergier?
         </Span>
