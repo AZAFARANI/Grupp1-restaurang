@@ -66,9 +66,7 @@ export const PersonalData = (props: IPersonDataProps) => {
           background="#A3A380"
           onClick={handleForwardStep}
         >
-          <Span fontSize="40px" fontSizeTablet="30px" fontSizeLaptop="20px">
-            Nästa
-          </Span>
+          <Span fontSize="20px">Nästa</Span>
         </Button>
       </Div>
     </Form>

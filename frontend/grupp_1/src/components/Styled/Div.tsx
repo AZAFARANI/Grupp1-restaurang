@@ -8,6 +8,8 @@ interface IDivProps {
   right?: string;
   bottom?: string;
 
+  boxShadow?: string;
+
   gap?: string;
   gapTablet?: string;
   gapLaptop?: string;
@@ -80,6 +82,7 @@ export const Div = styled.div`
     props.justifyContent || "flex-start"};
   align-items: ${(props: IDivProps) => props.alignItems || "center"};
   gap: ${(props: IDivProps) => props.gap || "0px"};
+  box-shadow: ${(props: IDivProps) => props.boxShadow || ""};
 
   background-image: ${(props: IDivProps) => props.backgroundImage || "none"};
   background-color: ${(props: IDivProps) => props.backgroundColor || "none"};
