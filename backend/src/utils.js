@@ -182,6 +182,7 @@ function forceAdmin(req, res, next) {
     } else {
         res.status(401).send({
             msg: "Unauthorized",
+            error: "You need to be logged in.",
         });
     }
 }
