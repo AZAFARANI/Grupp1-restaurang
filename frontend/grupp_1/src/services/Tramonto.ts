@@ -126,7 +126,9 @@ export default class TramontoService {
         if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
         return axiosResponse.data;
     }
-    public async tryLogout() {}
+    public async tryLogout() {
+        document.cookie;
+    }
     // ---------------------------------------------------------------
 
     private logResponse(response: AxiosResponse<ITramontoResponse>) {
