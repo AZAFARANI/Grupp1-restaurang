@@ -10,9 +10,10 @@ export default class PersonalModel {
 
     constructor(IPersonal: IPersonal) {
         this.firstName = IPersonal.firstName;
-        this.lastName = IPersonal.firstName;
-        this.email = IPersonal.firstName;
-        this.phone = IPersonal.firstName;
+        this.lastName = IPersonal.lastName;
+        this.email = IPersonal.email;
+        this.phone = IPersonal.phone;
         this.id = IPersonal._id;
+        this.role = IPersonal.role;
     }
 }

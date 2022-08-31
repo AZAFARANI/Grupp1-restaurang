@@ -10,6 +10,10 @@ import ITramontoResponse from "../interfaces/ITramontoResponse";
 import BookingModelExtended from "../models/Booking";
 import PersonalModel from "../models/Personal";
 
+const transport = axios.create({
+    withCredentials: true, // Needed to tell Axios we want to send cookies.
+});
+
 export default class TramontoService {
     private url = "http://localhost:8000";
     private LOG_RESPONSE = true;
@@ -17,89 +21,90 @@ export default class TramontoService {
     // ---------------------------------------------------------------
     // ### BOOKINGS ###
     public async getBookings(): Promise<BookingModelExtended[]> {
-        const axiosResponse = await axios
+        const axiosResponse = await transport
             .get<ITramontoResponse>(this.url + "/bookings")
             .catch((error) => {
-                return error;
+                return error.response;
             });
 
-        if (this.LOG_RESPONSE) this.logResponse(axiosResponse.response);
-        if (!axiosResponse.response.data.bookings) return [];
-        return axiosResponse.response.data.bookings.map(
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.bookings) return [];
+        return axiosResponse.data.bookings.map(
             (IBook: IBookingExtended) => new BookingModelExtended(IBook)
         );
     }
     public async getBookingById(
         id: string
     ): Promise<BookingModelExtended | null> {
-        const axiosResponse = await axios
+        const axiosResponse = await transport
             .get<ITramontoResponse>(this.url + "/bookings/" + id)
             .catch((error) => {
-                return error;
+                return error.response;
             });
-        if (this.LOG_RESPONSE) this.logResponse(axiosResponse.response);
-        if (!axiosResponse.response.data.booking) return null;
-        return new BookingModelExtended(axiosResponse.response.data.booking);
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.booking) return null;
+        return new BookingModelExtended(axiosResponse.data.booking);
     }
     public async addBooking(
         newBooking: INewBooking
     ): Promise<ITramontoResponse> {
-        const axiosResponse = await axios
+        const axiosResponse = await transport
             .post<ITramontoResponse>(this.url + "/bookings", {
                 booking: newBooking,
             })
             .catch((error) => {
-                return error;
+                return error.response;
             });
-        if (this.LOG_RESPONSE) this.logResponse(axiosResponse.response);
-        return axiosResponse.response.data;
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
     }
     public async editBooking(
         bookingId: string,
         customerId: string,
         changesObject: IBookingChanges
     ): Promise<ITramontoResponse> {
-        const axiosResponse = await axios
+        const axiosResponse = await transport
             .put<ITramontoResponse>(this.url + "/bookings/" + bookingId, {
                 customerId: customerId,
                 booking: changesObject,
             })
             .catch((error) => {
-                return error;
+                return error.response;
             });
-        if (this.LOG_RESPONSE) this.logResponse(axiosResponse.response);
-        return axiosResponse.response.data;
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
     }
     public async deleteBooking(
         bookingId: string,
         customerId: string
     ): Promise<ITramontoResponse> {
-        const axiosResponse = await axios
+        const axiosResponse = await transport
             .delete<ITramontoResponse>(this.url + "/bookings/" + bookingId, {
                 data: {
                     customerId: customerId,
                 },
+                withCredentials: true,
             })
             .catch((error) => {
-                return error;
+                return error.response;
             });
-        if (this.LOG_RESPONSE) this.logResponse(axiosResponse.response);
-        return axiosResponse.response.data;
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
     }
     // ---------------------------------------------------------------
 
     // ---------------------------------------------------------------
     // ### PERSONAL ###
     public async getPersonal(): Promise<PersonalModel[]> {
-        const axiosResponse = await axios
+        const axiosResponse = await transport
             .get<ITramontoResponse>(this.url + "/personal")
             .catch((error) => {
-                return error;
+                return error.response;
             });
 
-        if (this.LOG_RESPONSE) this.logResponse(axiosResponse.response);
-        if (!axiosResponse.response.data.personal) return [];
-        return axiosResponse.response.data.personal.map(
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.personal) return [];
+        return axiosResponse.data.personal.map(
             (IPers: IPersonal) => new PersonalModel(IPers)
         );
     }
@@ -107,7 +112,21 @@ export default class TramontoService {
     public async addPersonal() {}
     public async editPersonal() {}
     public async deletePersonal() {}
-    public async tryLogin() {}
+    public async tryLogin(email: string, password: string) {
+        const axiosResponse = await transport
+            .post<ITramontoResponse>(this.url + "/personal/login", {
+                credentials: {
+                    email: email,
+                    password: password,
+                },
+            })
+            .catch((error) => {
+                return error.response;
+            });
+
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
     public async tryLogout() {}
     // ---------------------------------------------------------------
 
@@ -130,7 +149,7 @@ export default class TramontoService {
                 (response.data.msg || "No msg provided.") +
                 "\n" +
                 "ERROR: \t" +
-                (response.data.error || "No error provided."),
+                (response.data.error || "No error."),
             ["padding: 2px 10px", "font-size: 10pt", "font-style: italic"].join(
                 ";"
             )

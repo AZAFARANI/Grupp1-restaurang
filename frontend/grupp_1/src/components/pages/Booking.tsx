@@ -41,6 +41,8 @@ export const Booking = () => {
         // });
 
         console.log("STARTED FETCH");
+        // -----------------------------------------------------------
+        // ### BOOKINGS ###
         // service
         //     .editBooking(
         //         "630f1d0dbea39aade58282ac", // Booking ID
@@ -62,9 +64,19 @@ export const Booking = () => {
         //         // console.log("####### RESPONSE #######\n");
         //         // console.table(response);
         //     });
-        service.getPersonal().then((response) => {
+        // -----------------------------------------------------------
+
+        // -----------------------------------------------------------
+        // ### PERSONAL ###
+
+        service
+            .tryLogin("elias.e.fredriksson@gmail.com", "123")
+            .then((data) => {
+                console.log("LOGIN: ", data.msg);
+            });
+        service.getPersonal().then((data) => {
             // console.log("####### RESPONSE #######\n");
-            // console.table(response);
+            console.log(data);
         });
     }
 

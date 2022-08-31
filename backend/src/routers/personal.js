@@ -18,7 +18,7 @@ const PersonalModel = require("../models/PersonalModel");
 // ### GET ALL PERSONAL ###
 router.get("/", utils.forceAuthorize, async (req, res) => {
     const personal = await PersonalModel.find()
-        .select("-hashedPassword -role")
+        .select("-hashedPassword")
         .lean();
     // const bookings = await BookingsModel.find().select("-customerId").lean();
     res.send({
@@ -193,13 +193,13 @@ router.post("/login", async (req, res) => {
                 };
                 const accessToken = jwt.sign(userData, process.env.JWT_SECRET);
                 res.cookie("token", accessToken);
-                res.send({
+                res.status(200).send({
                     msg: `Logged in successfully as ${personal.firstName}!`,
                 });
             }
             // ### HANDLE INCORRECT PASSWORD ###
             else {
-                res.send({
+                res.status(400).send({
                     msg: "Login failed...",
                     error: "Incorrect password or email.",
                 });

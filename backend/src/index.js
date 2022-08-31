@@ -14,9 +14,13 @@ app.use(cookieParser());
 // -------------------------------------------------------
 // ### ADD CROSS ORIGIN ACCESS ###
 app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    res.header("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE");
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Which origin thats allowed.
+    res.header("Access-Control-Allow-Credentials", true); // Needed to use cookie on frontend.
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type" // Allow followin headers.
+    );
+    res.header("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE"); // Which methods we allow.
     next();
 });
 
