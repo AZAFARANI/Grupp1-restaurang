@@ -9,8 +9,10 @@ interface IDivProps {
   bottom?: string;
 
   gap?: string;
-  backgroundImage?: string;
+  gapTablet?: string;
+  gapLaptop?: string;
 
+  backgroundImage?: string;
   backgroundColor?: string;
   backgroundColorTablet?: string;
   backgroundColorLaptop?: string;
@@ -95,6 +97,7 @@ export const Div = styled.div`
     flex-direction: ${(props: IDivProps) => props.flexDirectionTablet || ""};
     align-items: ${(props: IDivProps) => props.alignItemsTablet || ""};
     justify-content: ${(props: IDivProps) => props.justifyContentTablet || ""};
+    gap: ${(props: IDivProps) => props.gapTablet || ""};
 
     padding: ${(props: IDivProps) => props.paddingTablet || ""};
     margin: ${(props: IDivProps) => props.marginTablet || ""};
@@ -110,6 +113,7 @@ export const Div = styled.div`
     flex-direction: ${(props: IDivProps) => props.flexDirectionLaptop || ""};
     align-items: ${(props: IDivProps) => props.alignItemsLaptop || ""};
     justify-content: ${(props: IDivProps) => props.justifyContentLaptop || ""};
+    gap: ${(props: IDivProps) => props.gapLaptop || ""};
 
     padding: ${(props: IDivProps) => props.paddingLaptop || ""};
     margin: ${(props: IDivProps) => props.marginLaptop || ""};
