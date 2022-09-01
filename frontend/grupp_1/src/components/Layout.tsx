@@ -8,174 +8,174 @@ import { Link } from "react-router-dom";
 import { Icon } from "./Styled/Icon";
 import { Div } from "./Styled/Div";
 import { Span } from "./Styled/Span";
+import { Image } from "./Styled/Image";
 
 export const Layout = () => {
-    const [isClicked, setIsClicked] = useState<boolean>(false);
+  const [isClicked, setIsClicked] = useState<boolean>(false);
 
-    return (
-        <>
+  return (
+    <>
+      <Icon
+        className={`${isClicked ? "hidden" : "visible"} open-menu`}
+        onClick={() => {
+          setIsClicked(!isClicked);
+        }}
+        icon={faBars}
+      />
+
+      <div className="nav-wrapper">
+        <div className={`${isClicked ? "slide-in" : "slide-out"} menu`}>
+          <div className="heading">
+            <Span
+              id="menuHeading"
+              fontSize="30pt"
+              color="white"
+              fontType="Montez"
+            >
+              Meny
+            </Span>
+
             <Icon
-                className={`${isClicked ? "hidden" : "visible"} open-menu`}
-                onClick={() => {
-                    setIsClicked(!isClicked);
-                }}
-                icon={faBars}
+              icon={faXmark}
+              onClick={() => {
+                setIsClicked(false);
+              }}
             />
+          </div>
 
-            <div className="nav-wrapper">
-                <div className={`${isClicked ? "slide-in" : "slide-out"} menu`}>
-                    <div className="heading">
-                        <Span
-                            id="menuHeading"
-                            fontSize="30pt"
-                            color="white"
-                            fontType="Montez"
-                        >
-                            Meny
-                        </Span>
+          <div className="menuDiv">
+            <ul>
+              <Link
+                onClick={() => {
+                  setIsClicked(false);
+                }}
+                to={"/"}
+              >
+                <li>
+                  <Span color="white" fontSize="30px">
+                    Startsida
+                  </Span>
+                </li>
+              </Link>
+              <li>
+                <Link
+                  onClick={() => {
+                    setIsClicked(false);
+                  }}
+                  to={"/booking"}
+                >
+                  <Span color="white" fontSize="30px">
+                    Boka bord
+                  </Span>
+                </Link>
+              </li>
 
-                        <Icon
-                            icon={faXmark}
-                            onClick={() => {
-                                setIsClicked(false);
-                            }}
-                        />
-                    </div>
+              <Link
+                onClick={() => {
+                  setIsClicked(false);
+                }}
+                to={"/contact"}
+              >
+                <li>
+                  <Span color="white" fontSize="30px">
+                    Kontaktsida
+                  </Span>
+                </li>
+              </Link>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-                    <div className="menuDiv">
-                        <ul>
-                            <Link
-                                onClick={() => {
-                                    setIsClicked(false);
-                                }}
-                                to={"/"}
-                            >
-                                <li>
-                                    <Span color="white" fontSize="30px">
-                                        Startsida
-                                    </Span>
-                                </li>
-                            </Link>
-                            <li>
-                                <Link
-                                    onClick={() => {
-                                        setIsClicked(false);
-                                    }}
-                                    to={"/booking"}
-                                >
-                                    <Span color="white" fontSize="30px">
-                                        Boka bord
-                                    </Span>
-                                </Link>
-                            </li>
+      <main>
+        <Outlet />
+      </main>
 
-                            <Link
-                                onClick={() => {
-                                    setIsClicked(false);
-                                }}
-                                to={"/contact"}
-                            >
-                                <li>
-                                    <Span color="white" fontSize="30px">
-                                        Kontaktsida
-                                    </Span>
-                                </li>
-                            </Link>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <main>
-                <Outlet />
-            </main>
+      <Div width="100%" backgroundColor="#CFC99B" flexDirectionLaptop="row">
+        <Div width="100%" backgroundColor="#CFC99B">
+          <Div
+            flexDirectionLaptop="row"
+            gapTablet="5px"
+            gap="100px"
+            padding="30px 0px"
+            paddingLaptop="15px!important"
+          >
+            <Div
+              flexDirection="row"
+              gap="10px"
+              width="33%"
+              justifyContent="center"
+            >
+              <Image
+                padding="0px 0px 10px 0px"
+                width="30%"
+                src="/svg/fluent_contact-card-48-regular.svg"
+              ></Image>
+              <Link to={"/contact"}>
+                <Span fontSizeLaptop="1.5rem" fontSize="1.8rem" color="white">
+                  kontakt
+                </Span>
+              </Link>
+            </Div>
 
             <Div
-                className="contactContainer"
-                gap="0"
-                justifyContent="unset"
-                height="50vh"
-                backgroundImage="2"
-                backgroundColor="black"
-                padding="0px 0px"
+              display="none"
+              flexDirection="row"
+              gap="10px"
+              width="33%"
+              justifyContent="center"
+              displayLaptop="flex"
             >
-                <Div
-                    className="contactFirstSection"
-                    flexDirection="column"
-                    justifyContent="unset"
-                    height="40vh"
-                    backgroundImage="2"
-                    gap="70px"
-                    alignItems="center"
-                >
-                    <div className="footerKontakt">
-                        <Link to={"/"}>
-                            <div className="contactItem notVisible contactIcon">
-                                <img
-                                    className="contactIcon2"
-                                    src="/svg/Vector-2.svg"
-                                    alt="Home"
-                                ></img>
-                                <Span color="white" fontSize="1.3rem">
-                                    Hem
-                                </Span>
-                            </div>
-                        </Link>
-
-                        <Link to={"/contact"}>
-                            <div className="contactItem">
-                                <img
-                                    className="contactIcon"
-                                    src="/svg/fluent_contact-card-48-regular.svg"
-                                    alt="Contact"
-                                ></img>
-                                <Span color="white" fontSize="1.3rem">
-                                    Kontakt
-                                </Span>
-                            </div>
-                        </Link>
-
-                        <Link to={"/booking"}>
-                            <div className="contactItem notVisible">
-                                <img
-                                    src="/svg/Vector.svg"
-                                    alt="Create a booking"
-                                ></img>
-                                <Span color="white" fontSize="1.3rem">
-                                    Boka bord
-                                </Span>
-                            </div>
-                        </Link>
-                    </div>
-
-                    <img
-                        className="arrowUp"
-                        src="/svg/bi_arrow-down-circle-fill.svg"
-                        alt="Scroll back up"
-                    ></img>
-                </Div>
-                <Div
-                    className="contactContainer"
-                    flexDirection="row"
-                    justifyContent="center"
-                    backgroundColor="#cfc99bb8"
-                    height="10vh"
-                    backgroundImage="2"
-                    alignItems="center"
-                >
-                    <div>
-                        <img
-                            src="/svg/ph_copyright-light.svg"
-                            alt="Copyright"
-                        ></img>
-                        <img
-                            className="contactIcon"
-                            src="/svg/Tramonto.svg"
-                            alt="Logotype"
-                        ></img>
-                    </div>
-                </Div>
+              <Image width="15%" src="/svg/Vector-2.svg"></Image>
+              <Link to={"/"}>
+                <Span fontSizeLaptop="1.5rem" fontSize="1.8rem" color="white">
+                  Hem
+                </Span>
+              </Link>
             </Div>
-        </>
-    );
+
+            <Div
+              display="none"
+              flexDirection="row"
+              gap="15px"
+              width="33%"
+              justifyContent="center"
+              displayLaptop="flex"
+            >
+              <Image width="13%" src="/svg/Vector.svg"></Image>
+              <Link to={"/booking"}>
+                <Span fontSizeLaptop="1.5rem" fontSize="1.8rem" color="white">
+                  Boka bord
+                </Span>
+              </Link>
+            </Div>
+
+            <Image
+              displayLaptop="none"
+              src="/svg/bi_arrow-down-circle-fill.svg"
+              width="15%"
+            ></Image>
+          </Div>
+        </Div>
+        <Div width="100%" backgroundColor="#00000043">
+          <Div
+            padding="10px"
+            flexDirection="row"
+            gap="10px"
+            justifyContent="center"
+          >
+            <Image src="/svg/ph_copyright-light.svg" width="5%"></Image>
+            <Span
+              fontSizeLaptop="1.5rem"
+              font-family="Sofia"
+              fontSize="1.6rem"
+              color="white"
+            >
+              Tramonto
+            </Span>
+          </Div>
+        </Div>
+      </Div>
+    </>
+  );
 };
