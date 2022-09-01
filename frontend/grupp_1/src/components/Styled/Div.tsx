@@ -8,6 +8,14 @@ interface IDivProps {
   right?: string;
   bottom?: string;
 
+  boxShadow?: string;
+  animation?: string;
+  overflow?: string;
+  transition?: string;
+
+  overflowX?: string;
+  overflowY?: string;
+
   gap?: string;
   gapTablet?: string;
   gapLaptop?: string;
@@ -82,6 +90,10 @@ export const Div = styled.div`
     props.justifyContent || "flex-start"};
   align-items: ${(props: IDivProps) => props.alignItems || "center"};
   gap: ${(props: IDivProps) => props.gap || "0px"};
+  box-shadow: ${(props: IDivProps) => props.boxShadow || ""};
+  animation: ${(props: IDivProps) => props.animation || ""};
+  overflow-x: ${(props: IDivProps) => props.overflowX || ""};
+  overflow-y: ${(props: IDivProps) => props.overflowY || ""};
 
   background-image: ${(props: IDivProps) => props.backgroundImage || "none"};
   background-color: ${(props: IDivProps) => props.backgroundColor || "none"};
@@ -90,6 +102,8 @@ export const Div = styled.div`
 
   padding: ${(props: IDivProps) => props.padding || "0px"};
   margin: ${(props: IDivProps) => props.margin || "0px"};
+
+  transition: ${(props: IDivProps) => props.transition || ""};
 
   @media ${device.tablet} {
     width: ${(props: IDivProps) => props.widthTablet || ""};
@@ -124,16 +138,42 @@ export const Div = styled.div`
       props.backgroundColorLaptop || ""};
   }
 
-  transition: opacity 1s ease;
-
   .visible {
-    opacity: 1;
-    pointer-events: all;
+    animation: slide 500ms 250ms ease-in-out both;
   }
 
   .hidden {
-    opacity: 0;
-    pointer-events: none;
+    display: none;
+  }
+
+  .fadeOut {
+    animation: fade 250ms 125ms ease-in-out forwards;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(200%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade {
+    0% {
+      transform: scale(1);
+      opacity: 0;
+    }
+
+    50% {
+      transform: scale(0.75);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(0);
+    }
   }
 
   /* & > :nth-child(${(props: IDivProps) => props.applyToNthChild || ""}) {

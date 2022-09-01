@@ -130,7 +130,7 @@ router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
 
         res.send({
             msg: "Updated booking.",
-            changedBookingId: foundBooking._id,
+            bookingId: foundBooking._id,
         });
     } catch (error) {
         res.status(400).send({

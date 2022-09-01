@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import BookingModel from "../../models/Booking";
 import "../../scss/Booking.scss";
 import TramontoService from "../../services/Tramonto";
@@ -16,17 +16,17 @@ export const Booking = () => {
   const [step, setStep] = useState(1);
   const [bookings, setBookings] = useState<BookingModel[]>([]);
   const [title, setTitle] = useState<string>("Låt oss boka!");
+  const [shouldSwitch, setShouldSwitch] = useState<boolean>(false);
+  const [compareButtons, setCompareButtons] = useState<boolean>(true);
+
+  const mainRef = useRef<HTMLDivElement>(null);
+
+  // useEffect(() => {
+  //   mainRef.current?.clientHeight;
+  // }, [step]);
 
   let shouldFetch = true;
   // let newBooking = new Booking();
-
-  function handleStep(step: number) {
-    setStep(step);
-  }
-
-  function handleTitle(title: string) {
-    setTitle(title);
-  }
 
   function fetchBookings() {
     shouldFetch = false;
@@ -35,10 +35,60 @@ export const Booking = () => {
     //     setBookings(bookings);
     //     console.log(bookings);
     // });
-    console.log("STARTED FETCH");
     // service.addBooking().then((result) => {
     //     if (result?.error) console.log("ERROR", result.error);
     //     else console.log("FETCHED");
+    // });
+
+    console.log("STARTED FETCH");
+    // -----------------------------------------------------------
+    // ### BOOKINGS ###
+    // service
+    //     .editBooking(
+    //         "630f1d0dbea39aade58282ac", // Booking ID
+    //         "630f1d0dbea39aade58282aa", // Customer ID
+    //         {
+    //             allergies: "Äpple, päron och apelsiner.",
+    //         }
+    //     )
+    //     .then((response) => {
+    //         // console.log("####### RESPONSE #######\n");
+    //         // console.table(response);
+    //     });
+    // service
+    //     .deleteBooking(
+    //         "630f1d0dbea39aade58282ac", // Booking ID
+    //         "630f1d0dbea39aade58282aa" // Customer ID
+    //     )
+    //     .then((response) => {
+    //         // console.log("####### RESPONSE #######\n");
+    //         // console.table(response);
+    //     });
+    // -----------------------------------------------------------
+
+    // -----------------------------------------------------------
+    // ### PERSONAL ###
+
+    // service.tryLogin("elias.e.fredriksson@gmail.com", "123");
+    // service.tryLogout();
+
+    // service
+    //     .tryLogin("elias.e.fredriksson@gmail.com", "123")
+    //     .then((response) => {
+    //         if (!response.error)
+    //             service
+    //                 .getPersonalById("63076f76636a83901567ea14")
+    //                 .then((employee) => {
+    //                     if (employee) console.table(employee);
+    //                 });
+    //     });
+
+    // service.getPersonal().then((data) => {
+    //     console.log(data);
+    // });
+
+    // service.tryLogout().then((data) => {
+    //     // console.log("LOGOUT: ", data);
     // });
   }
 
@@ -76,9 +126,92 @@ export const Booking = () => {
           ></Image>
         </Div>
         {/* MAIN */}
-        <Div backgroundColor="rgba(255, 255, 255, 0.75)">
+        <Div
+          transition="height 1s ease"
+          overflowX="hidden"
+          backgroundColor="rgba(255, 255, 255, 0.75)"
+          ref={mainRef}
+        >
           {/* LÅT OSS BOKA */}
-          <Div padding="10px" height="auto">
+          <Div
+            className={`${step === 1 ? "visible" : "hidden"} ${
+              shouldSwitch ? "fadeOut" : ""
+            }`}
+            padding="10px"
+            height="auto"
+          >
+            <Span
+              fontSize="40px"
+              shadow="none"
+              fontSizeTablet="40px"
+              fontSizeLaptop="40px"
+              padding="10px"
+            >
+              {title}
+            </Span>
+            <SeperatorLine></SeperatorLine>
+          </Div>
+          <Div
+            className={`${step === 2 ? "visible" : "hidden"} ${
+              shouldSwitch ? "fadeOut" : ""
+            }`}
+            padding="10px"
+            height="auto"
+          >
+            <Span
+              fontSize="40px"
+              shadow="none"
+              fontSizeTablet="40px"
+              fontSizeLaptop="40px"
+              padding="10px"
+            >
+              {title}
+            </Span>
+            <SeperatorLine></SeperatorLine>
+          </Div>
+          <Div
+            className={`${step === 3 ? "visible" : "hidden"} ${
+              shouldSwitch ? "fadeOut" : ""
+            }`}
+            padding="10px"
+            height="auto"
+          >
+            <Span
+              fontSize="40px"
+              shadow="none"
+              fontSizeTablet="40px"
+              fontSizeLaptop="40px"
+              padding="10px"
+            >
+              {title}
+            </Span>
+            <SeperatorLine></SeperatorLine>
+          </Div>
+          <Div
+            className={`${step === 4 ? "visible" : "hidden"} ${
+              shouldSwitch ? "fadeOut" : ""
+            }`}
+            padding="10px"
+            height="auto"
+          >
+            <Span
+              fontSize="40px"
+              shadow="none"
+              fontSizeTablet="40px"
+              fontSizeLaptop="40px"
+              padding="10px"
+            >
+              {title}
+            </Span>
+            <SeperatorLine></SeperatorLine>
+          </Div>
+          <Div
+            className={`${step === 5 ? "visible" : "hidden"} ${
+              shouldSwitch ? "fadeOut" : ""
+            }`}
+            padding="10px"
+            height="auto"
+          >
             <Span
               fontSize="40px"
               shadow="none"
@@ -93,40 +226,114 @@ export const Booking = () => {
           {/* FORM STEPS */}
           <Div>
             {/* STEP 1 */}
-            <Div className={`${step === 1 ? "visible" : "hidden"}`}>
+            <Div
+              onAnimationEnd={() => {
+                if (shouldSwitch) {
+                  setStep(2);
+                  setTitle("Hur många är ni?");
+                  setShouldSwitch(false);
+                }
+              }}
+              className={`${step === 1 ? "visible" : "hidden"} ${
+                shouldSwitch ? "fadeOut" : ""
+              }`}
+            >
               <PersonalData
-                setStep={handleStep}
-                bookingStep={step}
-                setTitle={handleTitle}
+                moveForward={() => {
+                  setShouldSwitch(true);
+                }}
               ></PersonalData>
             </Div>
             {/* STEP 2 */}
-            <Div className={`${step === 2 ? "visible" : "hidden"}`}>
+            <Div
+              onAnimationEnd={() => {
+                if (shouldSwitch) {
+                  if (compareButtons) setStep(3);
+                  setTitle("När vill ni äta?");
+                  setShouldSwitch(false);
+                }
+                if (!compareButtons) {
+                  setStep(1);
+                  setTitle("Låt oss boka!");
+                  setShouldSwitch(false);
+                  setCompareButtons(true);
+                }
+              }}
+              className={`${step === 2 ? "visible" : "hidden"} ${
+                shouldSwitch ? "fadeOut" : ""
+              } `}
+            >
               <PersonCounter
-                setStep={handleStep}
-                bookingStep={step}
-                setTitle={handleTitle}
+                moveForward={() => {
+                  setShouldSwitch(true);
+                }}
+                moveBackward={() => {
+                  setShouldSwitch(true);
+                  setCompareButtons(false);
+                }}
               ></PersonCounter>
             </Div>
             {/* STEP 3 */}
-            <Div className={`${step === 3 ? "visible" : "hidden"}`}>
+            <Div
+              onAnimationEnd={() => {
+                if (shouldSwitch) {
+                  if (compareButtons) setStep(4);
+                  setTitle("Ser allt bra ut?");
+                  setShouldSwitch(false);
+                }
+                if (!compareButtons) {
+                  setStep(2);
+                  setTitle("Hur många är ni?");
+                  setShouldSwitch(false);
+                  setCompareButtons(true);
+                }
+              }}
+              className={`${step === 3 ? "visible" : "hidden"} ${
+                shouldSwitch ? "fadeOut" : ""
+              }`}
+            >
               <DateData
-                setStep={handleStep}
-                bookingStep={step}
-                setTitle={handleTitle}
+                moveForward={() => {
+                  setShouldSwitch(true);
+                }}
+                moveBackward={() => {
+                  setShouldSwitch(true);
+                  setCompareButtons(false);
+                }}
               ></DateData>
             </Div>
             {/* STEP 4 */}
-            <Div className={`${step === 4 ? "visible" : "hidden"}`}>
+            <Div
+              onAnimationEnd={() => {
+                if (shouldSwitch) {
+                  if (compareButtons) setStep(5);
+                  setTitle("Klar!");
+                  setShouldSwitch(false);
+                }
+                if (!compareButtons) {
+                  setStep(3);
+                  setTitle("När vill ni äta?");
+                  setShouldSwitch(false);
+                  setCompareButtons(true);
+                }
+              }}
+              className={`${step === 4 ? "visible" : "hidden"} ${
+                shouldSwitch ? "fadeOut" : ""
+              }`}
+            >
               <ConfirmData
-                setStep={handleStep}
-                bookingStep={step}
-                setTitle={handleTitle}
+                moveForward={() => {
+                  setShouldSwitch(true);
+                }}
+                moveBackward={() => {
+                  setShouldSwitch(true);
+                  setCompareButtons(false);
+                }}
               ></ConfirmData>
             </Div>
             {/* STEP 5 */}
             <Div className={`${step === 5 ? "visible" : "hidden"}`}>
-              <FinishData setStep={handleStep} bookingStep={step}></FinishData>
+              <FinishData setStep={setStep} bookingStep={step}></FinishData>
             </Div>
           </Div>
         </Div>

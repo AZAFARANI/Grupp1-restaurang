@@ -24,8 +24,7 @@ export const Button = styled.button`
   padding: ${(props: IButtonProps) => props.padding || "0px"};
   background-color: ${(props: IButtonProps) => props.background || "none"};
 
-  border: ${(props: IButtonProps) =>
-    props.border || "2px 0px 0px 2px solid #d8cbcb"};
+  border: ${(props: IButtonProps) => props.border || "none"};
   border-radius: ${(props: IButtonProps) => props.borderRadius || "10px"};
 
   box-shadow: ${(props: IButtonProps) =>

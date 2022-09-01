@@ -23,7 +23,8 @@ export const FinishData = (props: IFinishDataProps) => {
           width="90%"
           widthTablet="70%"
           widthLaptop="50%"
-          backgroundColor="#F3EFD8"
+          backgroundImage="linear-gradient(0deg,#F3EFD8, #FFFFFF, #F3EFD8)"
+          boxShadow="0px 8px 8px rgba(0, 0, 0, 0.25), inset 0px 0px 200px 20px rgba(77, 71, 25, 0.25);"
         >
           <Div padding="20px 0 0 0" displayLaptop="none">
             <Image width="60%" src="/svg/Logo.svg" alt="logotype"></Image>
@@ -70,7 +71,8 @@ export const FinishData = (props: IFinishDataProps) => {
           width="90%"
           widthTablet="70%"
           widthLaptop="30%"
-          backgroundColor="#F3EFD8"
+          backgroundImage="linear-gradient(0deg,#F3EFD8, #FFFFFF, #F3EFD8)"
+          boxShadow="0px 8px 8px rgba(0, 0, 0, 0.25), inset 0px 0px 200px 20px rgba(77, 71, 25, 0.25);"
           paddingLaptop="40px"
         >
           <Div padding="20px 0 0 0">

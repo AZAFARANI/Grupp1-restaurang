@@ -6,25 +6,11 @@ import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 
 interface IConfirmDataProps {
-  setStep(step: number): void;
-  bookingStep: number;
-  setTitle(title: string): void;
+  moveForward(): void;
+  moveBackward(): void;
 }
 
 export const ConfirmData = (props: IConfirmDataProps) => {
-  function handleForwardStep() {
-    if (props.bookingStep === 4) {
-      props.setStep(props.bookingStep + 1);
-      props.setTitle("Klar!");
-    }
-  }
-
-  function handleBackStep() {
-    if (props.bookingStep === 4) {
-      props.setStep(props.bookingStep - 1);
-      props.setTitle("Ser allt bra ut?");
-    }
-  }
   return (
     <Form height="auto">
       <Div
@@ -36,7 +22,8 @@ export const ConfirmData = (props: IConfirmDataProps) => {
           width="90%"
           widthTablet="70%"
           widthLaptop="50%"
-          backgroundColor="#F3EFD8"
+          backgroundImage="linear-gradient(0deg,#F3EFD8, #FFFFFF, #F3EFD8)"
+          boxShadow="0px 8px 8px rgba(0, 0, 0, 0.25), inset 0px 0px 200px 20px rgba(77, 71, 25, 0.25);"
         >
           <Div padding="20px 0 0 0" displayLaptop="none">
             <Image width="60%" src="/svg/Logo.svg" alt="logotype"></Image>
@@ -83,7 +70,8 @@ export const ConfirmData = (props: IConfirmDataProps) => {
           width="90%"
           widthTablet="70%"
           widthLaptop="30%"
-          backgroundColor="#F3EFD8"
+          backgroundImage="linear-gradient(0deg,#F3EFD8, #FFFFFF, #F3EFD8)"
+          boxShadow="0px 8px 8px rgba(0, 0, 0, 0.25), inset 0px 0px 200px 20px rgba(77, 71, 25, 0.25);"
           paddingLaptop="40px"
         >
           <Div padding="20px 0 0 0">
@@ -155,7 +143,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             padding="15px 35px"
             paddingTablet="12px 38px"
             background="#A3A380"
-            onClick={handleBackStep}
+            onClick={props.moveBackward}
           >
             <Image
               src="/svg/left-arrow.svg"
@@ -171,7 +159,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             padding="12px 26px"
             paddingTablet="9px 27px"
             background="#A3A380"
-            onClick={handleForwardStep}
+            onClick={props.moveForward}
           >
             <Span color="white" fontSize="17pt" fontSizeTablet="18pt">
               Boka

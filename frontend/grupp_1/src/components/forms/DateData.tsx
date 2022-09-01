@@ -7,9 +7,8 @@ import { Image } from "../Styled/Image";
 import { Span } from "../Styled/Span";
 
 interface IDateDataProps {
-  setStep(step: number): void;
-  setTitle(title: string): void;
-  bookingStep: number;
+  moveForward(): void;
+  moveBackward(): void;
 }
 
 export const DateData = (props: IDateDataProps) => {
@@ -31,19 +30,6 @@ export const DateData = (props: IDateDataProps) => {
     setCurrentDate(currentDate);
   }
 
-  function handleForwardStep() {
-    if (props.bookingStep === 3) {
-      props.setStep(props.bookingStep + 1);
-      props.setTitle("Ser allt bra ut?");
-    }
-  }
-
-  function handleBackStep() {
-    if (props.bookingStep === 3) {
-      props.setStep(props.bookingStep - 1);
-      props.setTitle("När vill ni äta?");
-    }
-  }
   // console.log(currentDate);
 
   return (
@@ -74,9 +60,7 @@ export const DateData = (props: IDateDataProps) => {
                 </Button>
               </Div>
               <Div>
-                <Span fontSize="20pt" fontSizeLaptop="16pt">
-                  Vecka {date}
-                </Span>
+                <Span fontSize="16pt">Vecka {date}</Span>
               </Div>
               <Div>
                 <Button type="button" padding="8px 14px" background="#A3A380">
@@ -185,7 +169,7 @@ export const DateData = (props: IDateDataProps) => {
                 padding="15px 35px"
                 paddingTablet="12px 38px"
                 background="#A3A380"
-                onClick={handleBackStep}
+                onClick={props.moveBackward}
               >
                 <Image
                   src="/svg/left-arrow.svg"
@@ -201,7 +185,7 @@ export const DateData = (props: IDateDataProps) => {
                 padding="15px 24px"
                 paddingTablet="9px 27px"
                 background="#A3A380"
-                onClick={handleForwardStep}
+                onClick={props.moveForward}
               >
                 <Span color="white" fontSize="17pt" fontSizeTablet="18pt">
                   Nästa

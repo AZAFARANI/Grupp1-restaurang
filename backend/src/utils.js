@@ -157,17 +157,20 @@ function hashPassword(password) {
 // ----------------------------------------------------------
 // ### MIDDLEWARE ###
 function forceAuthorize(req, res, next) {
-    const { token } = req.cookies;
-    if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+    const { TramontoToken } = req.cookies;
+    if (TramontoToken && jwt.verify(TramontoToken, process.env.JWT_SECRET)) {
         next();
     } else {
-        res.sendStatus(401);
+        res.status(401).send({
+            msg: "Unauthorized.",
+            error: "You need to be logged in.",
+        });
     }
 }
 function forceAdmin(req, res, next) {
-    const { token } = req.cookies;
-    if (token && jwt.verify(token, process.env.JWT_SECRET)) {
-        const tokenData = jwt.decode(token, process.env.JWTSECRET);
+    const { TramontoToken } = req.cookies;
+    if (TramontoToken && jwt.verify(TramontoToken, process.env.JWT_SECRET)) {
+        const tokenData = jwt.decode(TramontoToken, process.env.JWTSECRET);
         if (tokenData.role === "admin") {
             next();
         } else {
@@ -179,13 +182,17 @@ function forceAdmin(req, res, next) {
     } else {
         res.status(401).send({
             msg: "Unauthorized",
+            error: "You need to be logged in.",
         });
     }
 }
 async function forceLoggedInOrOwnBooking(req, res, next) {
     try {
-        const { token } = req.cookies;
-        if (token && jwt.verify(token, process.env.JWT_SECRET)) {
+        const { TramontoToken } = req.cookies;
+        if (
+            TramontoToken &&
+            jwt.verify(TramontoToken, process.env.JWT_SECRET)
+        ) {
             next();
         } else {
             const { customerId } = req.body;
@@ -202,7 +209,7 @@ async function forceLoggedInOrOwnBooking(req, res, next) {
 
             if (!booking) throw "No booking found with ID: " + bookingId;
 
-            if (`${booking._id}` !== customerId)
+            if (`${booking.customerId}` !== customerId)
                 throw "You cannot modify bookings other than your own.";
             next();
         }

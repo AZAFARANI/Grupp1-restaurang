@@ -8,9 +8,8 @@ import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 
 interface IPersonCounterProps {
-  setStep(step: number): void;
-  bookingStep: number;
-  setTitle(title: string): void;
+  moveForward(): void;
+  moveBackward(): void;
 }
 
 export const PersonCounter = (props: IPersonCounterProps) => {
@@ -24,20 +23,6 @@ export const PersonCounter = (props: IPersonCounterProps) => {
 
   function increaseQuantify() {
     setQuantify(Quantify + 1);
-  }
-
-  function handleForwardStep() {
-    if (props.bookingStep === 2) {
-      props.setStep(props.bookingStep + 1);
-      props.setTitle("När vill ni äta?");
-    }
-  }
-
-  function handleBackStep() {
-    if (props.bookingStep === 2) {
-      props.setStep(props.bookingStep - 1);
-      props.setTitle("Låt oss boka!");
-    }
   }
 
   return (
@@ -95,14 +80,14 @@ export const PersonCounter = (props: IPersonCounterProps) => {
           <SeperatorLine></SeperatorLine>
         </Div>
         {/* CONTAINER DIV */}
-        <Div flexDirection="row" padding="40px 0 0 0" widthLaptop="90%">
+        <Div flexDirection="row" padding="40px 0 40px 0" widthLaptop="90%">
           <Div justifyContentLaptop="flex-start">
             <Button
               type="button"
               padding="15px 35px"
               paddingTablet="12px 38px"
               background="#A3A380"
-              onClick={handleBackStep}
+              onClick={props.moveBackward}
             >
               <Image
                 src="/svg/left-arrow.svg"
@@ -118,7 +103,7 @@ export const PersonCounter = (props: IPersonCounterProps) => {
               padding="15px 24px"
               paddingTablet="9px 27px"
               background="#A3A380"
-              onClick={handleForwardStep}
+              onClick={props.moveForward}
             >
               <Span color="white" fontSize="17pt" fontSizeTablet="18pt">
                 Nästa
