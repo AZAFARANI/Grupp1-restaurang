@@ -51,6 +51,7 @@ interface IDivProps {
 
   applyToNthChild?: string;
   marginChild?: string;
+  borderRadius?: string;
 }
 
 // ### OLD STUFF ###
@@ -70,6 +71,7 @@ export const Div = styled.div`
   left: ${(props: IDivProps) => props.left || "none"};
   bottom: ${(props: IDivProps) => props.bottom || "none"};
   right: ${(props: IDivProps) => props.right || "none"};
+  border-radius: ${(props: IDivProps) => props.borderRadius || "0px"};
 
   height: ${(props: IDivProps) => props.height || "100%"};
   width: ${(props: IDivProps) => props.width || "100%"};
