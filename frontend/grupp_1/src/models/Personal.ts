@@ -1,6 +1,6 @@
 import IPersonal from "../interfaces/IPersonal";
 
-export default class CustomerModel {
+export default class PersonalModel {
     public firstName: string = "";
     public lastName: string = "";
     public email: string = "";
@@ -10,9 +10,10 @@ export default class CustomerModel {
 
     constructor(IPersonal: IPersonal) {
         this.firstName = IPersonal.firstName;
-        this.lastName = IPersonal.firstName;
-        this.email = IPersonal.firstName;
-        this.phone = IPersonal.firstName;
+        this.lastName = IPersonal.lastName;
+        this.email = IPersonal.email;
+        this.phone = IPersonal.phone;
         this.id = IPersonal._id;
+        this.role = IPersonal.role;
     }
 }

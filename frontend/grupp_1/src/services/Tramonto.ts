@@ -1,93 +1,184 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 // ### INTERFACE ###
 import IBooking from "../interfaces/IBooking";
+import IBookingChanges from "../interfaces/IBookingChanges";
 import IBookingExtended from "../interfaces/IBookingExtended";
 import INewBooking from "../interfaces/INewBooking";
+import IPersonal from "../interfaces/IPersonal";
 import ITramontoResponse from "../interfaces/ITramontoResponse";
 // ### MODELS ###
 import BookingModelExtended from "../models/Booking";
+import PersonalModel from "../models/Personal";
+
+const transport: AxiosInstance = axios.create({
+    withCredentials: true, // Needed to tell Axios we want to send cookies.
+});
 
 export default class TramontoService {
     private url = "http://localhost:8000";
+    private LOG_RESPONSE = true;
 
+    // ---------------------------------------------------------------
+    // ### BOOKINGS ###
     public async getBookings(): Promise<BookingModelExtended[]> {
-        const response = await axios.get<ITramontoResponse>(
-            this.url + "/bookings"
-        );
+        const axiosResponse = await transport
+            .get<ITramontoResponse>(this.url + "/bookings")
+            .catch((error) => {
+                return error.response;
+            });
 
-        if (response.data.error) {
-            this.handleError(response);
-            return [];
-        }
-
-        if (!response.data.bookings) return [];
-
-        return response.data.bookings.map(
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.bookings) return [];
+        return axiosResponse.data.bookings.map(
             (IBook: IBookingExtended) => new BookingModelExtended(IBook)
         );
     }
     public async getBookingById(
         id: string
     ): Promise<BookingModelExtended | null> {
-        const response = await axios.get<ITramontoResponse>(
-            this.url + "/bookings/" + id
-        );
-
-        if (response.data.error) {
-            this.handleError(response);
-            return null;
-        }
-
-        if (!response.data.booking) return null;
-
-        return new BookingModelExtended(response.data.booking);
+        const axiosResponse = await transport
+            .get<ITramontoResponse>(this.url + "/bookings/" + id)
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.booking) return null;
+        return new BookingModelExtended(axiosResponse.data.booking);
     }
     public async addBooking(
         newBooking: INewBooking
-    ): Promise<ITramontoResponse | null> {
-        // let TEST: INewBooking = {
-        //     firstName: "NONE",
-        //     lastName: "NONE",
-        //     email: "NONE@NONE.com",
-        //     phone: "NONE",
-        //     guestCount: 1,
-        //     allergies: "TEST ALLERGIES",
-        //     timestamp: "2000-01-01T01:01:01.030Z",
-        // };
-
-        const response = await axios.post<ITramontoResponse>(
-            this.url + "/bookings",
-            {
+    ): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .post<ITramontoResponse>(this.url + "/bookings", {
                 booking: newBooking,
-            }
-        );
-
-        if (response.data.error) {
-            this.handleError(response);
-            return null;
-        }
-        return response.data;
+            })
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
     }
+    public async editBooking(
+        bookingId: string,
+        customerId: string,
+        changesObject: IBookingChanges
+    ): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .put<ITramontoResponse>(this.url + "/bookings/" + bookingId, {
+                customerId: customerId,
+                booking: changesObject,
+            })
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
+    public async deleteBooking(
+        bookingId: string,
+        customerId: string
+    ): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .delete<ITramontoResponse>(this.url + "/bookings/" + bookingId, {
+                data: {
+                    customerId: customerId,
+                },
+            })
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
+    // ---------------------------------------------------------------
 
-    public async getCustomers() {}
-    public async getCustomerById() {}
-    public async getPersonal() {}
-    public async getPersonalById() {}
+    // ---------------------------------------------------------------
+    // ### PERSONAL ###
+    public async getPersonal(): Promise<PersonalModel[]> {
+        const axiosResponse = await transport
+            .get<ITramontoResponse>(this.url + "/personal")
+            .catch((error) => {
+                return error.response;
+            });
 
-    private handleError(response: AxiosResponse) {
-        console.warn(
-            "!!!!!!!!!!!! ERROR !!!!!!!!!!!!\n",
-            response.data.msg || "No msg provided.",
-            response.data.error || "No error provided.",
-            response.status
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.personal) return [];
+        return axiosResponse.data.personal.map(
+            (IPers: IPersonal) => new PersonalModel(IPers)
         );
     }
+    public async getPersonalById(
+        employeeId: string
+    ): Promise<PersonalModel | null> {
+        const axiosResponse = await transport
+            .get<ITramontoResponse>(this.url + "/personal/" + employeeId)
+            .catch((error) => {
+                return error.response;
+            });
 
-    // public async getMovies(searchText: string): Promise<IMovie[]> {
-    //     const response = await axios.get<IOmbdResponse>(
-    //         `http://www.omdbapi.com/?apikey=${this.ApiKey}&s=${searchText}`
-    //     );
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.employee) return null;
+        return new PersonalModel(axiosResponse.data.employee);
+    }
+    public async addPersonal() {}
+    public async editPersonal() {}
+    public async deletePersonal() {}
+    public async tryLogin(
+        email: string,
+        password: string
+    ): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .post<ITramontoResponse>(this.url + "/personal/login", {
+                credentials: {
+                    email: email,
+                    password: password,
+                },
+            })
+            .catch((error) => {
+                return error.response;
+            });
 
-    //     return response.data.Search;
-    // }
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
+    public async tryLogout(): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .post<ITramontoResponse>(this.url + "/personal/logout", {})
+            .catch((error) => {
+                return error.response;
+            });
+
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
+    // ---------------------------------------------------------------
+
+    private logResponse(response: AxiosResponse<ITramontoResponse>) {
+        console.log(
+            `%c--- RESPONSE ---`,
+            [
+                "color: white",
+                "background-color: #55AF3A",
+                "padding: 10px",
+                "border-radius: 5px",
+                "font-size: 12pt",
+            ].join(";")
+        );
+        console.log(
+            "%cURL:\t" +
+                response.request.responseURL +
+                "\n" +
+                "STATUS:\t" +
+                (response.status || "No status provided.") +
+                "\n" +
+                "MSG:\t" +
+                (response.data.msg || "No msg provided.") +
+                (response.data.error
+                    ? "\n" + "ERROR: \t" + response.data.error
+                    : ""),
+            ["padding: 2px 10px", "font-size: 10pt", "font-style: italic"].join(
+                ";"
+            )
+        );
+    }
 }

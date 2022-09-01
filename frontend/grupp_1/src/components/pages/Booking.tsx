@@ -35,10 +35,60 @@ export const Booking = () => {
     //     setBookings(bookings);
     //     console.log(bookings);
     // });
-    console.log("STARTED FETCH");
     // service.addBooking().then((result) => {
     //     if (result?.error) console.log("ERROR", result.error);
     //     else console.log("FETCHED");
+    // });
+
+    console.log("STARTED FETCH");
+    // -----------------------------------------------------------
+    // ### BOOKINGS ###
+    // service
+    //     .editBooking(
+    //         "630f1d0dbea39aade58282ac", // Booking ID
+    //         "630f1d0dbea39aade58282aa", // Customer ID
+    //         {
+    //             allergies: "Äpple, päron och apelsiner.",
+    //         }
+    //     )
+    //     .then((response) => {
+    //         // console.log("####### RESPONSE #######\n");
+    //         // console.table(response);
+    //     });
+    // service
+    //     .deleteBooking(
+    //         "630f1d0dbea39aade58282ac", // Booking ID
+    //         "630f1d0dbea39aade58282aa" // Customer ID
+    //     )
+    //     .then((response) => {
+    //         // console.log("####### RESPONSE #######\n");
+    //         // console.table(response);
+    //     });
+    // -----------------------------------------------------------
+
+    // -----------------------------------------------------------
+    // ### PERSONAL ###
+
+    // service.tryLogin("elias.e.fredriksson@gmail.com", "123");
+    // service.tryLogout();
+
+    // service
+    //     .tryLogin("elias.e.fredriksson@gmail.com", "123")
+    //     .then((response) => {
+    //         if (!response.error)
+    //             service
+    //                 .getPersonalById("63076f76636a83901567ea14")
+    //                 .then((employee) => {
+    //                     if (employee) console.table(employee);
+    //                 });
+    //     });
+
+    // service.getPersonal().then((data) => {
+    //     console.log(data);
+    // });
+
+    // service.tryLogout().then((data) => {
+    //     // console.log("LOGOUT: ", data);
     // });
   }
 
