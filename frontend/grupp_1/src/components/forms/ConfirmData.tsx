@@ -6,25 +6,11 @@ import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 
 interface IConfirmDataProps {
-  setStep(step: number): void;
-  bookingStep: number;
-  setTitle(title: string): void;
+  moveForward(): void;
+  moveBackward(): void;
 }
 
 export const ConfirmData = (props: IConfirmDataProps) => {
-  function handleForwardStep() {
-    if (props.bookingStep === 4) {
-      props.setStep(props.bookingStep + 1);
-      props.setTitle("Klar!");
-    }
-  }
-
-  function handleBackStep() {
-    if (props.bookingStep === 4) {
-      props.setStep(props.bookingStep - 1);
-      props.setTitle("Ser allt bra ut?");
-    }
-  }
   return (
     <Form height="auto">
       <Div
@@ -157,7 +143,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             padding="15px 35px"
             paddingTablet="12px 38px"
             background="#A3A380"
-            onClick={handleBackStep}
+            onClick={props.moveBackward}
           >
             <Image
               src="/svg/left-arrow.svg"
@@ -173,7 +159,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             padding="12px 26px"
             paddingTablet="9px 27px"
             background="#A3A380"
-            onClick={handleForwardStep}
+            onClick={props.moveForward}
           >
             <Span color="white" fontSize="17pt" fontSizeTablet="18pt">
               Boka

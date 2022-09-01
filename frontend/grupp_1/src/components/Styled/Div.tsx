@@ -11,6 +11,10 @@ interface IDivProps {
   boxShadow?: string;
   animation?: string;
   overflow?: string;
+  transition?: string;
+
+  overflowX?: string;
+  overflowY?: string;
 
   gap?: string;
   gapTablet?: string;
@@ -86,7 +90,8 @@ export const Div = styled.div`
   gap: ${(props: IDivProps) => props.gap || "0px"};
   box-shadow: ${(props: IDivProps) => props.boxShadow || ""};
   animation: ${(props: IDivProps) => props.animation || ""};
-  overflow: ${(props: IDivProps) => props.overflow || ""};
+  overflow-x: ${(props: IDivProps) => props.overflowX || ""};
+  overflow-y: ${(props: IDivProps) => props.overflowY || ""};
 
   background-image: ${(props: IDivProps) => props.backgroundImage || "none"};
   background-color: ${(props: IDivProps) => props.backgroundColor || "none"};
@@ -95,6 +100,8 @@ export const Div = styled.div`
 
   padding: ${(props: IDivProps) => props.padding || "0px"};
   margin: ${(props: IDivProps) => props.margin || "0px"};
+
+  transition: ${(props: IDivProps) => props.transition || ""};
 
   @media ${device.tablet} {
     width: ${(props: IDivProps) => props.widthTablet || ""};
@@ -135,6 +142,10 @@ export const Div = styled.div`
 
   .hidden {
     display: none;
+  }
+
+  .fadeOut {
+    animation: fade 250ms 125ms ease-in-out forwards;
   }
 
   @keyframes slide {
