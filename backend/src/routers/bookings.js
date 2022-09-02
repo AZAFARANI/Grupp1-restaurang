@@ -152,7 +152,7 @@ router.delete("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
         if (!deletedBooking) throw "No booking found with ID" + req.params.id;
         res.send({
             msg: "Deleted booking.",
-            result: deletedBooking,
+            booking: deletedBooking,
         });
     } catch (error) {
         res.status(400).send({

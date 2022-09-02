@@ -3,11 +3,16 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 import IBooking from "../interfaces/IBooking";
 import IBookingChanges from "../interfaces/IBookingChanges";
 import IBookingExtended from "../interfaces/IBookingExtended";
+import ICustomer from "../interfaces/ICustomer";
+import ICustomerChanges from "../interfaces/ICustomerChanges";
+import IEmployeeChanges from "../interfaces/IEmployeeChanges";
 import INewBooking from "../interfaces/INewBooking";
+import INewEmployee from "../interfaces/INewEmployee";
 import IPersonal from "../interfaces/IPersonal";
 import ITramontoResponse from "../interfaces/ITramontoResponse";
 // ### MODELS ###
 import BookingModelExtended from "../models/Booking";
+import CustomerModel from "../models/Customer";
 import PersonalModel from "../models/Personal";
 
 const transport: AxiosInstance = axios.create({
@@ -93,6 +98,56 @@ export default class TramontoService {
     // ---------------------------------------------------------------
 
     // ---------------------------------------------------------------
+    // ### CUSTOMER ###
+    public async getCustomers(): Promise<CustomerModel[]> {
+        const axiosResponse = await transport
+            .get<ITramontoResponse>(this.url + "/customers")
+            .catch((error) => {
+                return error.response;
+            });
+
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.customers) return [];
+        return axiosResponse.data.customers.map(
+            (ICust: ICustomer) => new CustomerModel(ICust)
+        );
+    }
+    public async getCustomerById(id: string): Promise<CustomerModel | null> {
+        const axiosResponse = await transport
+            .get<ITramontoResponse>(this.url + "/customers/" + id)
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        if (!axiosResponse.data.customer) return null;
+        return new CustomerModel(axiosResponse.data.customer);
+    }
+    public async editCustomer(
+        id: string,
+        changesObject: ICustomerChanges
+    ): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .put<ITramontoResponse>(this.url + "/customers/" + id, {
+                customer: changesObject,
+            })
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
+    public async deleteCustomerr(id: string): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .delete<ITramontoResponse>(this.url + "/customers/" + id)
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
+    // ---------------------------------------------------------------
+
+    // ---------------------------------------------------------------
     // ### PERSONAL ###
     public async getPersonal(): Promise<PersonalModel[]> {
         const axiosResponse = await transport
@@ -107,7 +162,7 @@ export default class TramontoService {
             (IPers: IPersonal) => new PersonalModel(IPers)
         );
     }
-    public async getPersonalById(
+    public async getEmployeeById(
         employeeId: string
     ): Promise<PersonalModel | null> {
         const axiosResponse = await transport
@@ -120,9 +175,46 @@ export default class TramontoService {
         if (!axiosResponse.data.employee) return null;
         return new PersonalModel(axiosResponse.data.employee);
     }
-    public async addPersonal() {}
-    public async editPersonal() {}
-    public async deletePersonal() {}
+    public async addEmployee(
+        newEmployee: INewEmployee
+    ): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .post<ITramontoResponse>(this.url + "/personal", {
+                employee: newEmployee,
+            })
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
+    public async editEmployee(
+        id: string,
+        changes: IEmployeeChanges
+    ): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .put<ITramontoResponse>(this.url + "/personal/" + id, {
+                employee: changes,
+            })
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
+    public async deleteEmployee(id: string): Promise<ITramontoResponse> {
+        const axiosResponse = await transport
+            .delete<ITramontoResponse>(this.url + "/personal/" + id)
+            .catch((error) => {
+                return error.response;
+            });
+        if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+        return axiosResponse.data;
+    }
+    // ---------------------------------------------------------------
+
+    // ---------------------------------------------------------------
+    // ### LOGIN / LOGOUT ###
     public async tryLogin(
         email: string,
         password: string

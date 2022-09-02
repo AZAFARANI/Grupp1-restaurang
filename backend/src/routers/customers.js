@@ -96,7 +96,7 @@ router.delete("/:id", utils.forceAuthorize, async (req, res) => {
             await BookingModel.deleteMany({ customerId: customer._id });
             res.send({
                 msg: "Deleted customer and all related bookings.",
-                result: customer,
+                customer: customer,
             });
         }
     } catch (error) {
