@@ -119,7 +119,7 @@ router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
 
         const { booking } = req.body;
 
-        utils.validateAllowedProperties(booking);
+        utils.validateAllowedPropertiesBooking(booking);
         utils.validateBooking({ ...utils.BLANK_BOOKING, ...booking });
 
         const foundBooking = await BookingsModel.findById(req.params.id);
