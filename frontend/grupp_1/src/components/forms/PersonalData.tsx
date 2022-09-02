@@ -54,18 +54,18 @@ export const PersonalData = (props: IPersonDataProps) => {
   }
 
   function autoFillHandler() {
-    const input = emailRef.current;
-    if (input) {
-      if (input.checkValidity()) {
-        // service.getCustomer(input.value).then((customer: CustomerModel || null) => {
-        //   if(customer) {
-        //        setFirstName(customer.firstName);
-        //        setLastName(customer.lastName);
-        //        setPhone(customer.phone);
-        //    }
-        //})
-      }
-    }
+    // const input = emailRef.current;
+    // if (input) {
+    //   if (input.checkValidity()) {
+    //     service.getCustomer(input.value).then((customer: CustomerModel || null) => {
+    //       if(customer) {
+    //            setFirstName(customer.firstName);
+    //            setLastName(customer.lastName);
+    //            setPhone(customer.phone);
+    //        }
+    //     })
+    //   }
+    // }
   }
 
   return (
