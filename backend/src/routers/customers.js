@@ -20,33 +20,6 @@ router.get("/", utils.forceAuthorize, async (req, res) => {
   });
 });
 
-// ### GET SINGLE CUSTOMER BY EMAIL ###
-router.get("/email", async (req, res) => {
-  try {
-    const { email } = req.body;
-    if (!email) throw "No customer email provided.";
-    utils.validateCustomer({ ...utils.BLANK_CUSTOMER, ...{ email: email } });
-    const customer = await CustomerModel.find({
-      email: email,
-    });
-    if (customer) {
-      res.send({
-        msg: "Found customer.",
-        customer: customer,
-      });
-    } else {
-      res.send({
-        msg: "No customer found with given email.",
-      });
-    }
-  } catch (error) {
-    res.status(400).send({
-      msg: "ERROR",
-      error: error,
-    });
-  }
-});
-
 // ### GET SINGLE CUSTOMER BY ID ###
 router.get("/:id", async (req, res) => {
   try {
@@ -61,6 +34,36 @@ router.get("/:id", async (req, res) => {
     } else {
       res.send({
         msg: "No customer found with given ID.",
+      });
+    }
+  } catch (error) {
+    res.status(400).send({
+      msg: "ERROR",
+      error: error,
+    });
+  }
+});
+
+// ### GET SINGLE CUSTOMER BY EMAIL ###
+router.post("/", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) throw "No customer email provided.";
+
+    utils.validateCustomer({ ...utils.BLANK_CUSTOMER, ...{ email: email } });
+
+    const customer = await CustomerModel.findOne({
+      email: email,
+    }).lean();
+
+    if (customer) {
+      res.send({
+        msg: "Found customer.",
+        customer: customer,
+      });
+    } else {
+      res.send({
+        msg: "No customer found with given email.",
       });
     }
   } catch (error) {

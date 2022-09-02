@@ -1,10 +1,11 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import "../../scss/Booking.scss";
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
 import { Image } from "../Styled/Image";
+import { Input } from "../Styled/Input";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 
@@ -15,34 +16,29 @@ interface IPersonCounterProps {
 }
 
 export const PersonCounter = (props: IPersonCounterProps) => {
-  const [Quantify, setQuantify] = useState(0);
+  const [guestCount, setGuestCount] = useState(1);
+
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const LOWER_LIMIT = 1;
+  const UPPER_LIMIT = 90;
 
   function submitHandler(e: FormEvent) {
     e.preventDefault();
-    if (Quantify > 90) {
-      alert("Too many people entered");
-    } else {
-      props.handleNewBooking({ guestCount: Quantify });
-      props.moveForward();
-    }
+    props.handleNewBooking({ guestCount: guestCount });
+    props.moveForward();
   }
 
-  function handleBackwards() {
-    props.moveBackward();
+  function reduceQuantity() {
+    if (guestCount > LOWER_LIMIT) setGuestCount(guestCount - 1);
   }
 
-  function reduceQuantify() {
-    if (Quantify >= 1) {
-      setQuantify(Quantify - 1);
-    }
-  }
-
-  function increaseQuantify() {
-    setQuantify(Quantify + 1);
+  function increaseQuantity() {
+    if (guestCount < UPPER_LIMIT) setGuestCount(guestCount + 1);
   }
 
   return (
-    <Form onSubmit={submitHandler} height="auto">
+    <Form height="auto" ref={formRef}>
       {/* HERO DIV */}
       <Div>
         {/* CONTAINER DIV */}
@@ -53,10 +49,10 @@ export const PersonCounter = (props: IPersonCounterProps) => {
           widthLaptop="45%"
         >
           {/* BUTTON CONTAINER DIV */}
-          <Div>
+          <Div justifyContent="center">
             <Button
               type="button"
-              onClick={reduceQuantify}
+              onClick={reduceQuantity}
               padding="10px 15px"
               paddingTablet="6px 8px"
               background="#A3A380"
@@ -71,14 +67,24 @@ export const PersonCounter = (props: IPersonCounterProps) => {
           </Div>
           {/* TEXT CONTAINER DIV */}
           <Div justifyContent="center">
-            <Span fontSize="20pt" fontSizeTablet="26pt" fontSizeLaptop="24pt">
-              {Quantify} st
-            </Span>
+            <Input
+              borderRadius="0"
+              backgroundColor="rgba(0,0,0,0)"
+              textAlign="center"
+              boxShadow="none"
+              type="text"
+              fontSize="20pt"
+              fontSizeTablet="26pt"
+              fontSizeLaptop="24pt"
+              value={guestCount + " st"}
+              disabled
+              padding="5px"
+            ></Input>
           </Div>
-          <Div>
+          <Div justifyContent="center">
             <Button
               type="button"
-              onClick={increaseQuantify}
+              onClick={increaseQuantity}
               padding="10px 15px"
               paddingTablet="6px 8px"
               background="#A3A380"
@@ -103,7 +109,7 @@ export const PersonCounter = (props: IPersonCounterProps) => {
               padding="15px 35px"
               paddingTablet="12px 38px"
               background="#A3A380"
-              onClick={handleBackwards}
+              onClick={props.moveBackward}
             >
               <Image
                 src="/svg/left-arrow.svg"

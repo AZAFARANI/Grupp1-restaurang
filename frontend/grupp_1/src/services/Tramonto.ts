@@ -1,6 +1,5 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 // ### INTERFACE ###
-import IBooking from "../interfaces/IBooking";
 import IBookingChanges from "../interfaces/IBookingChanges";
 import IBookingExtended from "../interfaces/IBookingExtended";
 import ICustomer from "../interfaces/ICustomer";
@@ -124,8 +123,8 @@ export default class TramontoService {
     email: string
   ): Promise<CustomerModel | null> {
     const axiosResponse = await transport
-      .get<ITramontoResponse>(this.url + "/customers", {
-        data: { email: email },
+      .post<ITramontoResponse>(this.url + "/customers", {
+        email: email,
       })
       .catch((error) => {
         return error.response;

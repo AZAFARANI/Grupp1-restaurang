@@ -2,55 +2,61 @@ import styled from "styled-components";
 import { device } from "./device/Responsive";
 
 interface IInputProps {
-    border?: string;
-    borderRadius?: string;
+  border?: string;
+  borderRadius?: string;
 
-    color?: string;
-    backgroundColor?: string;
+  textAlign?: string;
 
-    padding?: string;
+  color?: string;
+  backgroundColor?: string;
+  boxShadow?: string;
 
-    fontFamily?: string;
-    fontSize?: string;
-    fontSizeTablet?: string;
-    fontSizeLaptop?: string;
+  padding?: string;
 
-    width?: string;
-    widthTablet?: string;
-    widthLaptop?: string;
+  fontFamily?: string;
+  fontSize?: string;
+  fontSizeTablet?: string;
+  fontSizeLaptop?: string;
 
-    height?: string;
-    heightTablet?: string;
-    heightLaptop?: string;
+  width?: string;
+  widthTablet?: string;
+  widthLaptop?: string;
+
+  height?: string;
+  heightTablet?: string;
+  heightLaptop?: string;
 }
 
 export const Input = styled.input`
-    width: ${(props: IInputProps) => props.width || "100%"};
-    height: ${(props: IInputProps) => props.height || "100%"};
+  width: ${(props: IInputProps) => props.width || "100%"};
+  height: ${(props: IInputProps) => props.height || "100%"};
 
-    font-size: ${(props: IInputProps) => props.fontSize || "12pt"};
+  border: none;
+  border-radius: ${(props: IInputProps) => props.borderRadius || "20px"};
 
-    border: none;
-    border-radius: ${(props: IInputProps) => props.borderRadius || "20px"};
-    box-shadow: 0px 0px 6px 3px hsla(0, 0%, 0%, 0.25) inset;
+  /* box-shadow: 0px 0px 6px 3px hsla(0, 0%, 0%, 0.25) inset; */
+  box-shadow: ${(props: IInputProps) =>
+    props.boxShadow || "0px 0px 6px 3px hsla(0, 0%, 0%, 0.25) inset"};
 
-    font-family: ${(props: IInputProps) => props.fontFamily || "Sofia"};
-    color: ${(props: IInputProps) => props.color || "black"};
+  font-size: ${(props: IInputProps) => props.fontSize || "12pt"};
+  font-family: ${(props: IInputProps) => props.fontFamily || "Sofia"};
+  color: ${(props: IInputProps) => props.color || "black"};
+  text-align: ${(props: IInputProps) => props.textAlign || "start"};
 
-    background-color: ${(props: IInputProps) =>
-        props.backgroundColor || "hsla(0, 0%, 100%, 1)"};
+  background-color: ${(props: IInputProps) =>
+    props.backgroundColor || "hsla(0, 0%, 100%, 1)"};
 
-    padding: ${(props: IInputProps) => props.padding || "20px"};
+  padding: ${(props: IInputProps) => props.padding || "20px"};
 
-    @media ${device.tablet} {
-        width: ${(props: IInputProps) => props.widthTablet || ""};
-        height: ${(props: IInputProps) => props.heightTablet || ""};
-        font-size: ${(props: IInputProps) => props.fontSizeTablet || ""};
-    }
+  @media ${device.tablet} {
+    width: ${(props: IInputProps) => props.widthTablet || ""};
+    height: ${(props: IInputProps) => props.heightTablet || ""};
+    font-size: ${(props: IInputProps) => props.fontSizeTablet || ""};
+  }
 
-    @media ${device.laptop} {
-        width: ${(props: IInputProps) => props.widthLaptop || ""};
-        height: ${(props: IInputProps) => props.heightLaptop || ""};
-        font-size: ${(props: IInputProps) => props.fontSizeLaptop || ""};
-    }
+  @media ${device.laptop} {
+    width: ${(props: IInputProps) => props.widthLaptop || ""};
+    height: ${(props: IInputProps) => props.heightLaptop || ""};
+    font-size: ${(props: IInputProps) => props.fontSizeLaptop || ""};
+  }
 `;
