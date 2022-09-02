@@ -30,6 +30,10 @@ export const DateData = (props: IDateDataProps) => {
     setCurrentDate(currentDate);
   }
 
+  function nextWeek() {
+    setDate(date + 1);
+  }
+
   // console.log(currentDate);
 
   return (
@@ -69,6 +73,7 @@ export const DateData = (props: IDateDataProps) => {
                     alt="right-arrow"
                     width="40px"
                     height="30px"
+                    onClick={nextWeek}
                   ></Image>
                 </Button>
               </Div>

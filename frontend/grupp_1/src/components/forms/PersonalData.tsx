@@ -1,5 +1,5 @@
 import { stringify } from "querystring";
-import { FormEvent, useRef, useState } from "react";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import BookingModel from "../../models/Booking";
@@ -18,14 +18,22 @@ interface IPersonDataProps {
   handleNewBooking(changes: INewBookingOptional): void;
 }
 
+const service = new TramontoService();
+
 export const PersonalData = (props: IPersonDataProps) => {
   const [email, setEmail] = useState<string>("");
-  const [phone, setMobileNumber] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [allergies, setAllergies] = useState<string>("");
 
   const formRef = useRef<HTMLFormElement>(null);
+
+  // --------------------------------------------------------
+  // ### REFERENCE TO APPLY AUTO FILL FEATURE ###
+  const emailRef = useRef<HTMLInputElement>(null);
+
+  // --------------------------------------------------------
 
   function submitHandler(e: FormEvent) {
     e.preventDefault();
@@ -45,6 +53,21 @@ export const PersonalData = (props: IPersonDataProps) => {
     }
   }
 
+  function autoFillHandler() {
+    const input = emailRef.current;
+    if (input) {
+      if (input.checkValidity()) {
+        // service.getCustomer(input.value).then((customer: CustomerModel || null) => {
+        //   if(customer) {
+        //        setFirstName(customer.firstName);
+        //        setLastName(customer.lastName);
+        //        setPhone(customer.phone);
+        //    }
+        //})
+      }
+    }
+  }
+
   return (
     <Form id="form" gap="35px" width="90%" height="auto" ref={formRef}>
       {/* EMAIL / MOBILE */}
@@ -54,6 +77,7 @@ export const PersonalData = (props: IPersonDataProps) => {
             Din epost
           </Span>
           <Input
+            onInput={autoFillHandler}
             required
             type="email"
             id="email"
@@ -75,7 +99,7 @@ export const PersonalData = (props: IPersonDataProps) => {
             minLength={10}
             value={phone}
             onChange={(e) => {
-              setMobileNumber(e.target.value);
+              setPhone(e.target.value);
             }}
             type="text"
             height="50px"
