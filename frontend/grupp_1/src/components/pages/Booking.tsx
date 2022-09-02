@@ -18,6 +18,10 @@ import { Span } from "../Styled/Span";
 export const Booking = () => {
   const [step, setStep] = useState(1);
   const [bookings, setBookings] = useState<BookingModel[]>([]);
+  const [title, setTitle] = useState<string>("Låt oss boka!");
+  const [shouldSwitch, setShouldSwitch] = useState<boolean>(false);
+  const [compareButtons, setCompareButtons] = useState<boolean>(true);
+
   const [newBooking, setNewBooking] = useState<INewBooking>({
     email: "",
     phone: "",
@@ -27,15 +31,11 @@ export const Booking = () => {
     timestamp: "",
     guestCount: 0,
   });
-  const [title, setTitle] = useState<string>("Låt oss boka!");
-  const [shouldSwitch, setShouldSwitch] = useState<boolean>(false);
-  const [compareButtons, setCompareButtons] = useState<boolean>(true);
 
   const mainRef = useRef<HTMLDivElement>(null);
 
   function handleNewBooking(changes: INewBookingOptional) {
     setNewBooking({ ...newBooking, ...changes });
-    console.log(newBooking);
   }
 
   // useEffect(() => {

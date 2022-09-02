@@ -1,5 +1,5 @@
 import { stringify } from "querystring";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import BookingModel from "../../models/Booking";
@@ -20,26 +20,33 @@ interface IPersonDataProps {
 
 export const PersonalData = (props: IPersonDataProps) => {
   const [email, setEmail] = useState<string>("");
-  const [mobileNumber, setMobileNumber] = useState<string>("");
+  const [phone, setMobileNumber] = useState<string>("");
   const [firstName, setFirstName] = useState<string>("");
   const [lastName, setLastName] = useState<string>("");
   const [allergies, setAllergies] = useState<string>("");
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   function submitHandler(e: FormEvent) {
     e.preventDefault();
-    props.moveForward();
-
-    props.handleNewBooking({
-      firstName,
-      lastName,
-      email,
-      phone: mobileNumber,
-      allergies,
-    });
+    const form = formRef.current;
+    if (form) {
+      form.reportValidity();
+      if (form.checkValidity()) {
+        props.moveForward();
+        props.handleNewBooking({
+          firstName,
+          lastName,
+          email,
+          phone,
+          allergies,
+        });
+      }
+    }
   }
 
   return (
-    <Form onSubmit={submitHandler} gap="35px" width="90%" height="auto">
+    <Form id="form" gap="35px" width="90%" height="auto" ref={formRef}>
       {/* EMAIL / MOBILE */}
       <Div flexDirectionLaptop="row" widthLaptop="80%" gap="35px">
         <Div>
@@ -47,6 +54,7 @@ export const PersonalData = (props: IPersonDataProps) => {
             Din epost
           </Span>
           <Input
+            required
             type="email"
             id="email"
             value={email}
@@ -62,8 +70,10 @@ export const PersonalData = (props: IPersonDataProps) => {
             Mobilnummer
           </Span>
           <Input
+            required
             id="number"
-            value={mobileNumber}
+            minLength={10}
+            value={phone}
             onChange={(e) => {
               setMobileNumber(e.target.value);
             }}
@@ -80,6 +90,7 @@ export const PersonalData = (props: IPersonDataProps) => {
             Förnamn
           </Span>
           <Input
+            required
             id="firstname"
             value={firstName}
             onChange={(e) => {
@@ -95,6 +106,7 @@ export const PersonalData = (props: IPersonDataProps) => {
             Efternamn
           </Span>
           <Input
+            required
             id="lastname"
             value={lastName}
             onChange={(e) => {
