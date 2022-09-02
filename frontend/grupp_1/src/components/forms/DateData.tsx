@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import IBookingMinimized from "../../interfaces/IBookingMinimized";
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import BookingModel from "../../models/Booking";
@@ -30,6 +31,10 @@ export const DateData = (props: IDateDataProps) => {
   const AVALIBLE_TABLES = 15;
 
   const SEATINGS = {
+    sunday: {
+      firstSeating: [],
+      lastSeating: [],
+    },
     monday: {
       firstSeating: [],
       lastSeating: [],
@@ -54,24 +59,19 @@ export const DateData = (props: IDateDataProps) => {
       firstSeating: [],
       lastSeating: [],
     },
-    sunday: {
-      firstSeating: [],
-      lastSeating: [],
-    },
   };
 
   // ------------------------------------------------------
   // ### CALCULATE CURRENT WEEK ###
   useEffect(() => {
-    getCurrentWeek();
+    getWeek(new Date());
   }, []);
-  function getCurrentWeek() {
-    let currentDate = new Date();
-    var oneJan = new Date(currentDate.getFullYear(), 0, 1);
-    var numberOfDays = Math.floor(
-      (currentDate.getTime() - oneJan.getTime()) / (24 * 60 * 60 * 1000)
+  function getWeek(date: Date) {
+    let oneJan = new Date(date.getFullYear(), 0, 1);
+    let numberOfDays = Math.floor(
+      (date.getTime() - oneJan.getTime()) / (24 * 60 * 60 * 1000)
     );
-    var result = Math.ceil((currentDate.getDay() + 1 + numberOfDays) / 7);
+    let result = Math.ceil((date.getDay() + 1 + numberOfDays) / 7);
     setEarliestWeek(result);
     setWeek(result);
   }
@@ -91,9 +91,9 @@ export const DateData = (props: IDateDataProps) => {
 
   function fetchBookings() {
     shouldFetchBookings = false;
-    service.getBookings().then((foundBookings: BookingModel[]) => {
-      setBookings(foundBookings);
-    });
+    // service.getBookings().then((foundBookings: IBookingMinimized[]) => {
+    //   setBookings(foundBookings);
+    // });
   }
   // ------------------------------------------------------
   // ### CALCULATION ###

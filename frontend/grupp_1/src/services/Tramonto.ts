@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosResponse } from "axios";
 // ### INTERFACE ###
 import IBookingChanges from "../interfaces/IBookingChanges";
 import IBookingExtended from "../interfaces/IBookingExtended";
+import IBookingMinimized from "../interfaces/IBookingMinimized";
 import ICustomer from "../interfaces/ICustomer";
 import ICustomerChanges from "../interfaces/ICustomerChanges";
 import IEmployeeChanges from "../interfaces/IEmployeeChanges";
@@ -24,7 +25,7 @@ export default class TramontoService {
 
   // ---------------------------------------------------------------
   // ### BOOKINGS ###
-  public async getBookings(): Promise<BookingModelExtended[]> {
+  public async getBookings(): Promise<IBookingMinimized[]> {
     const axiosResponse = await transport
       .get<ITramontoResponse>(this.url + "/bookings")
       .catch((error) => {
@@ -33,9 +34,7 @@ export default class TramontoService {
 
     if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
     if (!axiosResponse.data.bookings) return [];
-    return axiosResponse.data.bookings.map(
-      (IBook: IBookingExtended) => new BookingModelExtended(IBook)
-    );
+    return axiosResponse.data.bookings;
   }
   public async getBookingById(
     id: string

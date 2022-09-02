@@ -14,7 +14,9 @@ const CustomerModel = require("../models/CustomerModel");
 // -------------------------------------------------------
 // ### GET ALL BOOKINGS ###
 router.get("/", async (req, res) => {
-  const bookings = await BookingsModel.find().populate("customerId").lean();
+  const bookings = await BookingsModel.find()
+    .select("-_id -customerId -allergies")
+    .lean();
   res.status(200).send({
     msg: "All bookings",
     bookings: bookings,
