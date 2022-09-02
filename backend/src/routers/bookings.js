@@ -119,7 +119,7 @@ router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
 
         const { booking } = req.body;
 
-        utils.validateAllowedProperties(booking);
+        utils.validateAllowedPropertiesBooking(booking);
         utils.validateBooking({ ...utils.BLANK_BOOKING, ...booking });
 
         const foundBooking = await BookingsModel.findById(req.params.id);
@@ -152,7 +152,7 @@ router.delete("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
         if (!deletedBooking) throw "No booking found with ID" + req.params.id;
         res.send({
             msg: "Deleted booking.",
-            result: deletedBooking,
+            booking: deletedBooking,
         });
     } catch (error) {
         res.status(400).send({

@@ -27,6 +27,13 @@ const BLANK_PERSONAL = {
     password: "NONE",
     role: "staff",
 };
+
+const BLANK_CUSTOMER = {
+    firstName: "NONE",
+    lastName: "NONE",
+    email: "NONE@NONE.com",
+    phone: "NONE",
+};
 // ----------------------------------------------------------
 // ### VALIDATION ###
 function validateBooking(booking) {
@@ -67,12 +74,6 @@ function isIsoDate(timeStamp) {
     return (
         date instanceof Date && !isNaN(date) && date.toISOString() === timeStamp
     );
-}
-function validateAllowedProperties(booking) {
-    Object.keys(booking).forEach((key) => {
-        if (!["guestCount", "allergies", "timestamp"].includes(key))
-            throw "Trying to change unallowed property.";
-    });
 }
 function validateCredentials(credentials) {
     // ---------------------------------------------------------
@@ -127,6 +128,12 @@ function validatePersonal(personal) {
     if (!["staff", "admin"].includes(personal.role)) throw "Unallowed role.";
     // ---------------------------------------------------------
 }
+function validateAllowedPropertiesBooking(booking) {
+    Object.keys(booking).forEach((key) => {
+        if (!["guestCount", "allergies", "timestamp"].includes(key))
+            throw "Trying to change unallowed property.";
+    });
+}
 function validateAllowedPropertiesPersonal(personal) {
     Object.keys(personal).forEach((key) => {
         if (
@@ -142,6 +149,31 @@ function validateAllowedPropertiesPersonal(personal) {
             throw "Trying to change unallowed property.";
     });
 }
+function validateCustomer(customer) {
+    // ---------------------------------------------------------
+    if (!customer) throw "No customer provided for validation.";
+    // ---------------------------------------------------------
+    // ### TYPE CHECK ###
+    if (typeof customer.firstName !== "string") throw "Invalid firstName type.";
+    if (typeof customer.lastName !== "string") throw "Invalid lastName type.";
+    if (typeof customer.email !== "string") throw "Invalid email type.";
+    if (typeof customer.phone !== "string") throw "Invalid phone type.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### VALUE CHECK ###
+    if (customer.firstName.length <= 0) throw "Too short firstName.";
+    if (customer.lastName.length <= 0) throw "Too short firstName.";
+    if (customer.email.length <= 0) throw "Too short email.";
+    if (customer.phone.length <= 0) throw "Too short phonenumber.";
+    // ---------------------------------------------------------
+
+    // ---------------------------------------------------------
+    // ### SPECIFIC ###
+    if (!emailRegexp.test(customer.email)) throw "Invalid email format.";
+    // ---------------------------------------------------------
+}
+
 // ----------------------------------------------------------
 
 // ----------------------------------------------------------
@@ -225,12 +257,14 @@ async function forceLoggedInOrOwnBooking(req, res, next) {
 
 module.exports = {
     validateBooking,
-    validateAllowedProperties,
-    validateCredentials,
+    validateCustomer,
     validatePersonal,
+    validateCredentials,
+    validateAllowedPropertiesBooking,
     validateAllowedPropertiesPersonal,
     BLANK_BOOKING,
     BLANK_PERSONAL,
+    BLANK_CUSTOMER,
     comparePassword,
     hashPassword,
     forceAuthorize,

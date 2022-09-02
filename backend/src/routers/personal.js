@@ -138,17 +138,17 @@ router.delete("/:id", utils.forceAdmin, async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid ID provided.";
 
-        const personal = await PersonalModel.findById(req.params.id).select(
+        const employee = await PersonalModel.findById(req.params.id).select(
             "-hashedPassword"
         );
 
-        if (!personal) throw "No personal found with Id " + req.params.id;
+        if (!employee) throw "No personal found with Id " + req.params.id;
 
-        await personal.delete();
+        await employee.delete();
 
         res.send({
-            msg: `Deleted personal ${personal.firstName} ${personal.lastName}`,
-            result: personal,
+            msg: `Deleted personal ${employee.firstName} ${employee.lastName}`,
+            employee: employee,
         });
     } catch (error) {
         res.status(400).send({
