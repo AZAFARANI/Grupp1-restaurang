@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
+import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import "../../scss/Booking.scss";
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
@@ -10,10 +11,25 @@ import { Span } from "../Styled/Span";
 interface IPersonCounterProps {
   moveForward(): void;
   moveBackward(): void;
+  handleNewBooking(changes: INewBookingOptional): void;
 }
 
 export const PersonCounter = (props: IPersonCounterProps) => {
   const [Quantify, setQuantify] = useState(0);
+
+  function submitHandler(e: FormEvent) {
+    e.preventDefault();
+    if (Quantify > 90) {
+      alert("Too many people entered");
+    } else {
+      props.handleNewBooking({ guestCount: Quantify });
+      props.moveForward();
+    }
+  }
+
+  function handleBackwards() {
+    props.moveBackward();
+  }
 
   function reduceQuantify() {
     if (Quantify >= 1) {
@@ -26,7 +42,7 @@ export const PersonCounter = (props: IPersonCounterProps) => {
   }
 
   return (
-    <Form height="auto">
+    <Form onSubmit={submitHandler} height="auto">
       {/* HERO DIV */}
       <Div>
         {/* CONTAINER DIV */}
@@ -87,7 +103,7 @@ export const PersonCounter = (props: IPersonCounterProps) => {
               padding="15px 35px"
               paddingTablet="12px 38px"
               background="#A3A380"
-              onClick={props.moveBackward}
+              onClick={handleBackwards}
             >
               <Image
                 src="/svg/left-arrow.svg"
@@ -103,7 +119,7 @@ export const PersonCounter = (props: IPersonCounterProps) => {
               padding="15px 24px"
               paddingTablet="9px 27px"
               background="#A3A380"
-              onClick={props.moveForward}
+              onClick={submitHandler}
             >
               <Span color="white" fontSize="17pt" fontSizeTablet="18pt">
                 Nästa

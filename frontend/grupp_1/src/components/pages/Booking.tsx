@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { servicesVersion } from "typescript";
+import INewBooking from "../../interfaces/INewBooking";
+import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import BookingModel from "../../models/Booking";
 import "../../scss/Booking.scss";
 import TramontoService from "../../services/Tramonto";
@@ -19,7 +22,21 @@ export const Booking = () => {
   const [shouldSwitch, setShouldSwitch] = useState<boolean>(false);
   const [compareButtons, setCompareButtons] = useState<boolean>(true);
 
+  const [newBooking, setNewBooking] = useState<INewBooking>({
+    email: "",
+    phone: "",
+    firstName: "",
+    lastName: "",
+    allergies: "",
+    timestamp: "",
+    guestCount: 0,
+  });
+
   const mainRef = useRef<HTMLDivElement>(null);
+
+  function handleNewBooking(changes: INewBookingOptional) {
+    setNewBooking({ ...newBooking, ...changes });
+  }
 
   // useEffect(() => {
   //   mainRef.current?.clientHeight;
@@ -95,6 +112,10 @@ export const Booking = () => {
   useEffect(() => {
     if (shouldFetch) fetchBookings();
   }, []);
+
+  useEffect(() => {
+    console.table(newBooking);
+  }, [newBooking]);
 
   return (
     <Div backgroundImage="url(images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)">
@@ -242,6 +263,9 @@ export const Booking = () => {
                 moveForward={() => {
                   setShouldSwitch(true);
                 }}
+                handleNewBooking={(changes: INewBookingOptional) => {
+                  handleNewBooking(changes);
+                }}
               ></PersonalData>
             </Div>
             {/* STEP 2 */}
@@ -270,6 +294,9 @@ export const Booking = () => {
                 moveBackward={() => {
                   setShouldSwitch(true);
                   setCompareButtons(false);
+                }}
+                handleNewBooking={(changes: INewBookingOptional) => {
+                  handleNewBooking(changes);
                 }}
               ></PersonCounter>
             </Div>
