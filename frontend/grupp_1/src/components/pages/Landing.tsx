@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "../Styled/Link";
 import { A } from "../Styled/A";
 import { Div } from "../Styled/Div";
 import { GlassmorphDiv } from "../Styled/GlassmorphDiv";

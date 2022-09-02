@@ -3,8 +3,9 @@ import { Outlet } from "react-router-dom";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import "../scss/Layout.scss";
-import { Link } from "react-router-dom";
+
+// import { Link } from "react-router-dom";
+import { Link } from "./Styled/Link";
 import { Icon } from "./Styled/Icon";
 import { Div } from "./Styled/Div";
 import { Span } from "./Styled/Span";
@@ -16,16 +17,51 @@ export const Layout = () => {
   return (
     <>
       <Icon
-        className={`${isClicked ? "hidden" : "visible"} open-menu`}
+        displayLaptop="none"
+        transition="transform 0.2s ease"
+        className={`${isClicked ? "hidden" : "visible"} `}
+        postion="absolute"
+        right="5%"
+        top="5vh"
         onClick={() => {
           setIsClicked(!isClicked);
         }}
         icon={faBars}
       />
 
-      <div className="nav-wrapper">
-        <div className={`${isClicked ? "slide-in" : "slide-out"} menu`}>
-          <div className="heading">
+      <Div
+        position="fixed"
+        top="0"
+        left="0"
+        width="100vw"
+        height="100vh"
+        zIndex="1"
+        pointerEvents="none"
+      >
+        <Div
+          alignItems="flex-start"
+          gap="5%"
+          padding="20px"
+          zIndex="5"
+          pointerEvents="all"
+          position="absolute"
+          top="0"
+          left="-110%"
+          opacity="0"
+          height="100%"
+          width="100%"
+          backgroundColor=" #000000cc"
+          transition="left 0.5s ease, opacity 0.5s ease"
+          display="flex"
+          flexDirection="column"
+          className={`${isClicked ? "show-menu" : "hide-menu"}`}
+        >
+          <Div
+            width="100%"
+            flexDirection="row"
+            justifyContent="space-between"
+            height="50px"
+          >
             <Span
               id="menuHeading"
               fontSize="30pt"
@@ -41,51 +77,44 @@ export const Layout = () => {
                 setIsClicked(false);
               }}
             />
-          </div>
+          </Div>
 
-          <div className="menuDiv">
-            <ul>
-              <Link
-                onClick={() => {
-                  setIsClicked(false);
-                }}
-                to={"/"}
-              >
-                <li>
-                  <Span color="white" fontSize="30px">
-                    Startsida
-                  </Span>
-                </li>
-              </Link>
-              <li>
-                <Link
-                  onClick={() => {
-                    setIsClicked(false);
-                  }}
-                  to={"/booking"}
-                >
-                  <Span color="white" fontSize="30px">
-                    Boka bord
-                  </Span>
-                </Link>
-              </li>
+          <Div gap="20px" alignItems="flex-start">
+            <Link
+              onClick={() => {
+                setIsClicked(false);
+              }}
+              to={"/"}
+            >
+              <Span color="white" fontSize="30px">
+                Startsida
+              </Span>
+            </Link>
 
-              <Link
-                onClick={() => {
-                  setIsClicked(false);
-                }}
-                to={"/contact"}
-              >
-                <li>
-                  <Span color="white" fontSize="30px">
-                    Kontaktsida
-                  </Span>
-                </li>
-              </Link>
-            </ul>
-          </div>
-        </div>
-      </div>
+            <Link
+              onClick={() => {
+                setIsClicked(false);
+              }}
+              to={"/booking"}
+            >
+              <Span color="white" fontSize="30px">
+                Boka bord
+              </Span>
+            </Link>
+
+            <Link
+              onClick={() => {
+                setIsClicked(false);
+              }}
+              to={"/contact"}
+            >
+              <Span color="white" fontSize="30px">
+                Kontaktsida
+              </Span>
+            </Link>
+          </Div>
+        </Div>
+      </Div>
 
       <main>
         <Outlet />

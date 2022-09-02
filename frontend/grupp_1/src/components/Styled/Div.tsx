@@ -60,6 +60,9 @@ interface IDivProps {
   applyToNthChild?: string;
   marginChild?: string;
   borderRadius?: string;
+  zIndex?: string;
+  pointerEvents?: string;
+  opacity?: string;
 }
 
 // ### OLD STUFF ###
@@ -80,9 +83,10 @@ export const Div = styled.div`
   bottom: ${(props: IDivProps) => props.bottom || "none"};
   right: ${(props: IDivProps) => props.right || "none"};
   border-radius: ${(props: IDivProps) => props.borderRadius || "0px"};
-
+  pointer-events: ${(props: IDivProps) => props.pointerEvents || ""};
   height: ${(props: IDivProps) => props.height || "100%"};
   width: ${(props: IDivProps) => props.width || "100%"};
+  opacity: ${(props: IDivProps) => props.opacity || "1"};
 
   display: ${(props: IDivProps) => props.display || "flex"};
   flex-direction: ${(props: IDivProps) => props.flexDirection || "column"};
@@ -102,6 +106,7 @@ export const Div = styled.div`
 
   padding: ${(props: IDivProps) => props.padding || "0px"};
   margin: ${(props: IDivProps) => props.margin || "0px"};
+  z-index: ${(props: IDivProps) => props.zIndex || "0"};
 
   transition: ${(props: IDivProps) => props.transition || ""};
 
@@ -144,6 +149,16 @@ export const Div = styled.div`
 
   .hidden {
     display: none;
+    opacity: 0;
+  }
+
+  .show-menu {
+    left: 0%;
+    opacity: 1;
+  }
+  .hide-menu {
+    left: -110%;
+    opacity: 0;
   }
 
   .fadeOut {
@@ -173,6 +188,17 @@ export const Div = styled.div`
     }
     100% {
       transform: scale(0);
+    }
+  }
+
+  @keyframes slide-in-left {
+    0% {
+      left: -100%;
+      opacity: 0;
+    }
+    100% {
+      left: 0%;
+      opacity: 1;
     }
   }
 
