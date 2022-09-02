@@ -19,8 +19,12 @@ export const PersonCounter = (props: IPersonCounterProps) => {
 
   function submitHandler(e: FormEvent) {
     e.preventDefault();
-    props.moveForward();
-    props.handleNewBooking({ guestCount: Quantify });
+    if (Quantify > 90) {
+      alert("Too many people entered");
+    } else {
+      props.handleNewBooking({ guestCount: Quantify });
+      props.moveForward();
+    }
   }
 
   function handleBackwards() {
