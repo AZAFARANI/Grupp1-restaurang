@@ -294,7 +294,11 @@ export const Booking = () => {
             </Div>
             {/* STEP 5 */}
             <Div className={`${step === 5 ? "visible" : "hidden"}`}>
-              <FinishData setStep={setStep} bookingStep={step}></FinishData>
+              <FinishData
+                setStep={setStep}
+                bookingStep={step}
+                newBooking={newBooking}
+              ></FinishData>
             </Div>
           </Div>
         </Div>
