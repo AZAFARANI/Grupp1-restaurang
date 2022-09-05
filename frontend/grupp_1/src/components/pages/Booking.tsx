@@ -166,7 +166,7 @@ export const Booking = () => {
                         <SeperatorLine></SeperatorLine>
                     </Div>
                     {/* FORM STEPS */}
-                    <Div width="90%" border="2px solid blue" margin="20px">
+                    <Div width="90%" margin="20px">
                         {(function () {
                             switch (step) {
                                 case 1:
