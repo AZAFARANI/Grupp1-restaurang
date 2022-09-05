@@ -182,7 +182,7 @@ export const Layout = () => {
             <Image
               displayLaptop="none"
               src="/svg/bi_arrow-down-circle-fill.svg"
-              width="15%"
+              width="70px"
             ></Image>
           </Div>
         </Div>
