@@ -340,6 +340,7 @@ export const Booking = () => {
                                             }`}
                                         >
                                             <FinishData
+                                                newBooking={newBooking}
                                                 setStep={setStep}
                                                 bookingStep={step}
                                             ></FinishData>

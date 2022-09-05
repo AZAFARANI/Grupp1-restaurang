@@ -83,7 +83,7 @@ export const PersonalData = (props: IPersonDataProps) => {
     }
 
     return (
-        <Form id="form" gap="35px" width="90%" ref={formRef}>
+        <Form id="form" gap="35px" ref={formRef}>
             {/* EMAIL / MOBILE */}
             <Div flexDirectionLaptop="row" widthLaptop="80%" gap="35px">
                 <Div>

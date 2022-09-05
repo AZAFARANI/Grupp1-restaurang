@@ -48,15 +48,10 @@ export const DateData = (props: IDateDataProps) => {
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
+        document.querySelector("#scrollToStartOfForm")?.scrollIntoView(true);
         if (chosenTime) {
-            document
-                .querySelector("#scrollToStartOfForm")
-                ?.scrollIntoView(true);
-
             props.handleNewBooking({ timestamp: chosenTime.toISOString() });
-            return true;
         }
-        return false;
     }
 
     // ------------------------------------------------------
@@ -258,62 +253,56 @@ export const DateData = (props: IDateDataProps) => {
 
     let startOfSelectedWeek = new Date(currentWeekMonday);
     return (
-        <Form minHeight="100vh">
+        <Form>
             {doneFetching ? (
                 <Div>
                     {/* SELECT WEEK */}
                     <Div
+                        height="auto"
                         flexDirectionLaptop="row"
-                        width="80%"
-                        widthLaptop="90%"
                         justifyContentLaptop="space-between"
                     >
                         <Div
                             flexDirection="row"
-                            padding="120px 0 0 0"
-                            paddingLaptop="0 0 0 0"
+                            justifyContent="space-between"
                             widthTablet="60%"
                             widthLaptop="100%"
                         >
-                            <Div>
-                                <Button
-                                    type="button"
-                                    padding="8px 14px"
-                                    background="#A3A380"
-                                    onClick={previousWeek}
-                                >
-                                    <Image
-                                        src="/svg/left-arrow-form.svg"
-                                        alt="left-arrow"
-                                        width="40px"
-                                        height="30px"
-                                    ></Image>
-                                </Button>
-                            </Div>
+                            <Button
+                                type="button"
+                                padding="8px 14px"
+                                background="#A3A380"
+                                onClick={previousWeek}
+                            >
+                                <Image
+                                    src="/svg/left-arrow-form.svg"
+                                    alt="left-arrow"
+                                    width="40px"
+                                    height="30px"
+                                ></Image>
+                            </Button>
                             <Div justifyContent="center">
                                 <Span fontSize="12pt" fontSizeTablet="16pt">
                                     Vecka {week}
                                 </Span>
                             </Div>
-                            <Div>
-                                <Button
-                                    type="button"
-                                    padding="8px 14px"
-                                    background="#A3A380"
-                                    onClick={nextWeek}
-                                >
-                                    <Image
-                                        src="/svg/right-arrow.svg"
-                                        alt="right-arrow"
-                                        width="40px"
-                                        height="30px"
-                                    ></Image>
-                                </Button>
-                            </Div>
+                            <Button
+                                type="button"
+                                padding="8px 14px"
+                                background="#A3A380"
+                                onClick={nextWeek}
+                            >
+                                <Image
+                                    src="/svg/right-arrow.svg"
+                                    alt="right-arrow"
+                                    width="40px"
+                                    height="30px"
+                                ></Image>
+                            </Button>
                         </Div>
                         <Div
                             padding="60px 0 0 0"
-                            paddingLaptop="0 30px 0 0"
+                            paddingLaptop="0"
                             alignItemsLaptop="flex-end"
                         >
                             <Button
@@ -337,7 +326,11 @@ export const DateData = (props: IDateDataProps) => {
                         </Div>
                     </Div>
                     {/* CALENDAR */}
-                    <Div flexDirectionLaptop="row" justifyContent="center">
+                    <Div
+                        flexDirectionLaptop="row"
+                        justifyContent="center"
+                        height="auto"
+                    >
                         {/* SINGLE DAY*/}
                         {DAYS_OF_WEEK.map((day, index) => {
                             if (currentWeekMonday) {
@@ -350,19 +343,14 @@ export const DateData = (props: IDateDataProps) => {
                         })}
                     </Div>
                     {/* SELECTED SEATING */}
-                    <Div padding="60px 0 0 0">
-                        <Div>
-                            <Span fontSize="14pt" fontWeight="bold">
-                                Du har valt :
-                            </Span>
-                        </Div>
+                    <Div padding="40px">
+                        <Span fontSize="14pt" fontWeight="bold">
+                            Du har valt :
+                        </Span>
                         <Div
-                            padding="20px 0 0 0"
-                            paddingLaptop="0px"
                             flexDirectionLaptop="row"
                             justifyContent="center"
                             alignItems="center"
-                            gapLaptop="20px"
                         >
                             <Div width="auto" height="auto">
                                 <Span fontSize="20pt" color="#686868">
@@ -386,48 +374,46 @@ export const DateData = (props: IDateDataProps) => {
                     {/* BUTTONS */}
                     <Div
                         flexDirection="row"
-                        padding="40px 0 40px 0"
-                        widthLaptop="90%"
+                        justifyContent="space-between"
+                        height="auto"
                     >
-                        <Div justifyContentLaptop="flex-start">
-                            {/* BACKWARD BUTTON */}
-                            <Button
-                                type="button"
-                                padding="15px 35px"
-                                paddingTablet="12px 38px"
-                                background="#A3A380"
-                                onClick={(e) => {
-                                    if (handleSubmit(e)) props.moveBackward();
-                                }}
+                        {/* BACKWARD BUTTON */}
+                        <Button
+                            type="button"
+                            padding="15px 35px"
+                            paddingTablet="12px 38px"
+                            background="#A3A380"
+                            onClick={(e) => {
+                                handleSubmit(e);
+                                props.moveBackward();
+                            }}
+                        >
+                            <Image
+                                src="/svg/left-arrow.svg"
+                                alt="left-arrow"
+                                height="30px"
+                                width="40px"
+                            ></Image>
+                        </Button>
+                        {/* FORWARD BUTTON */}
+                        <Button
+                            type="button"
+                            padding="15px 24px"
+                            paddingTablet="9px 27px"
+                            background="#A3A380"
+                            onClick={(e) => {
+                                handleSubmit(e);
+                                props.moveForward();
+                            }}
+                        >
+                            <Span
+                                color="white"
+                                fontSize="17pt"
+                                fontSizeTablet="18pt"
                             >
-                                <Image
-                                    src="/svg/left-arrow.svg"
-                                    alt="left-arrow"
-                                    height="30px"
-                                    width="40px"
-                                ></Image>
-                            </Button>
-                        </Div>
-                        <Div justifyContentLaptop="flex-end">
-                            {/* FORWARD BUTTON */}
-                            <Button
-                                type="button"
-                                padding="15px 24px"
-                                paddingTablet="9px 27px"
-                                background="#A3A380"
-                                onClick={(e) => {
-                                    if (handleSubmit(e)) props.moveForward();
-                                }}
-                            >
-                                <Span
-                                    color="white"
-                                    fontSize="17pt"
-                                    fontSizeTablet="18pt"
-                                >
-                                    Nästa
-                                </Span>
-                            </Button>
-                        </Div>
+                                Nästa
+                            </Span>
+                        </Button>
                     </Div>
                 </Div>
             ) : (
