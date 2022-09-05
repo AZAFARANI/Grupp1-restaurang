@@ -3,6 +3,7 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import BookingModel from "../../models/Booking";
+import CustomerModel from "../../models/Customer";
 import "../../scss/Booking.scss";
 import TramontoService from "../../services/Tramonto";
 import { Booking } from "../pages/Booking";
@@ -57,13 +58,21 @@ export const PersonalData = (props: IPersonDataProps) => {
     const input = emailRef.current;
     if (input) {
       if (input.checkValidity()) {
-        // service.getCustomer(input.value).then((customer: CustomerModel || null) => {
-        //   if(customer) {
-        //        setFirstName(customer.firstName);
-        //        setLastName(customer.lastName);
-        //        setPhone(customer.phone);
-        //    }
-        //})
+        service
+          .getCustomerByEmail(email)
+          .then((customer: CustomerModel | null) => {
+            if (customer) {
+              setFirstName(customer.firstName);
+              setLastName(customer.lastName);
+              setPhone(customer.phone);
+            }
+            // ###
+            // else {
+            //   setFirstName("ELIAS");
+            //   setLastName("FREDRIKSSON");
+            //   setPhone("0701413808");
+            // }
+          });
       }
     }
   }
@@ -77,7 +86,6 @@ export const PersonalData = (props: IPersonDataProps) => {
             Din epost
           </Span>
           <Input
-            onInput={autoFillHandler}
             required
             type="email"
             id="email"
@@ -85,8 +93,10 @@ export const PersonalData = (props: IPersonDataProps) => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
+            onBlur={autoFillHandler}
             height="50px"
             borderRadius="10px"
+            ref={emailRef}
           ></Input>
         </Div>
         <Div>

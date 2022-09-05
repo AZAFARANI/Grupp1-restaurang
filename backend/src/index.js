@@ -28,16 +28,18 @@ app.use(function (req, res, next) {
 // ### ROUTERS ###
 const BookingsRouter = require("./routers/bookings");
 const PersonalRouter = require("./routers/personal");
+const CustomerRouter = require("./routers/customers");
 
 app.use("/bookings", BookingsRouter);
 app.use("/personal", PersonalRouter);
+app.use("/customers", CustomerRouter);
 // -------------------------------------------------------
 
 // -------------------------------------------------------
 // ### HOME ###
 app.get("*", (req, res) => {
-    res.send({
-        msg: "Hello World!",
+    res.status(404).send({
+        msg: "Not found.",
     });
 });
 // -------------------------------------------------------

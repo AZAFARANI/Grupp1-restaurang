@@ -1,4 +1,5 @@
 import IBooking from "./IBookingExtended";
+import ICustomer from "./ICustomer";
 import IPersonal from "./IPersonal";
 
 export default interface ITramontoResponse {
@@ -10,4 +11,7 @@ export default interface ITramontoResponse {
     personal?: IPersonal[];
     employee?: IPersonal;
     employeeId?: string;
+    customers?: ICustomer[];
+    customer?: ICustomer;
+    customerId?: string;
 }

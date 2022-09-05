@@ -17,7 +17,6 @@ import { Span } from "../Styled/Span";
 
 export const Booking = () => {
   const [step, setStep] = useState(1);
-  const [bookings, setBookings] = useState<BookingModel[]>([]);
   const [title, setTitle] = useState<string>("Låt oss boka!");
   const [shouldSwitch, setShouldSwitch] = useState<boolean>(false);
   const [compareButtons, setCompareButtons] = useState<boolean>(true);
@@ -42,78 +41,8 @@ export const Booking = () => {
   //   mainRef.current?.clientHeight;
   // }, [step]);
 
-  let shouldFetch = true;
-  // let newBooking = new Booking();
-
-  function fetchBookings() {
-    shouldFetch = false;
-    const service = new TramontoService();
-    // service.getBookings().then((bookings: BookingModel[]) => {
-    //     setBookings(bookings);
-    //     console.log(bookings);
-    // });
-    // service.addBooking().then((result) => {
-    //     if (result?.error) console.log("ERROR", result.error);
-    //     else console.log("FETCHED");
-    // });
-
-    console.log("STARTED FETCH");
-    // -----------------------------------------------------------
-    // ### BOOKINGS ###
-    // service
-    //     .editBooking(
-    //         "630f1d0dbea39aade58282ac", // Booking ID
-    //         "630f1d0dbea39aade58282aa", // Customer ID
-    //         {
-    //             allergies: "Äpple, päron och apelsiner.",
-    //         }
-    //     )
-    //     .then((response) => {
-    //         // console.log("####### RESPONSE #######\n");
-    //         // console.table(response);
-    //     });
-    // service
-    //     .deleteBooking(
-    //         "630f1d0dbea39aade58282ac", // Booking ID
-    //         "630f1d0dbea39aade58282aa" // Customer ID
-    //     )
-    //     .then((response) => {
-    //         // console.log("####### RESPONSE #######\n");
-    //         // console.table(response);
-    //     });
-    // -----------------------------------------------------------
-
-    // -----------------------------------------------------------
-    // ### PERSONAL ###
-
-    // service.tryLogin("elias.e.fredriksson@gmail.com", "123");
-    // service.tryLogout();
-
-    // service
-    //     .tryLogin("elias.e.fredriksson@gmail.com", "123")
-    //     .then((response) => {
-    //         if (!response.error)
-    //             service
-    //                 .getPersonalById("63076f76636a83901567ea14")
-    //                 .then((employee) => {
-    //                     if (employee) console.table(employee);
-    //                 });
-    //     });
-
-    // service.getPersonal().then((data) => {
-    //     console.log(data);
-    // });
-
-    // service.tryLogout().then((data) => {
-    //     // console.log("LOGOUT: ", data);
-    // });
-  }
-
   useEffect(() => {
-    if (shouldFetch) fetchBookings();
-  }, []);
-
-  useEffect(() => {
+    console.log("\n\n CURRENT BOOKING");
     console.table(newBooking);
   }, [newBooking]);
 
@@ -327,6 +256,10 @@ export const Booking = () => {
                   setShouldSwitch(true);
                   setCompareButtons(false);
                 }}
+                handleNewBooking={(changes: INewBookingOptional) => {
+                  handleNewBooking(changes);
+                }}
+                currentBooking={newBooking}
               ></DateData>
             </Div>
             {/* STEP 4 */}
