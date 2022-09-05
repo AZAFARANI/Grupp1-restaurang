@@ -36,6 +36,17 @@ export default class TramontoService {
     if (!axiosResponse.data.bookings) return [];
     return axiosResponse.data.bookings;
   }
+  public async getBookingsAuthorized(): Promise<IBookingExtended[]> {
+    const axiosResponse = await transport
+      .get<ITramontoResponse>(this.url + "/bookings/all")
+      .catch((error) => {
+        return error.response;
+      });
+
+    if (this.LOG_RESPONSE) this.logResponse(axiosResponse);
+    if (!axiosResponse.data.bookings) return [];
+    return axiosResponse.data.bookings;
+  }
   public async getBookingById(
     id: string
   ): Promise<BookingModelExtended | null> {
