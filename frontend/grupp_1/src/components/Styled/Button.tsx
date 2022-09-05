@@ -2,16 +2,19 @@ import styled from "styled-components";
 import { device } from "./device/Responsive";
 
 interface IButtonProps {
-  color?: string;
-  background?: string;
-  padding?: string;
-  paddingTablet?: string;
-  paddingLaptop?: string;
-  border?: string;
-  borderRadius?: string;
-  boxShadow?: string;
-  backdropFilter?: string;
-  fontFamily?: string;
+    color?: string;
+    background?: string;
+    padding?: string;
+    paddingTablet?: string;
+    paddingLaptop?: string;
+    border?: string;
+    borderRadius?: string;
+    boxShadow?: string;
+    backdropFilter?: string;
+    fontFamily?: string;
+    width?: string;
+    height?: string;
+    flexGrow?: string;
 }
 
 // ----------------------------------------------------
@@ -20,33 +23,48 @@ interface IButtonProps {
 // ----------------------------------------------------
 
 export const Button = styled.button`
-  color: ${(props: IButtonProps) => props.color || "white"};
-  padding: ${(props: IButtonProps) => props.padding || "0px"};
-  background-color: ${(props: IButtonProps) => props.background || "none"};
+    width: ${(props: IButtonProps) => props.width || "auto"};
+    height: ${(props: IButtonProps) => props.height || "auto"};
 
-  border: ${(props: IButtonProps) => props.border || "none"};
-  border-radius: ${(props: IButtonProps) => props.borderRadius || "10px"};
+    color: ${(props: IButtonProps) => props.color || "white"};
+    padding: ${(props: IButtonProps) => props.padding || "0px"};
+    background-color: ${(props: IButtonProps) => props.background || "none"};
 
-  box-shadow: ${(props: IButtonProps) =>
-    props.boxShadow || "0px 4px 4px rgba(0, 0, 0, 0.25)"};
+    border: ${(props: IButtonProps) => props.border || "none"};
+    border-radius: ${(props: IButtonProps) => props.borderRadius || "10px"};
 
-  backdrop-filter: ${(props: IButtonProps) =>
-    props.backdropFilter || "blur(6px)"};
+    box-shadow: ${(props: IButtonProps) =>
+        props.boxShadow || "0px 4px 4px rgba(0, 0, 0, 0.25)"};
 
-  font-family: ${(props: IButtonProps) => props.fontFamily || "Sofia"};
+    backdrop-filter: ${(props: IButtonProps) =>
+        props.backdropFilter || "blur(6px)"};
 
-  transition: transform 0.2s ease;
+    font-family: ${(props: IButtonProps) => props.fontFamily || "Sofia"};
+    flex-grow: ${(props: IButtonProps) => props.flexGrow || "auto"};
 
-  &:hover {
-    cursor: pointer;
-    transform: scale(110%) translateY(-5px);
-  }
+    transition: transform 0.2s ease;
 
-  @media ${device.tablet} {
-    padding: ${(props: IButtonProps) => props.paddingTablet || ""};
-  }
+    &:hover {
+        cursor: pointer;
+        transform: scale(110%) translateY(-5px);
+        z-index: 10;
+    }
 
-  @media ${device.laptop} {
-    padding: ${(props: IButtonProps) => props.paddingLaptop || ""};
-  }
+    @media ${device.tablet} {
+        padding: ${(props: IButtonProps) => props.paddingTablet || ""};
+    }
+
+    @media ${device.laptop} {
+        padding: ${(props: IButtonProps) => props.paddingLaptop || ""};
+    }
+
+    &.active {
+        pointer-events: all;
+    }
+
+    &.disabled {
+        pointer-events: none;
+        opacity: 0.6;
+        filter: brightness(0.8) blur(0.5px);
+    }
 `;
