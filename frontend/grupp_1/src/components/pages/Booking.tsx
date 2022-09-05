@@ -289,6 +289,7 @@ export const Booking = () => {
                   setShouldSwitch(true);
                   setCompareButtons(false);
                 }}
+                newBooking={newBooking}
               ></ConfirmData>
             </Div>
             {/* STEP 5 */}

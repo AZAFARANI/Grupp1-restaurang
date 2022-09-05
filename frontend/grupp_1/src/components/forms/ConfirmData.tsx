@@ -1,3 +1,7 @@
+import { FormEvent, useEffect, useState } from "react";
+import INewBooking from "../../interfaces/INewBooking";
+import INewBookingOptional from "../../interfaces/INewBookingOptional";
+import TramontoService from "../../services/Tramonto";
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
@@ -8,9 +12,69 @@ import { Span } from "../Styled/Span";
 interface IConfirmDataProps {
   moveForward(): void;
   moveBackward(): void;
+  newBooking: INewBooking;
 }
 
+const service = new TramontoService();
+
 export const ConfirmData = (props: IConfirmDataProps) => {
+  const [bookingDate, setBookingDate] = useState(0);
+  const [bookingDay, setBookingDay] = useState("");
+  const [bookingMonth, setBookingMonth] = useState("");
+
+  useEffect(() => {
+    getValuesFromTimeStamp();
+  }, []);
+
+  function getValuesFromTimeStamp() {
+    //-- Retrieves the booking object's timestamp and extracts the date --//
+    let bookingDateString = props.newBooking.timestamp;
+    let bookingDateToDateObjekt = new Date(bookingDateString);
+    let dateResult = bookingDateToDateObjekt.getDate();
+
+    //-- List of days of the week --//
+    var weekDay = new Array(7);
+    weekDay[0] = "Söndag";
+    weekDay[1] = "Måndag";
+    weekDay[2] = "Tisdag";
+    weekDay[3] = "Onsdag";
+    weekDay[4] = "Torsdag";
+    weekDay[5] = "Fredag";
+    weekDay[6] = "Lördag";
+
+    //-- Variable with a correctly entered index value of the date object --//
+    let weekResult = weekDay[bookingDateToDateObjekt.getDay()];
+
+    //-- List of months of the year --//
+    var monthDay = new Array(12);
+    monthDay[0] = "Januari";
+    monthDay[1] = "Februari";
+    monthDay[2] = "Mars";
+    monthDay[3] = "April";
+    monthDay[4] = "Maj";
+    monthDay[5] = "Juni";
+    monthDay[6] = "Juli";
+    monthDay[7] = "Augusti";
+    monthDay[8] = "September";
+    monthDay[9] = "Oktober";
+    monthDay[10] = "November";
+    monthDay[11] = "December";
+
+    //-- Variable with a correctly entered index value of the date object --//
+    let monthResult = monthDay[bookingDateToDateObjekt.getMonth()];
+
+    //-- Updating every states --//
+    setBookingDate(dateResult);
+    setBookingDay(weekResult);
+    setBookingMonth(monthResult);
+  }
+
+  function submitHandler(e: FormEvent) {
+    e.preventDefault();
+
+    props.moveForward();
+    service.addBooking(props.newBooking);
+  }
   return (
     <Form height="auto">
       <Div
@@ -34,7 +98,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
           <Div padding="40px 0 0 0" paddingLaptop="0">
             <Div padding="0 0 10px 0" paddingLaptop="0">
               <Span fontSize="20pt" color="#686868">
-                Onsdag 21:a Augusti
+                {bookingDay} {bookingDate} {bookingMonth}
               </Span>
             </Div>
             <Div>
@@ -82,7 +146,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                Filip Engberg
+                {props.newBooking.firstName} {props.newBooking.lastName}
               </Span>
             </Div>
           </Div>
@@ -94,7 +158,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                Filip.Engberg@medieinsitutet.se
+                {props.newBooking.email}
               </Span>
             </Div>
           </Div>
@@ -106,7 +170,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                0707712715
+                {props.newBooking.phone}
               </Span>
             </Div>
           </Div>
@@ -118,7 +182,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                5 Personer
+                {props.newBooking.guestCount} Personer
               </Span>
             </Div>
           </Div>
@@ -130,7 +194,11 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                Jordnötter, Äpple
+                {`${
+                  props.newBooking.allergies.length > 0
+                    ? props.newBooking.allergies
+                    : "-"
+                }`}
               </Span>
             </Div>
           </Div>
@@ -159,7 +227,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             padding="12px 26px"
             paddingTablet="9px 27px"
             background="#A3A380"
-            onClick={props.moveForward}
+            onClick={submitHandler}
           >
             <Span color="white" fontSize="17pt" fontSizeTablet="18pt">
               Boka
