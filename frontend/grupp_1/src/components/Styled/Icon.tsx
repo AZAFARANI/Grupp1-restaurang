@@ -17,7 +17,7 @@ interface IIconProps {
   right?: string;
   display?: string;
   displayTablet?: string;
-  displayLaptop?: string;
+  displaylaptop?: string;
 }
 
 export const Icon = styled(FontAwesomeIcon)`
@@ -37,9 +37,10 @@ export const Icon = styled(FontAwesomeIcon)`
   opacity: ${(props: IIconProps) => props.opacity || "1"};
 
   @media ${device.tablet} {
+    display: ${(props: IIconProps) => props.displayTablet || "flex"};
   }
   @media ${device.laptop} {
-    display: ${(props: IIconProps) => props.displayLaptop || "flex"};
+    display: ${(props: IIconProps) => props.displaylaptop || "flex"};
   }
 
   &.hidden {

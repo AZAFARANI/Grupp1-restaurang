@@ -17,7 +17,7 @@ export const Layout = () => {
   return (
     <>
       <Icon
-        displayLaptop="none"
+        displaylaptop="none"
         transition="transform 0.2s ease"
         className={`${isClicked ? "hidden" : "visible"} `}
         postion="absolute"
