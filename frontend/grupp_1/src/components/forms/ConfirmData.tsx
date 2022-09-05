@@ -12,6 +12,8 @@ interface IConfirmDataProps {
     currentBooking: INewBooking;
 }
 
+const service = new TramontoService();
+
 export const ConfirmData = (props: IConfirmDataProps) => {
     return (
         <Form height="auto">

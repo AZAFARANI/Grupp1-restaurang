@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import INewBooking from "../../interfaces/INewBooking";
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
@@ -9,6 +10,7 @@ import { Span } from "../Styled/Span";
 interface IFinishDataProps {
   setStep(step: number): void;
   bookingStep: number;
+  newBooking: INewBooking;
 }
 
 export const FinishData = (props: IFinishDataProps) => {
@@ -83,7 +85,7 @@ export const FinishData = (props: IFinishDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                Filip Engberg
+                {props.newBooking.firstName} {props.newBooking.lastName}
               </Span>
             </Div>
           </Div>
@@ -95,7 +97,7 @@ export const FinishData = (props: IFinishDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                Filip.Engberg@medieinsitutet.se
+                {props.newBooking.email}
               </Span>
             </Div>
           </Div>
@@ -107,7 +109,7 @@ export const FinishData = (props: IFinishDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                0707712715
+                {props.newBooking.phone}
               </Span>
             </Div>
           </Div>
@@ -119,7 +121,7 @@ export const FinishData = (props: IFinishDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                5 Personer
+                {props.newBooking.guestCount} Personer
               </Span>
             </Div>
           </Div>
@@ -131,7 +133,11 @@ export const FinishData = (props: IFinishDataProps) => {
             </Div>
             <Div alignItems="flex-start" width="80%">
               <Span fontSize="12pt" color="#808080">
-                Jordnötter, Äpple
+                {`${
+                  props.newBooking.allergies.length > 0
+                    ? props.newBooking.allergies
+                    : "-"
+                }`}
               </Span>
             </Div>
           </Div>
