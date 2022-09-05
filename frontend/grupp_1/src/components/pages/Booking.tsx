@@ -25,7 +25,7 @@ export const Booking = () => {
         lastName: "",
         allergies: "",
         timestamp: "",
-        guestCount: 0,
+        guestCount: 1,
     });
 
     const mainRef = useRef<HTMLDivElement>(null);
@@ -34,17 +34,11 @@ export const Booking = () => {
         setNewBooking({ ...newBooking, ...changes });
     }
 
-    // useEffect(() => {
-    //   mainRef.current?.clientHeight;
-    // }, [step]);
-
-    useEffect(() => {
-        console.log("\n\n CURRENT BOOKING");
-        console.table(newBooking);
-    }, [newBooking]);
-
     return (
-        <Div backgroundImage="url(images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)">
+        <Div
+            backgroundImage="url(images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)"
+            backgroundPosition="top"
+        >
             <Div widthLaptop="70%">
                 {/* HEADER */}
                 <Div
@@ -74,10 +68,11 @@ export const Booking = () => {
                 </Div>
                 {/* MAIN */}
                 <Div
-                    transition="height 1s ease"
                     overflowX="hidden"
                     backgroundColor="rgba(255, 255, 255, 0.75)"
                     ref={mainRef}
+                    id="scrollToStartOfForm"
+                    minHeight="100vh"
                 >
                     {/* LÅT OSS BOKA */}
                     <Div
@@ -171,137 +166,189 @@ export const Booking = () => {
                         <SeperatorLine></SeperatorLine>
                     </Div>
                     {/* FORM STEPS */}
-                    <Div>
-                        {/* STEP 1 */}
-
-                        <Div
-                            onAnimationEnd={() => {
-                                if (shouldSwitch) {
-                                    setStep(2);
-                                    setTitle("Hur många är ni?");
-                                    setShouldSwitch(false);
-                                }
-                            }}
-                            className={`${step === 1 ? "visible" : "hidden"} ${
-                                shouldSwitch ? "fadeOut" : ""
-                            }`}
-                        >
-                            <PersonalData
-                                moveForward={() => {
-                                    setShouldSwitch(true);
-                                }}
-                                handleNewBooking={(
-                                    changes: INewBookingOptional
-                                ) => {
-                                    handleNewBooking(changes);
-                                }}
-                            ></PersonalData>
-                        </Div>
-                        {/* STEP 2 */}
-                        <Div
-                            onAnimationEnd={() => {
-                                if (shouldSwitch) {
-                                    if (compareButtons) setStep(3);
-                                    setTitle("När vill ni äta?");
-                                    setShouldSwitch(false);
-                                }
-                                if (!compareButtons) {
-                                    setStep(1);
-                                    setTitle("Låt oss boka!");
-                                    setShouldSwitch(false);
-                                    setCompareButtons(true);
-                                }
-                            }}
-                            className={`${step === 2 ? "visible" : "hidden"} ${
-                                shouldSwitch ? "fadeOut" : ""
-                            } `}
-                        >
-                            <PersonCounter
-                                moveForward={() => {
-                                    setShouldSwitch(true);
-                                }}
-                                moveBackward={() => {
-                                    setShouldSwitch(true);
-                                    setCompareButtons(false);
-                                }}
-                                handleNewBooking={(
-                                    changes: INewBookingOptional
-                                ) => {
-                                    handleNewBooking(changes);
-                                }}
-                            ></PersonCounter>
-                        </Div>
-                        {/* STEP 3 */}
-                        <Div
-                            onAnimationEnd={() => {
-                                if (shouldSwitch) {
-                                    if (compareButtons) setStep(4);
-                                    setTitle("Ser allt bra ut?");
-                                    setShouldSwitch(false);
-                                }
-                                if (!compareButtons) {
-                                    setStep(2);
-                                    setTitle("Hur många är ni?");
-                                    setShouldSwitch(false);
-                                    setCompareButtons(true);
-                                }
-                            }}
-                            className={`${step === 3 ? "visible" : "hidden"} ${
-                                shouldSwitch ? "fadeOut" : ""
-                            }`}
-                        >
-                            <DateData
-                                moveForward={() => {
-                                    setShouldSwitch(true);
-                                }}
-                                moveBackward={() => {
-                                    setShouldSwitch(true);
-                                    setCompareButtons(false);
-                                }}
-                                handleNewBooking={(
-                                    changes: INewBookingOptional
-                                ) => {
-                                    handleNewBooking(changes);
-                                }}
-                                currentBooking={newBooking}
-                            ></DateData>
-                        </Div>
-                        {/* STEP 4 */}
-                        <Div
-                            onAnimationEnd={() => {
-                                if (shouldSwitch) {
-                                    if (compareButtons) setStep(5);
-                                    setTitle("Klar!");
-                                    setShouldSwitch(false);
-                                }
-                                if (!compareButtons) {
-                                    setStep(3);
-                                    setTitle("När vill ni äta?");
-                                    setShouldSwitch(false);
-                                    setCompareButtons(true);
-                                }
-                            }}
-                            className={`${step === 4 ? "visible" : "hidden"} ${
-                                shouldSwitch ? "fadeOut" : ""
-                            }`}
-                        >
-                            <ConfirmData
-                                moveForward={() => {
-                                    setShouldSwitch(true);
-                                }}
-                                moveBackward={() => {
-                                    setShouldSwitch(true);
-                                    setCompareButtons(false);
-                                }}
-                            ></ConfirmData>
-                        </Div>
-                        {/* STEP 5 */}
-                        <Div className={`${step === 5 ? "visible" : "hidden"}`}>
-                            <FinishData
-                                setStep={setStep}
-                                bookingStep={step}
-                            ></FinishData>
-                        </Div>
+                    <Div width="90%" border="2px solid blue" margin="20px">
+                        {(function () {
+                            switch (step) {
+                                case 1:
+                                    // STEP 1
+                                    return (
+                                        <Div
+                                            onAnimationEnd={() => {
+                                                if (shouldSwitch) {
+                                                    setStep(2);
+                                                    setTitle(
+                                                        "Hur många är ni?"
+                                                    );
+                                                    setShouldSwitch(false);
+                                                }
+                                            }}
+                                            className={`${
+                                                step === 1
+                                                    ? "visible"
+                                                    : "hidden"
+                                            } ${shouldSwitch ? "fadeOut" : ""}`}
+                                        >
+                                            <PersonalData
+                                                currentBooking={newBooking}
+                                                moveForward={() => {
+                                                    setShouldSwitch(true);
+                                                }}
+                                                handleNewBooking={(
+                                                    changes: INewBookingOptional
+                                                ) => {
+                                                    handleNewBooking(changes);
+                                                }}
+                                            ></PersonalData>
+                                        </Div>
+                                    );
+                                case 2:
+                                    // STEP 2
+                                    return (
+                                        <Div
+                                            onAnimationEnd={() => {
+                                                if (shouldSwitch) {
+                                                    if (compareButtons)
+                                                        setStep(3);
+                                                    setTitle(
+                                                        "När vill ni äta?"
+                                                    );
+                                                    setShouldSwitch(false);
+                                                }
+                                                if (!compareButtons) {
+                                                    setStep(1);
+                                                    setTitle("Låt oss boka!");
+                                                    setShouldSwitch(false);
+                                                    setCompareButtons(true);
+                                                }
+                                            }}
+                                            className={`${
+                                                step === 2
+                                                    ? "visible"
+                                                    : "hidden"
+                                            } ${
+                                                shouldSwitch ? "fadeOut" : ""
+                                            } `}
+                                        >
+                                            <PersonCounter
+                                                currentBooking={newBooking}
+                                                moveForward={() => {
+                                                    setShouldSwitch(true);
+                                                }}
+                                                moveBackward={() => {
+                                                    setShouldSwitch(true);
+                                                    setCompareButtons(false);
+                                                }}
+                                                handleNewBooking={(
+                                                    changes: INewBookingOptional
+                                                ) => {
+                                                    handleNewBooking(changes);
+                                                }}
+                                            ></PersonCounter>
+                                        </Div>
+                                    );
+                                case 3:
+                                    // STEP 3
+                                    return (
+                                        <Div
+                                            onAnimationEnd={() => {
+                                                if (shouldSwitch) {
+                                                    if (compareButtons)
+                                                        setStep(4);
+                                                    setTitle(
+                                                        "Ser allt bra ut?"
+                                                    );
+                                                    setShouldSwitch(false);
+                                                }
+                                                if (!compareButtons) {
+                                                    setStep(2);
+                                                    setTitle(
+                                                        "Hur många är ni?"
+                                                    );
+                                                    setShouldSwitch(false);
+                                                    setCompareButtons(true);
+                                                }
+                                            }}
+                                            className={`${
+                                                step === 3
+                                                    ? "visible"
+                                                    : "hidden"
+                                            } ${shouldSwitch ? "fadeOut" : ""}`}
+                                        >
+                                            <DateData
+                                                moveForward={() => {
+                                                    setShouldSwitch(true);
+                                                }}
+                                                moveBackward={() => {
+                                                    setShouldSwitch(true);
+                                                    setCompareButtons(false);
+                                                }}
+                                                handleNewBooking={(
+                                                    changes: INewBookingOptional
+                                                ) => {
+                                                    handleNewBooking(changes);
+                                                }}
+                                                currentBooking={newBooking}
+                                            ></DateData>
+                                        </Div>
+                                    );
+                                case 4:
+                                    // STEP ¤
+                                    return (
+                                        <Div
+                                            onAnimationEnd={() => {
+                                                if (shouldSwitch) {
+                                                    if (compareButtons)
+                                                        setStep(5);
+                                                    setTitle("Klar!");
+                                                    setShouldSwitch(false);
+                                                }
+                                                if (!compareButtons) {
+                                                    setStep(3);
+                                                    setTitle(
+                                                        "När vill ni äta?"
+                                                    );
+                                                    setShouldSwitch(false);
+                                                    setCompareButtons(true);
+                                                }
+                                            }}
+                                            className={`${
+                                                step === 4
+                                                    ? "visible"
+                                                    : "hidden"
+                                            } ${shouldSwitch ? "fadeOut" : ""}`}
+                                        >
+                                            <ConfirmData
+                                                currentBooking={newBooking}
+                                                moveForward={() => {
+                                                    setShouldSwitch(true);
+                                                }}
+                                                moveBackward={() => {
+                                                    setShouldSwitch(true);
+                                                    setCompareButtons(false);
+                                                }}
+                                            ></ConfirmData>
+                                        </Div>
+                                    );
+                                case 5:
+                                    // STEP %
+                                    return (
+                                        <Div
+                                            className={`${
+                                                step === 5
+                                                    ? "visible"
+                                                    : "hidden"
+                                            }`}
+                                        >
+                                            <FinishData
+                                                setStep={setStep}
+                                                bookingStep={step}
+                                            ></FinishData>
+                                        </Div>
+                                    );
+                                default:
+                                    return <></>;
+                            }
+                        })()}
                     </Div>
                 </Div>
             </Div>

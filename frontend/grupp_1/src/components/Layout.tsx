@@ -116,11 +116,12 @@ export const Layout = () => {
                 </Div>
             </Div>
 
-            <main id="scrollToTop">
+            <Div flexGrow="1" height="auto" id="scrollToMain">
                 <Outlet />
-            </main>
+            </Div>
 
             <Div
+                height="auto"
                 width="100%"
                 backgroundColor="#CFC99B"
                 flexDirectionLaptop="row"
@@ -196,9 +197,15 @@ export const Layout = () => {
                         </Div>
 
                         <Image
+                            onClick={() => {
+                                document
+                                    .querySelector("#scrollToMain")
+                                    ?.scrollIntoView(true);
+                            }}
                             displayLaptop="none"
                             src="/svg/bi_arrow-down-circle-fill.svg"
-                            width="15%"
+                            width="100px"
+                            padding="20px"
                         ></Image>
                     </Div>
                 </Div>

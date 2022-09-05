@@ -21,6 +21,8 @@ interface IDivProps {
     gapLaptop?: string;
 
     backgroundImage?: string;
+    backgroundPosition?: string;
+    backgroundSize?: string;
     backgroundColor?: string;
     backgroundColorTablet?: string;
     backgroundColorLaptop?: string;
@@ -67,6 +69,7 @@ interface IDivProps {
     opacity?: string;
 
     border?: string;
+    minHeight?: string;
 }
 
 // ### OLD STUFF ###
@@ -106,8 +109,9 @@ export const Div = styled.div`
 
     background-image: ${(props: IDivProps) => props.backgroundImage || ""};
     background-color: ${(props: IDivProps) => props.backgroundColor || ""};
-    background-position: center;
-    background-size: cover;
+    background-position: ${(props: IDivProps) =>
+        props.backgroundPosition || "center"};
+    background-size: ${(props: IDivProps) => props.backgroundSize || "cover"};
 
     padding: ${(props: IDivProps) => props.padding || ""};
     margin: ${(props: IDivProps) => props.margin || ""};
@@ -115,6 +119,8 @@ export const Div = styled.div`
 
     transition: ${(props: IDivProps) => props.transition || ""};
     border: ${(props: IDivProps) => props.border || "none"};
+
+    min-height: ${(props: IDivProps) => props.minHeight || ""};
 
     @media ${device.tablet} {
         width: ${(props: IDivProps) => props.widthTablet || ""};

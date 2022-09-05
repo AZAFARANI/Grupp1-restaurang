@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import IBookingMinimized from "../../interfaces/IBookingMinimized";
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import ISeatings from "../../interfaces/ISeatings";
 import SeatingHandler, { NUMBER_TO_DAY } from "../../models/SeatingHandler";
 import "../../scss/Booking.scss";
-import TramontoService from "../../services/Tramonto";
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
@@ -32,6 +31,11 @@ interface IDateDataProps {
 const seatingHandler = new SeatingHandler();
 
 export const DateData = (props: IDateDataProps) => {
+    const REFRESH_DELAY = 1500; // In milliseconds
+    const TABLE_CAPACITY = 6;
+    const AVALIBLE_TABLES = 15;
+    const MAX_GUEST_COUNT = TABLE_CAPACITY * AVALIBLE_TABLES;
+
     const [week, setWeek] = useState(-1);
     const [earliestWeek, setEarliestWeek] = useState(-1);
 
@@ -42,22 +46,30 @@ export const DateData = (props: IDateDataProps) => {
 
     const [doneFetching, setDoneFetching] = useState(false);
 
-    let onInitialRender = true;
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault();
+        if (chosenTime) {
+            document
+                .querySelector("#scrollToStartOfForm")
+                ?.scrollIntoView(true);
+
+            props.handleNewBooking({ timestamp: chosenTime.toISOString() });
+            return true;
+        }
+        return false;
+    }
 
     // ------------------------------------------------------
     // ### CALCULATE CURRENT WEEK ###
     useEffect(() => {
-        if (onInitialRender) {
-            onInitialRender = false;
-            let week = seatingHandler.getWeek(new Date());
-            let currentMonday = seatingHandler.getDateOfISOWeek(
-                week,
-                new Date().getFullYear()
-            );
-            setCurrentWeekMonday(currentMonday);
-            setEarliestWeek(week);
-            setWeek(week);
-        }
+        let week = seatingHandler.getWeek(new Date());
+        let currentMonday = seatingHandler.getDateOfISOWeek(
+            week,
+            new Date().getFullYear()
+        );
+        setCurrentWeekMonday(currentMonday);
+        setEarliestWeek(week);
+        setWeek(week);
     }, []);
     function nextWeek() {
         setWeek(week + 1);
@@ -72,11 +84,7 @@ export const DateData = (props: IDateDataProps) => {
     // ### BOOKINGS ###
     useEffect(() => {
         if (!doneFetching && week !== -1) {
-            seatingHandler.fetchBookings(week).then(() => {
-                console.log("FETCH DONE");
-                seatingHandler.filterCurrentWeekBookings(week);
-                setDoneFetching(true);
-            });
+            triggerFetch();
         }
     }, [week]);
 
@@ -91,28 +99,17 @@ export const DateData = (props: IDateDataProps) => {
         }
     }, [week]);
 
-    useEffect(() => {
-        if (doneFetching) {
-            console.log("USE EFFECT, DONE FETCH");
-            console.table(seatingHandler.week);
-        }
-    }, [doneFetching]);
-
-    function logWeek() {
-        console.table(seatingHandler.week);
+    function triggerFetch() {
+        seatingHandler.fetchBookings(week).then(() => {
+            seatingHandler.filterCurrentWeekBookings(week);
+            setDoneFetching(true);
+            // console.log(seatingHandler.week);
+            // console.table(props.currentBooking);
+        });
     }
+
     // ------------------------------------------------------
     // ### CALCULATION ###
-
-    function onSeatingClick() {}
-
-    function updateMondayOfCurrentWeek() {
-        let mondayOfCurrentWeek: Date = seatingHandler.getDateOfISOWeek(
-            week,
-            new Date().getFullYear()
-        );
-        setCurrentWeekMonday(mondayOfCurrentWeek);
-    }
 
     function createDay(
         nameOfDay: string,
@@ -180,7 +177,7 @@ export const DateData = (props: IDateDataProps) => {
                     justifyContent="space-between"
                     alignItems="stretch"
                     padding="15px 0 0 0"
-                    gap="10px"
+                    gap="20px"
                 >
                     {/* FIRST SEATING */}
                     <Button
@@ -238,9 +235,6 @@ export const DateData = (props: IDateDataProps) => {
         return html;
     }
 
-    const TABLE_CAPACITY = 6;
-    const AVALIBLE_TABLES = 15;
-    const MAX_GUEST_COUNT = TABLE_CAPACITY * AVALIBLE_TABLES;
     function calculateAvalibility(seatings: IBookingMinimized[]) {
         const guestsToAdd = props.currentBooking.guestCount;
         const newTablesRequired = Math.ceil(guestsToAdd / TABLE_CAPACITY);
@@ -256,17 +250,18 @@ export const DateData = (props: IDateDataProps) => {
         // console.log("TOTAL GUESTS: ", totalGuests);
         // console.log("TOTAL TABLES: ", neededTables);
 
-        if (neededTables + newTablesRequired > TABLE_CAPACITY) return false;
-        if (totalGuests + guestsToAdd > MAX_GUEST_COUNT) return false;
-
-        return true;
+        if (neededTables + newTablesRequired <= AVALIBLE_TABLES) {
+            if (totalGuests + guestsToAdd <= MAX_GUEST_COUNT) return true;
+        }
+        return false;
     }
 
     let startOfSelectedWeek = new Date(currentWeekMonday);
     return (
-        <Form minHeight="50vh">
+        <Form minHeight="100vh">
             {doneFetching ? (
                 <Div>
+                    {/* SELECT WEEK */}
                     <Div
                         flexDirectionLaptop="row"
                         width="80%"
@@ -296,7 +291,9 @@ export const DateData = (props: IDateDataProps) => {
                                 </Button>
                             </Div>
                             <Div justifyContent="center">
-                                <Span fontSize="16pt">Vecka {week}</Span>
+                                <Span fontSize="12pt" fontSizeTablet="16pt">
+                                    Vecka {week}
+                                </Span>
                             </Div>
                             <Div>
                                 <Button
@@ -323,7 +320,12 @@ export const DateData = (props: IDateDataProps) => {
                                 type="button"
                                 background="#A3A380"
                                 padding="8px 14px"
-                                onClick={logWeek}
+                                onClick={() => {
+                                    setDoneFetching(false);
+                                    setTimeout(() => {
+                                        triggerFetch();
+                                    }, REFRESH_DELAY);
+                                }}
                             >
                                 <Image
                                     src="/svg/Refresh-date.svg"
@@ -335,7 +337,6 @@ export const DateData = (props: IDateDataProps) => {
                         </Div>
                     </Div>
                     {/* CALENDAR */}
-
                     <Div flexDirectionLaptop="row" justifyContent="center">
                         {/* SINGLE DAY*/}
                         {DAYS_OF_WEEK.map((day, index) => {
@@ -348,7 +349,7 @@ export const DateData = (props: IDateDataProps) => {
                             } else return <></>;
                         })}
                     </Div>
-
+                    {/* SELECTED SEATING */}
                     <Div padding="60px 0 0 0">
                         <Div>
                             <Span fontSize="14pt" fontWeight="bold">
@@ -382,18 +383,22 @@ export const DateData = (props: IDateDataProps) => {
                             </Div>
                         </Div>
                     </Div>
+                    {/* BUTTONS */}
                     <Div
                         flexDirection="row"
                         padding="40px 0 40px 0"
                         widthLaptop="90%"
                     >
                         <Div justifyContentLaptop="flex-start">
+                            {/* BACKWARD BUTTON */}
                             <Button
                                 type="button"
                                 padding="15px 35px"
                                 paddingTablet="12px 38px"
                                 background="#A3A380"
-                                onClick={props.moveBackward}
+                                onClick={(e) => {
+                                    if (handleSubmit(e)) props.moveBackward();
+                                }}
                             >
                                 <Image
                                     src="/svg/left-arrow.svg"
@@ -404,12 +409,15 @@ export const DateData = (props: IDateDataProps) => {
                             </Button>
                         </Div>
                         <Div justifyContentLaptop="flex-end">
+                            {/* FORWARD BUTTON */}
                             <Button
                                 type="button"
                                 padding="15px 24px"
                                 paddingTablet="9px 27px"
                                 background="#A3A380"
-                                onClick={props.moveForward}
+                                onClick={(e) => {
+                                    if (handleSubmit(e)) props.moveForward();
+                                }}
                             >
                                 <Span
                                     color="white"
@@ -423,8 +431,8 @@ export const DateData = (props: IDateDataProps) => {
                     </Div>
                 </Div>
             ) : (
-                <Div justifyContent="center">
-                    <Div className="spinner"></Div>
+                <Div>
+                    <Div className="spinner" margin="20px"></Div>
                 </Div>
             )}
         </Form>

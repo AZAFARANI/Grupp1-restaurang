@@ -1,12 +1,9 @@
-import { stringify } from "querystring";
-import { ChangeEvent, FormEvent, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
-import BookingModel from "../../models/Booking";
 import CustomerModel from "../../models/Customer";
 import "../../scss/Booking.scss";
 import TramontoService from "../../services/Tramonto";
-import { Booking } from "../pages/Booking";
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
@@ -17,16 +14,23 @@ import { Textarea } from "../Styled/Textarea";
 interface IPersonDataProps {
     moveForward(): void;
     handleNewBooking(changes: INewBookingOptional): void;
+    currentBooking: INewBooking;
 }
 
 const service = new TramontoService();
 
 export const PersonalData = (props: IPersonDataProps) => {
-    const [email, setEmail] = useState<string>("");
-    const [phone, setPhone] = useState<string>("");
-    const [firstName, setFirstName] = useState<string>("");
-    const [lastName, setLastName] = useState<string>("");
-    const [allergies, setAllergies] = useState<string>("");
+    const [email, setEmail] = useState<string>(props.currentBooking.email);
+    const [phone, setPhone] = useState<string>(props.currentBooking.phone);
+    const [firstName, setFirstName] = useState<string>(
+        props.currentBooking.firstName
+    );
+    const [lastName, setLastName] = useState<string>(
+        props.currentBooking.lastName
+    );
+    const [allergies, setAllergies] = useState<string>(
+        props.currentBooking.allergies
+    );
 
     const formRef = useRef<HTMLFormElement>(null);
 
@@ -38,7 +42,7 @@ export const PersonalData = (props: IPersonDataProps) => {
 
     function submitHandler(e: FormEvent) {
         e.preventDefault();
-        document.body.scrollIntoView(true);
+        document.querySelector("#scrollToStartOfForm")?.scrollIntoView(true);
         const form = formRef.current;
         if (form) {
             form.reportValidity();
@@ -79,7 +83,7 @@ export const PersonalData = (props: IPersonDataProps) => {
     }
 
     return (
-        <Form id="form" gap="35px" width="90%" height="auto" ref={formRef}>
+        <Form id="form" gap="35px" width="90%" ref={formRef}>
             {/* EMAIL / MOBILE */}
             <Div flexDirectionLaptop="row" widthLaptop="80%" gap="35px">
                 <Div>

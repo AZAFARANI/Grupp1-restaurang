@@ -6,6 +6,7 @@ interface IFormProps {
     flexDirection?: string;
     justifyContent?: string;
     alignItems?: string;
+    flexGrow?: string;
 
     width?: string;
     height?: string;
@@ -18,6 +19,8 @@ interface IFormProps {
 
     position?: string;
     minHeight?: string;
+    border?: string;
+    padding?: string;
 }
 
 export const Form = styled.form`
@@ -27,12 +30,18 @@ export const Form = styled.form`
     flex-direction: ${(props: IFormProps) => props.flexDirection || "column"};
     justify-content: ${(props: IFormProps) =>
         props.justifyContent || "flex-start"};
+    flex-grow: ${(props: IFormProps) => props.flexGrow || ""};
 
     width: ${(props: IFormProps) => props.width || "100%"};
     height: ${(props: IFormProps) => props.height || "auto"};
     gap: ${(props: IFormProps) => props.gap || "0px"};
 
     min-height: ${(props: IFormProps) => props.minHeight || ""};
+
+    border: ${(props: IFormProps) => props.border || ""};
+    transition: height 1s ease;
+
+    padding: ${(props: IFormProps) => props.padding || ""};
 
     /* @media ${device.tablet} {
         height: ${(props: IFormProps) => props.heightTablet || "800px"};

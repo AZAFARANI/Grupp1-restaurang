@@ -47,6 +47,7 @@ export const Button = styled.button`
     &:hover {
         cursor: pointer;
         transform: scale(110%) translateY(-5px);
+        filter: brightness(1.05);
         z-index: 10;
     }
 
