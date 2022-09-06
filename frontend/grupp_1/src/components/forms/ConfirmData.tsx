@@ -33,32 +33,34 @@ export const ConfirmData = (props: IConfirmDataProps) => {
     let dateResult = bookingDateToDateObjekt.getDate();
 
     //-- List of days of the week --//
-    var weekDay = new Array(7);
-    weekDay[0] = "Söndag";
-    weekDay[1] = "Måndag";
-    weekDay[2] = "Tisdag";
-    weekDay[3] = "Onsdag";
-    weekDay[4] = "Torsdag";
-    weekDay[5] = "Fredag";
-    weekDay[6] = "Lördag";
+    let weekDay = [
+      "Söndag",
+      "Måndag",
+      "Tisdag",
+      "Onsdag",
+      "Torsdag",
+      "Fredag",
+      "Lördag",
+    ];
 
     //-- Variable with a correctly entered index value of the date object --//
     let weekResult = weekDay[bookingDateToDateObjekt.getDay()];
 
     //-- List of months of the year --//
-    var monthDay = new Array(12);
-    monthDay[0] = "Januari";
-    monthDay[1] = "Februari";
-    monthDay[2] = "Mars";
-    monthDay[3] = "April";
-    monthDay[4] = "Maj";
-    monthDay[5] = "Juni";
-    monthDay[6] = "Juli";
-    monthDay[7] = "Augusti";
-    monthDay[8] = "September";
-    monthDay[9] = "Oktober";
-    monthDay[10] = "November";
-    monthDay[11] = "December";
+    let monthDay = [
+      "Januari",
+      "Februari",
+      "Mars",
+      "April",
+      "Maj",
+      "Juni",
+      "Juli",
+      "Augusti",
+      "September",
+      "Oktober",
+      "November",
+      "December",
+    ];
 
     //-- Variable with a correctly entered index value of the date object --//
     let monthResult = monthDay[bookingDateToDateObjekt.getMonth()];
