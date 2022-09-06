@@ -42,18 +42,13 @@ export const PersonCounter = (props: IPersonCounterProps) => {
     }
 
     return (
-        <Form
-            ref={formRef}
-            justifyContent="space-between"
-            padding="20px"
-            height="100%"
-        >
+        <Form ref={formRef} justifyContent="space-between">
             {/* AMMOUNT DIV */}
             <Div
                 flexDirection="row"
                 widthTablet="50%"
                 widthLaptop="45%"
-                flexGrow="1"
+                minHeight="50vh"
             >
                 {/* BUTTON CONTAINER DIV */}
                 <Button
@@ -98,7 +93,6 @@ export const PersonCounter = (props: IPersonCounterProps) => {
                     ></Image>
                 </Button>
             </Div>
-            {/* CONTAINER DIV */}
 
             <SeperatorLine></SeperatorLine>
             {/* BUTTONS DIV */}

@@ -30,12 +30,11 @@ export const ConfirmData = (props: IConfirmDataProps) => {
         setIsLoading(true);
         if (!hasSent) {
             service.addBooking(props.currentBooking).then((response) => {
-                console.log("TEST", response);
                 if (response.error) {
                     console.log(response.error);
                     alert(`Något gick fel med din bokning.`);
+                    hasSent = false;
                 } else {
-                    console.log("MOVE FORWARD");
                     props.moveForward();
                 }
             });
@@ -111,7 +110,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                 <Div
                     width="90%"
                     widthTablet="70%"
-                    widthLaptop="30%"
+                    widthLaptop="50%"
                     backgroundImage="linear-gradient(0deg,#F3EFD8, #FFFFFF, #F3EFD8)"
                     boxShadow="0px 8px 8px rgba(0, 0, 0, 0.25), inset 0px 0px 200px 20px rgba(77, 71, 25, 0.25);"
                     gap="20px"

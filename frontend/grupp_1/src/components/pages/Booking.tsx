@@ -166,7 +166,7 @@ export const Booking = () => {
                         <SeperatorLine></SeperatorLine>
                     </Div>
                     {/* FORM STEPS */}
-                    <Div width="90%" margin="20px">
+                    <Div width="90%">
                         {(function () {
                             switch (step) {
                                 case 1:
@@ -340,7 +340,7 @@ export const Booking = () => {
                                             }`}
                                         >
                                             <FinishData
-                                                newBooking={newBooking}
+                                                currentBooking={newBooking}
                                                 setStep={setStep}
                                                 bookingStep={step}
                                             ></FinishData>
