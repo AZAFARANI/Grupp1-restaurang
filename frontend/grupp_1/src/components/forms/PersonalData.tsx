@@ -174,7 +174,7 @@ export const PersonalData = (props: IPersonDataProps) => {
                 </Div>
             </Div>
             {/* ALLERGIES / BUTTONS */}
-            <Div widthLaptop="80%" gap="35px" padding="0 0 40px 0">
+            <Div widthLaptop="80%" padding="0 0 40px 0" gap="10px">
                 <Span
                     fontSize="24px"
                     fontSizeTablet="22px"

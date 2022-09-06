@@ -219,16 +219,23 @@ export const Div = styled.div`
       transform: scale(0);
     }
   }
+  &.visible {
+    animation: slide 500ms ease-in-out both;
+  }
 
   @keyframes slide-in-left {
     0% {
       left: -100%;
       opacity: 0;
     }
+
     100% {
       left: 0%;
       opacity: 1;
     }
+  }
+  &.fadeOut {
+    animation: fade 250ms ease-in-out forwards;
   }
 
   @keyframes spinner {
@@ -237,6 +244,18 @@ export const Div = styled.div`
     }
     100% {
       rotate: 360deg;
+    }
+  }
+
+  @keyframes fade {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    100% {
+      transform: scale(0);
+      opacity: 0;
     }
   }
 

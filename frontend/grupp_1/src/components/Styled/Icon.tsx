@@ -50,4 +50,17 @@ export const Icon = styled(FontAwesomeIcon)`
     &.visible {
         transform: translate(0%);
     }
+
+    &.spinner {
+        animation: spinner 2s linear infinite;
+    }
+
+    @keyframes spinner {
+        0% {
+            rotate: 0deg;
+        }
+        100% {
+            rotate: 360deg;
+        }
+    }
 `;
