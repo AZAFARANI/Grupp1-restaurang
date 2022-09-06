@@ -24,7 +24,7 @@ router.get("/", async (req, res) => {
 });
 
 // ### GET SINGLE BOOKING ###
-router.get("/:id", async (req, res) => {
+router.get("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
     try {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid mongooseID.";
@@ -99,7 +99,7 @@ router.post("/", async (req, res) => {
                 } else {
                     res.send({
                         msg: "Created booking",
-                        booking: newBooking,
+                        bookingId: newBooking._id,
                         result: result,
                     });
                 }
@@ -109,7 +109,7 @@ router.post("/", async (req, res) => {
                 res.status(400).send({
                     msg:
                         "Failed to send confirmation email to " +
-                        customer.email,
+                        foundBooking.customer.email,
                     error: error,
                 });
             });
@@ -131,19 +131,50 @@ router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
 
         const { booking } = req.body;
 
-        utils.validateAllowedPropertiesBooking(booking);
         utils.validateBooking({ ...utils.BLANK_BOOKING, ...booking });
 
-        const foundBooking = await BookingsModel.findById(req.params.id);
+        const foundBooking = await BookingsModel.findById(
+            req.params.id
+        ).populate("customerId");
         if (!foundBooking) throw "No booking found with id " + req.params.id;
 
         await foundBooking.update(booking);
         await foundBooking.save();
 
-        res.send({
-            msg: "Updated booking.",
-            bookingId: foundBooking._id,
-        });
+        mailer
+            .sendMail(foundBooking.customer.email, foundBooking)
+            .then(async (result) => {
+                // newBooking.mailId = result
+                // await newBooking.save();
+                if (result.status === 400) {
+                    res.status(400).send({
+                        msg:
+                            "Failed to send confirmation email to " +
+                            customer.email,
+                        error: error,
+                    });
+                } else {
+                    res.send({
+                        msg: "Updated booking",
+                        bookingId: foundBooking._id,
+                        result: result,
+                    });
+                }
+            })
+            .catch(async (error) => {
+                await newBooking.delete();
+                res.status(400).send({
+                    msg:
+                        "Failed to send confirmation email to " +
+                        foundBooking.customer.email,
+                    error: error,
+                });
+            });
+
+        // res.send({
+        //     msg: "Updated booking.",
+        //     bookingId: foundBooking._id,
+        // });
     } catch (error) {
         res.status(400).send({
             msg: "ERROR",
@@ -162,10 +193,42 @@ router.delete("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
             req.params.id
         );
         if (!deletedBooking) throw "No booking found with ID" + req.params.id;
-        res.send({
-            msg: "Deleted booking.",
-            booking: deletedBooking,
-        });
+
+        mailer
+            .sendMail(customer.email, deletedBooking, "/templates/EmailDeleted")
+            .then(async (result) => {
+                // newBooking.mailId = result
+                await deletedBooking.save();
+                if (result.status === 400) {
+                    await newBooking.delete();
+                    res.status(400).send({
+                        msg:
+                            "Failed to send confirmation email to " +
+                            customer.email,
+                        error: error,
+                    });
+                } else {
+                    res.send({
+                        msg: "Deleted booking",
+                        booking: deletedBooking,
+                        result: result,
+                    });
+                }
+            })
+            .catch(async (error) => {
+                await newBooking.delete();
+                res.status(400).send({
+                    msg:
+                        "Failed to send confirmation email to " +
+                        customer.email,
+                    error: error,
+                });
+            });
+
+        // res.send({
+        //     msg: "Deleted booking.",
+        //     booking: deletedBooking,
+        // });
     } catch (error) {
         res.status(400).send({
             msg: "ERROR",

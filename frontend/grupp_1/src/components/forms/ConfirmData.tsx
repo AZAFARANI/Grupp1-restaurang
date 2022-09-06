@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import INewBooking from "../../interfaces/INewBooking";
 import TramontoService from "../../services/Tramonto";
 import { Button } from "../Styled/Button";
@@ -24,20 +24,25 @@ const service = new TramontoService();
 export const ConfirmData = (props: IConfirmDataProps) => {
     const [isLoading, setIsLoading] = useState(false);
 
+    let hasSent = false;
     function submitHandler(e: FormEvent) {
-        console.table(props.currentBooking);
         e.preventDefault();
-        service.addBooking(props.currentBooking).then((response) => {
-            if (response.error) {
-                console.log(response.error);
-                alert(`Något gick fel med din bokning.`);
-            } else {
-                props.moveForward();
-            }
-        });
+        setIsLoading(true);
+        if (!hasSent) {
+            service.addBooking(props.currentBooking).then((response) => {
+                console.log("TEST", response);
+                if (response.error) {
+                    console.log(response.error);
+                    alert(`Något gick fel med din bokning.`);
+                } else {
+                    console.log("MOVE FORWARD");
+                    props.moveForward();
+                }
+            });
+        }
     }
     return (
-        <Form height="auto">
+        <Form height="auto" onSubmit={submitHandler}>
             <Div
                 flexDirectionLaptop="row"
                 justifyContentLaptop="center"
@@ -216,12 +221,13 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 height="50px"
                                 heightLaptop="40px"
                                 width="40%"
-                                type="button"
+                                type="submit"
                                 background="#A3A380"
-                                onClick={submitHandler}
                             >
                                 {isLoading ? (
                                     <Icon
+                                        fontSize="20pt"
+                                        color="white"
                                         icon={faSpinner}
                                         className="spinner"
                                     ></Icon>

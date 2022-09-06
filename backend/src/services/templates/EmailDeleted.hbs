@@ -1,0 +1,27 @@
+<html lang="en">
+    <head>
+        <meta content="text/html; charset=utf-8" />
+        <title>Tramonto Email</title>
+    </head>
+    <body style="background-color: rgb(253, 236, 226)">
+        <div style="padding: 20px; background-color: rgba(255, 255, 255, 0.8)">
+            <img src="cid:logo" />
+        </div>
+        <div style="padding: 20px">
+            <h2>Din bokning har tagits bort.</h2>
+            <hr />
+            <h3>Boknings ID:</h3>
+            <p>{{ id }}</p>
+            <hr />
+            <ul style="list-style: none">
+                <li>Tillfälle: {{ date }}</li>
+                <li>Antal personer: {{ guestCount }}st</li>
+                <li>Allergier: {{ allergies }}</li>
+            </ul>
+            <hr />
+        </div>
+        <div style="padding: 20px; background-color: rgba(255, 255, 255, 0.8)">
+            <p>Kontakt: +46 12 123 12 12</p>
+        </div>
+    </body>
+</html>

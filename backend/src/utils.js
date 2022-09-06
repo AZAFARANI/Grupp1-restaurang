@@ -227,7 +227,7 @@ async function forceLoggedInOrOwnBooking(req, res, next) {
         ) {
             next();
         } else {
-            const { customerId } = req.body;
+            const customerId = req.query.customerId;
             const bookingId = req.params.id;
             if (!customerId || !bookingId)
                 throw "No customerId / bookingId provided.";
