@@ -16,7 +16,11 @@ oAuth2Client.setCredentials({
     refresh_token: process.env.REFRESH_TOKEN,
 });
 
-async function sendMail(emailTo, booking) {
+async function sendMail(
+    emailTo,
+    booking,
+    templatePath = "/templates/Email.hbs"
+) {
     try {
         const accessToken = await oAuth2Client.getAccessToken();
         const transporter = nodemailer.createTransport({
@@ -33,7 +37,7 @@ async function sendMail(emailTo, booking) {
         });
 
         const emailTemplateSource = fs.readFileSync(
-            __dirname + "/templates/Email.hbs",
+            __dirname + templatePath,
             "utf-8"
         );
         const emailTemplate = hbs.compile(emailTemplateSource);
@@ -43,6 +47,7 @@ async function sendMail(emailTo, booking) {
             guestCount: `${booking.guestCount}`,
             allergies: `${booking.allergies}`,
             date: `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`,
+            link: `http://localhost:3000/bookings/${booking._id}?customerId=${booking.customerId}`,
         });
 
         const mailData = {

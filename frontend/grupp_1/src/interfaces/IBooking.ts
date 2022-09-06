@@ -1,6 +1,6 @@
 export default interface IBooking {
     customerId: string;
-    guestCount: string;
+    guestCount: number;
     timestamp: string;
     allergies: string;
     _id: string;

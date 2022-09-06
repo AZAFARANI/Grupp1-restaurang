@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import INewBooking from "../../interfaces/INewBooking";
 import TramontoService from "../../services/Tramonto";
 import { Button } from "../Styled/Button";
@@ -8,6 +8,8 @@ import { Icon } from "../Styled/Icon";
 import { Image } from "../Styled/Image";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
+
+import { getValuesFromTimeStamp } from "../../utils";
 
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
@@ -19,64 +21,30 @@ interface IConfirmDataProps {
 
 const service = new TramontoService();
 
-const WEEK_DAYS_SWEDISH = [
-    "Söndag",
-    "Måndag",
-    "Tisdag",
-    "Onsdag",
-    "Torsdag",
-    "Fredag",
-    "Lördag",
-];
-const MONTH_NAMES_SWEDISH = [
-    "Januari",
-    "Februari",
-    "Mars",
-    "April",
-    "Maj",
-    "Juni",
-    "Juli",
-    "Augusti",
-    "September",
-    "Oktober",
-    "November",
-    "December",
-];
-
 export const ConfirmData = (props: IConfirmDataProps) => {
     const [isLoading, setIsLoading] = useState(false);
 
-    useEffect(() => {
-        getValuesFromTimeStamp();
-    }, []);
-
-    function getValuesFromTimeStamp(): string {
-        //-- Retrieves the booking object's timestamp and extracts the date --//
-        let bookingDateToDateObjekt = new Date(props.currentBooking.timestamp);
-        let dayNumber = bookingDateToDateObjekt.getDate();
-
-        //-- Variable with a correctly entered index value of the date object --//
-        let dayName = WEEK_DAYS_SWEDISH[bookingDateToDateObjekt.getDay()];
-
-        //-- Variable with a correctly entered index value of the date object --//
-        let monthName = MONTH_NAMES_SWEDISH[bookingDateToDateObjekt.getMonth()];
-        return `${dayName} ${dayNumber} ${monthName}`;
-    }
-
+    let hasSent = false;
     function submitHandler(e: FormEvent) {
-        console.table(props.currentBooking);
         e.preventDefault();
-        service.addBooking(props.currentBooking).then((response) => {
-            if (response.error) {
-                console.log(response.error);
-                alert(`Något gick fel med din bokning.`);
-            } else {
-                props.moveForward();
-            }
-        });
+        setIsLoading(true);
+        if (!hasSent) {
+            service.addBooking(props.currentBooking).then((response) => {
+                if (response.error) {
+                    console.log(response.error);
+                    alert(`Något gick fel med din bokning.`);
+                    hasSent = false;
+                } else {
+                    document
+                        .querySelector("#scrollToStartOfForm")
+                        ?.scrollIntoView(true);
+                    props.moveForward();
+                }
+            });
+        }
     }
     return (
-        <Form height="auto">
+        <Form height="auto" onSubmit={submitHandler}>
             <Div
                 flexDirectionLaptop="row"
                 justifyContentLaptop="center"
@@ -103,7 +71,9 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                     <Div padding="40px 0px">
                         <Div padding="0 0 10px 0" paddingLaptop="0">
                             <Span fontSize="20pt" color="#686868">
-                                {getValuesFromTimeStamp()}
+                                {getValuesFromTimeStamp(
+                                    props.currentBooking.timestamp
+                                )}
                             </Span>
                         </Div>
                         <Div>
@@ -143,7 +113,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                 <Div
                     width="90%"
                     widthTablet="70%"
-                    widthLaptop="30%"
+                    widthLaptop="50%"
                     backgroundImage="linear-gradient(0deg,#F3EFD8, #FFFFFF, #F3EFD8)"
                     boxShadow="0px 8px 8px rgba(0, 0, 0, 0.25), inset 0px 0px 200px 20px rgba(77, 71, 25, 0.25);"
                     gap="20px"
@@ -253,12 +223,13 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 height="50px"
                                 heightLaptop="40px"
                                 width="40%"
-                                type="button"
+                                type="submit"
                                 background="#A3A380"
-                                onClick={submitHandler}
                             >
                                 {isLoading ? (
                                     <Icon
+                                        fontSize="20pt"
+                                        color="white"
                                         icon={faSpinner}
                                         className="spinner"
                                     ></Icon>

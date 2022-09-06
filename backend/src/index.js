@@ -4,25 +4,28 @@ require("./mongoose.js");
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
 
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(cookieParser());
+app.set("query parser", "simple");
 
 // -------------------------------------------------------
 // ### ADD CROSS ORIGIN ACCESS ###
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "http://localhost:3000"); // Which origin thats allowed.
-    res.header("Access-Control-Allow-Credentials", true); // Needed to use cookie on frontend.
-    res.header(
-        "Access-Control-Allow-Headers",
-        "Origin, X-Requested-With, Content-Type" // Allow followin headers.
-    );
-    res.header("Access-Control-Allow-Methods", "POST, PUT, GET, DELETE"); // Which methods we allow.
-    next();
-});
+const corsOptions = {
+    origin: "http://localhost:3000",
+    optionsSuccessStatus: 200,
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type"],
+    methods: ["GET", "HEAD", "PUT", "POST", "DELETE"],
+    preflightContinue: false,
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
+// app.options("*", cors());
 
 // -------------------------------------------------------
 // ### ROUTERS ###

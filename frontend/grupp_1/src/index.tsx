@@ -9,6 +9,7 @@ import { Booking } from "./components/pages/Booking";
 import { Contact } from "./components/pages/Contact";
 import Login from "./components/pages/Login";
 import { NotFound } from "./components/pages/NotFound";
+import Edit from "./components/pages/Edit";
 
 const root = ReactDOM.createRoot(
     document.getElementById("root") as HTMLElement
@@ -20,6 +21,7 @@ root.render(
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Landing />} />
                     <Route path="/booking" element={<Booking />} />
+                    <Route path="/bookings/:id" element={<Edit />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="*" element={<NotFound />}></Route>
