@@ -189,47 +189,47 @@ router.delete("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
         if (!mongoose.Types.ObjectId.isValid(req.params.id))
             throw "Invalid mongooseID.";
 
-        const deletedBooking = await BookingsModel.findByIdAndDelete(
+        const bookingToDelete = await BookingsModel.findById(
             req.params.id
-        );
-        if (!deletedBooking) throw "No booking found with ID" + req.params.id;
+        ).populate("customerId");
+
+        if (!bookingToDelete) throw "No booking found with ID" + req.params.id;
+
+        console.log(bookingToDelete.customerId.email);
 
         mailer
-            .sendMail(customer.email, deletedBooking, "/templates/EmailDeleted")
+            .sendMail(
+                bookingToDelete.customerId.email,
+                bookingToDelete,
+                "/templates/EmailDeleted.hbs"
+            )
             .then(async (result) => {
-                // newBooking.mailId = result
-                await deletedBooking.save();
                 if (result.status === 400) {
-                    await newBooking.delete();
                     res.status(400).send({
                         msg:
                             "Failed to send confirmation email to " +
-                            customer.email,
+                            bookingToDelete.customerId.email,
                         error: error,
                     });
                 } else {
+                    await bookingToDelete.delete();
                     res.send({
                         msg: "Deleted booking",
-                        booking: deletedBooking,
+                        bookingId: bookingToDelete._id,
                         result: result,
                     });
                 }
             })
             .catch(async (error) => {
-                await newBooking.delete();
                 res.status(400).send({
                     msg:
                         "Failed to send confirmation email to " +
-                        customer.email,
+                        bookingToDelete.customerId.email,
                     error: error,
                 });
             });
-
-        // res.send({
-        //     msg: "Deleted booking.",
-        //     booking: deletedBooking,
-        // });
     } catch (error) {
+        console.log("ERROR:\n\n", error);
         res.status(400).send({
             msg: "ERROR",
             error: error,

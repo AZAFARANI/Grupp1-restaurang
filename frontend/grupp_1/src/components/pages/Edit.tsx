@@ -12,6 +12,7 @@ import { Image } from "../Styled/Image";
 import { Input } from "../Styled/Input";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
+import { Textarea } from "../Styled/Textarea";
 
 const service = new TramontoService();
 
@@ -51,7 +52,10 @@ export default function Edit() {
                             setPhone(booking.customer.phone);
                             setGuestCount(booking.guestCount);
                             setTimestamp(booking.timestamp.toISOString());
-                        } else navigate("/");
+                        } else {
+                            alert("Din bokning finns inte.");
+                            navigate("/");
+                        }
                     });
             } else {
                 navigate("/");
@@ -61,8 +65,6 @@ export default function Edit() {
 
     function deleteBooking(e: FormEvent) {
         e.preventDefault();
-        console.log("DELETE");
-
         const customerId = new URLSearchParams(location.search).get(
             "customerId"
         );
@@ -75,6 +77,8 @@ export default function Edit() {
                     if (res.error) {
                         console.log(res.error);
                     } else {
+                        alert("Din bokning togs bort.");
+                        navigate("/");
                     }
                 });
         }
@@ -271,19 +275,15 @@ export default function Edit() {
                                     >
                                         Allergier
                                     </Span>
-                                    <Input
+                                    <Textarea
+                                        height="200px"
                                         padding="5px"
                                         borderRadius="5px"
-                                        type="text"
                                         color="#808080"
-                                        value={
-                                            allergies.length > 0
-                                                ? allergies
-                                                : "-"
-                                        }
                                         onChange={(e) => {
                                             setAllergies(e.target.value);
                                         }}
+                                        value={allergies}
                                     />
                                 </Div>
                                 {/* BUTTONS */}
@@ -344,7 +344,7 @@ export default function Edit() {
                     widthLaptop="70%"
                     justifyContent="center"
                 >
-                    <Span>You should not be here...</Span>
+                    <Div className="spinner"></Div>
                 </Div>
             )}
         </Div>

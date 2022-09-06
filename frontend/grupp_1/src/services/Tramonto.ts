@@ -99,12 +99,7 @@ export default class TramontoService {
                 this.url +
                     "/bookings/" +
                     bookingId +
-                    `?customerId=${customerId}`,
-                {
-                    data: {
-                        customerId: customerId,
-                    },
-                }
+                    `?customerId=${customerId}`
             )
             .catch((error) => {
                 return error.response;

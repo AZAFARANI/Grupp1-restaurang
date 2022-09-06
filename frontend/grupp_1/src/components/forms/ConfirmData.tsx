@@ -35,6 +35,9 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                     alert(`Något gick fel med din bokning.`);
                     hasSent = false;
                 } else {
+                    document
+                        .querySelector("#scrollToStartOfForm")
+                        ?.scrollIntoView(true);
                     props.moveForward();
                 }
             });
