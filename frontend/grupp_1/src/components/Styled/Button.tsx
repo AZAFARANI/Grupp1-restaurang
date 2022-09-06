@@ -12,6 +12,11 @@ interface IButtonProps {
   boxShadow?: string;
   backdropFilter?: string;
   fontFamily?: string;
+  position?: string;
+  left?: string;
+  top?: string;
+  right?: string;
+  bottom?: string;
 }
 
 // ----------------------------------------------------
@@ -34,6 +39,12 @@ export const Button = styled.button`
     props.backdropFilter || "blur(6px)"};
 
   font-family: ${(props: IButtonProps) => props.fontFamily || "Sofia"};
+  position: ${(props: IButtonProps) => props.position || "relative"};
+
+  top: ${(props: IButtonProps) => props.top || "none"};
+  left: ${(props: IButtonProps) => props.left || "none"};
+  bottom: ${(props: IButtonProps) => props.bottom || "none"};
+  right: ${(props: IButtonProps) => props.right || "none"};
 
   transition: transform 0.2s ease;
 

@@ -8,6 +8,7 @@ import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
 import { Input } from "../Styled/Input";
 import { Span } from "../Styled/Span";
+import { PersonalPage } from "./PersonalPage";
 
 const service = new TramontoService();
 
