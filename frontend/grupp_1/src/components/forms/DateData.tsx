@@ -66,9 +66,8 @@ export const DateData = (props: IDateDataProps) => {
         setCurrentWeekMonday(currentMonday);
         setEarliestWeek(week);
         setWeek(week);
-        if (props.currentBooking.timestamp.length > 0) {
+        if (props.currentBooking.timestamp.length > 0)
             setChosenTime(new Date(props.currentBooking.timestamp));
-        }
     }, []);
     function nextWeek() {
         setWeek(week + 1);
@@ -347,11 +346,7 @@ export const DateData = (props: IDateDataProps) => {
                         <Span fontSize="14pt" fontWeight="bold">
                             Du har valt :
                         </Span>
-                        <Div
-                            flexDirectionLaptop="row"
-                            justifyContent="center"
-                            alignItems="center"
-                        >
+                        <Div justifyContent="center" alignItems="center">
                             <Div width="auto" height="auto">
                                 <Span fontSize="20pt" color="#686868">
                                     {chosenTime

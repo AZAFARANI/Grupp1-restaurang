@@ -9,7 +9,7 @@ const BookingSchema = new mongoose.Schema(
         },
         guestCount: { type: Number, required: true },
         timestamp: { type: String, required: true },
-        allergies: { type: String, required: true },
+        allergies: { type: String, required: false },
         mailId: { type: String, required: false },
     },
     { versionKey: false }

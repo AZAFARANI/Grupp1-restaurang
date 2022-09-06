@@ -12,9 +12,19 @@ interface IButtonProps {
     boxShadow?: string;
     backdropFilter?: string;
     fontFamily?: string;
-    width?: string;
-    height?: string;
     flexGrow?: string;
+
+    width?: string;
+    widthTablet?: string;
+    widthLaptop?: string;
+
+    height?: string;
+    heightTablet?: string;
+    heightLaptop?: string;
+
+    display?: string;
+    justifyContent?: string;
+    alignItems?: string;
 }
 
 // ----------------------------------------------------
@@ -44,6 +54,10 @@ export const Button = styled.button`
 
     transition: transform 0.2s ease;
 
+    display: ${(props: IButtonProps) => props.display || ""};
+    justify-content: ${(props: IButtonProps) => props.justifyContent || ""};
+    align-items: ${(props: IButtonProps) => props.alignItems || ""};
+
     &:hover {
         cursor: pointer;
         transform: scale(110%) translateY(-5px);
@@ -53,10 +67,14 @@ export const Button = styled.button`
 
     @media ${device.tablet} {
         padding: ${(props: IButtonProps) => props.paddingTablet || ""};
+        height: ${(props: IButtonProps) => props.heightTablet || ""};
+        width: ${(props: IButtonProps) => props.widthTablet || ""};
     }
 
     @media ${device.laptop} {
         padding: ${(props: IButtonProps) => props.paddingLaptop || ""};
+        height: ${(props: IButtonProps) => props.heightLaptop || ""};
+        width: ${(props: IButtonProps) => props.widthLaptop || ""};
     }
 
     &.active {
