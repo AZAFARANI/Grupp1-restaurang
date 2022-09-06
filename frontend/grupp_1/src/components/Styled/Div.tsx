@@ -160,7 +160,7 @@ export const Div = styled.div`
     }
 
     &.visible {
-        animation: slide 500ms 250ms ease-in-out both;
+        animation: slide 500ms ease-in-out both;
     }
 
     &.hidden {
@@ -178,7 +178,7 @@ export const Div = styled.div`
     }
 
     &.fadeOut {
-        animation: fade 250ms 125ms ease-in-out forwards;
+        animation: fade 250ms ease-in-out forwards;
     }
 
     &.spinner {
@@ -203,15 +203,12 @@ export const Div = styled.div`
     @keyframes fade {
         0% {
             transform: scale(1);
-            opacity: 0;
+            opacity: 1;
         }
 
-        50% {
-            transform: scale(0.75);
-            opacity: 0;
-        }
         100% {
             transform: scale(0);
+            opacity: 0;
         }
     }
 

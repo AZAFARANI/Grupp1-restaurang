@@ -40,6 +40,7 @@ export const DateData = (props: IDateDataProps) => {
     const [earliestWeek, setEarliestWeek] = useState(-1);
 
     const [chosenTime, setChosenTime] = useState<Date | null>(null);
+
     const [currentWeekMonday, setCurrentWeekMonday] = useState<Date>(
         new Date(0)
     );
@@ -65,6 +66,9 @@ export const DateData = (props: IDateDataProps) => {
         setCurrentWeekMonday(currentMonday);
         setEarliestWeek(week);
         setWeek(week);
+        if (props.currentBooking.timestamp.length > 0) {
+            setChosenTime(new Date(props.currentBooking.timestamp));
+        }
     }, []);
     function nextWeek() {
         setWeek(week + 1);
@@ -115,13 +119,6 @@ export const DateData = (props: IDateDataProps) => {
         let day = NUMBER_TO_DAY[currentWeekMonday.getDay()];
         let dayBookings = seatingHandler.week[day as keyof ISeatings];
 
-        // console.log(
-        //     "DAY:\t",
-        //     nameOfDay,
-        //     dayBookings,
-        //     "\nNEEDED TABELS: ",
-        //     Math.ceil(props.currentBooking.guestCount / TABLE_CAPACITY)
-        // );
         // CHECK IF FIRST SEATING IS AVALIBLE
         let showFirstSeating = calculateAvalibility(dayBookings.firstSeating);
         // CHECK IF LAST SEATING IS AVALIBLE
@@ -134,8 +131,8 @@ export const DateData = (props: IDateDataProps) => {
         currentWeekMonday.setDate(currentWeekMonday.getDate() + 1);
         let html = (
             <Div
-                width="80%"
-                widthLaptop="calc(90% / 7)"
+                width="100%"
+                widthLaptop="calc(100% / 7)"
                 alignItemsLaptop="stretch"
                 key={index}
             >
@@ -150,7 +147,8 @@ export const DateData = (props: IDateDataProps) => {
                     <Span
                         color="#FFFFFF"
                         shadow="2px 4px 4px hsla(0, 0%, 0%, 0.80)"
-                        fontSize="18pt"
+                        fontSize="16pt"
+                        fontSizeTablet="20pt"
                         fontSizeLaptop="16pt"
                     >
                         {nameOfDay}
@@ -159,7 +157,8 @@ export const DateData = (props: IDateDataProps) => {
                     <Span
                         color="#FFFFFF"
                         shadow="2px 4px 4px hsla(0, 0%, 0%, 0.80)"
-                        fontSize="18pt"
+                        fontSize="16pt"
+                        fontSizeTablet="20pt"
                         fontSizeLaptop="10pt"
                     >
                         {timeString}
@@ -169,9 +168,10 @@ export const DateData = (props: IDateDataProps) => {
                 <Div
                     flexDirection="row"
                     flexDirectionLaptop="column"
+                    alignItems="center"
                     justifyContent="space-between"
-                    alignItems="stretch"
                     padding="15px 0 0 0"
+                    gapLaptop="10px"
                     gap="20px"
                 >
                     {/* FIRST SEATING */}
@@ -196,7 +196,7 @@ export const DateData = (props: IDateDataProps) => {
                             textAlign="center"
                             fontSizeLaptop="10pt"
                         >
-                            {showFirstSeating ? "18:00-21:00" : "Fullbokat"}{" "}
+                            {showFirstSeating ? "18:00-21:00" : "Fullbokat"}
                         </Span>
                     </Button>
                     {/* LAST SEATING */}
@@ -403,7 +403,7 @@ export const DateData = (props: IDateDataProps) => {
                             background="#A3A380"
                             onClick={(e) => {
                                 handleSubmit(e);
-                                props.moveForward();
+                                if (chosenTime) props.moveForward();
                             }}
                         >
                             <Span
