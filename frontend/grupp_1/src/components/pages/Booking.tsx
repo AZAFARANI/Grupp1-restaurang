@@ -185,6 +185,7 @@ export const Booking = () => {
                       }`}
                     >
                       <PersonalData
+                        currentBooking={newBooking}
                         moveForward={() => {
                           setShouldSwitch(true);
                         }}
