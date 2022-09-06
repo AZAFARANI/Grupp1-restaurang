@@ -43,6 +43,7 @@ async function sendMail(emailTo, booking) {
             guestCount: `${booking.guestCount}`,
             allergies: `${booking.allergies}`,
             date: `${date.toLocaleDateString()} - ${date.toLocaleTimeString()}`,
+            link: `http://localhost:3000/bookings/${booking._id}`,
         });
 
         const mailData = {

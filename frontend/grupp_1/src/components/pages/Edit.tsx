@@ -1,41 +1,44 @@
-import { FormEvent, useEffect, useState } from "react";
-import INewBooking from "../../interfaces/INewBooking";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import IBooking from "../../interfaces/IBooking";
+import BookingModel from "../../models/Booking";
 import TramontoService from "../../services/Tramonto";
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
-import { Icon } from "../Styled/Icon";
 import { Image } from "../Styled/Image";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 
-import { getValuesFromTimeStamp } from "../../utils";
-
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-
-interface IConfirmDataProps {
-    moveForward(): void;
-    moveBackward(): void;
-    currentBooking: INewBooking;
-}
-
 const service = new TramontoService();
 
-export const ConfirmData = (props: IConfirmDataProps) => {
-    const [isLoading, setIsLoading] = useState(false);
+export default function Edit() {
+    const params = useParams();
 
-    function submitHandler(e: FormEvent) {
-        console.table(props.currentBooking);
-        e.preventDefault();
-        service.addBooking(props.currentBooking).then((response) => {
-            if (response.error) {
-                console.log(response.error);
-                alert(`Något gick fel med din bokning.`);
-            } else {
-                props.moveForward();
-            }
-        });
-    }
+    const [booking, setBooking] = useState<BookingModel>({
+        customer: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            phone: "",
+            id: "",
+        },
+        guestCount: 0,
+        timestamp: new Date(),
+        allergies: "",
+        id: "",
+    });
+
+    useEffect(() => {
+        if (params.id) {
+            service
+                .getBookingById(params.id)
+                .then((booking: BookingModel | null) => {
+                    if (booking) setBooking(booking);
+                });
+        }
+    }, []);
+
     return (
         <Form height="auto">
             <Div
@@ -64,16 +67,12 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                     <Div padding="40px 0px">
                         <Div padding="0 0 10px 0" paddingLaptop="0">
                             <Span fontSize="20pt" color="#686868">
-                                {getValuesFromTimeStamp(
-                                    props.currentBooking.timestamp
-                                )}
+                                {/* {getValuesFromTimeStamp()} */}
                             </Span>
                         </Div>
                         <Div>
                             <Span fontSize="18pt" color="#686868">
-                                {new Date(
-                                    props.currentBooking.timestamp
-                                ).toLocaleTimeString()}
+                                {booking.timestamp.toLocaleTimeString()}
                             </Span>
                         </Div>
                     </Div>
@@ -127,8 +126,8 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 color="#808080"
                                 padding="0 0 0 20px"
                             >
-                                {props.currentBooking.firstName}{" "}
-                                {props.currentBooking.lastName}
+                                {booking.customer.firstName}{" "}
+                                {booking.customer.lastName}
                             </Span>
                         </Div>
                         {/* EMAIL */}
@@ -141,7 +140,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 color="#808080"
                                 padding="0 0 0 20px"
                             >
-                                {props.currentBooking.email}
+                                {booking.customer.email}
                             </Span>
                         </Div>
                         {/* PHONE */}
@@ -154,7 +153,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 color="#808080"
                                 padding="0 0 0 20px"
                             >
-                                {props.currentBooking.phone}
+                                {booking.customer.phone}
                             </Span>
                         </Div>
                         {/* GUEST COUNT */}
@@ -167,7 +166,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 color="#808080"
                                 padding="0 0 0 20px"
                             >
-                                {props.currentBooking.guestCount} Personer
+                                {booking.guestCount} Personer
                             </Span>
                         </Div>
                         {/* ALLERGIES */}
@@ -180,8 +179,8 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 color="#808080"
                                 padding="0 0 0 20px"
                             >
-                                {props.currentBooking.allergies.length > 0
-                                    ? props.currentBooking.allergies
+                                {booking.allergies.length > 0
+                                    ? booking.allergies
                                     : "-"}
                             </Span>
                         </Div>
@@ -200,7 +199,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 width="40%"
                                 type="button"
                                 background="#A3A380"
-                                onClick={props.moveBackward}
+                                // onClick={props.moveBackward}
                             >
                                 <Image
                                     src="/svg/left-arrow.svg"
@@ -218,23 +217,16 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 width="40%"
                                 type="button"
                                 background="#A3A380"
-                                onClick={submitHandler}
+                                // onClick={submitHandler}
                             >
-                                {isLoading ? (
-                                    <Icon
-                                        icon={faSpinner}
-                                        className="spinner"
-                                    ></Icon>
-                                ) : (
-                                    <Span
-                                        color="white"
-                                        fontSize="17pt"
-                                        fontSizeTablet="18pt"
-                                        fontSizeLaptop="14pt"
-                                    >
-                                        Boka
-                                    </Span>
-                                )}
+                                <Span
+                                    color="white"
+                                    fontSize="17pt"
+                                    fontSizeTablet="18pt"
+                                    fontSizeLaptop="14pt"
+                                >
+                                    Boka
+                                </Span>
                             </Button>
                         </Div>
                     </Div>
@@ -242,4 +234,4 @@ export const ConfirmData = (props: IConfirmDataProps) => {
             </Div>
         </Form>
     );
-};
+}
