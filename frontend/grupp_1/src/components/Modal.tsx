@@ -68,6 +68,7 @@ export const Modal = () => {
             setShowModal(modalConfirm);
             store(true);
           }}
+          id="modal-accept"
         >
           <Span fontSize="14pt">Accept</Span>
         </Button>
@@ -79,6 +80,7 @@ export const Modal = () => {
             setShowModal(modalConfirm);
             store(false);
           }}
+          id="modal-reject"
         >
           <Span fontSize="14pt">Reject</Span>
         </Button>

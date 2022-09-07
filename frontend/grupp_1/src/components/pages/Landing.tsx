@@ -18,7 +18,7 @@ export default function Landing() {
             height="100vh"
             justifyContent="space-around"
           >
-            <Div width="100%" height="30vh" gap="20px">
+            <Div width="100%" height="30vh" gap="20px" id="landing-logo">
               <Image
                 width="80%"
                 height="40vh"
@@ -27,7 +27,7 @@ export default function Landing() {
                 alt="Logotype"
               ></Image>
 
-              <Link to={"/booking"}>
+              <Link to={"/booking"} id="landing-booking-button">
                 <Button
                   borderTop="solid 1px hsla(0, 14%, 82%, 1)"
                   borderLeft="solid 1px hsla(0, 14%, 82%, 1)"
@@ -39,7 +39,7 @@ export default function Landing() {
                 </Button>
               </Link>
             </Div>
-            <A width="60%" href="#menuLandning">
+            <A width="60%" href="#menuLandning" id="page-down">
               <Image
                 displayLaptop="none"
                 width="20%"
