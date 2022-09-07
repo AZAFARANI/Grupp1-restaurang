@@ -39,8 +39,8 @@ export default function Login() {
         <Div backgroundColor="hsla(0, 0%, 0%, 0.5)" height="auto">
           <img src="/svg/Logo.svg" alt="Logotype" />
         </Div>
-        <Div justifyContent="start" padding="20px">
-          <Form onSubmit={submit} applyToNthChild="even">
+        <Div justifyContent="start" padding="100px 20px 200px 20px">
+          <Form gap="20px" onSubmit={submit} applyToNthChild="even">
             <Span fontSize="20pt" fontSizeLaptop="20pt">
               Email
             </Span>
@@ -65,7 +65,12 @@ export default function Login() {
                 setPassword(e.target.value);
               }}
             ></Input>
-            <Button type="submit" onSubmit={submit} padding="20px">
+            <Button
+              background="blue"
+              type="submit"
+              onSubmit={submit}
+              padding="20px"
+            >
               <Span color="white" fontSize="20pt">
                 Logga In
               </Span>

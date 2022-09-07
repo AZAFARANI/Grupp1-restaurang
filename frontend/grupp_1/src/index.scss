@@ -1,32 +1,32 @@
 *,
 *:after,
 *:before {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 @font-face {
-    font-family: "Sofia";
-    src: url("./assets/Sofia-Regular.ttf");
+  font-family: "Sofia";
+  src: url("./assets/Sofia-Regular.ttf");
 }
 @font-face {
-    font-family: "Montez";
-    src: url("./assets/Montez-Regular.ttf");
+  font-family: "Montez";
+  src: url("./assets/Montez-Regular.ttf");
 }
 
 :root {
-    --font-family-montez: url("./assets/Montez-Regular.ttf");
+  --font-family-montez: url("./assets/Montez-Regular.ttf");
 }
 
 html,
 body {
-    height: 100%;
-    scroll-behavior: smooth;
+  height: 100%;
+  scroll-behavior: smooth;
 }
 
 #root {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
