@@ -13,74 +13,13 @@ import { Image } from "./Styled/Image";
 import { Modal } from "./Modal";
 
 export const Layout = () => {
-<<<<<<< HEAD
     const [isClicked, setIsClicked] = useState<boolean>(false);
-=======
-  const [isClicked, setIsClicked] = useState<boolean>(false);
-
-  return (
-    <>
-      <Icon
-        cursor="pointer"
-        displayLaptop="none"
-        transition="transform 0.2s ease"
-        className={`${isClicked ? "hidden" : "visible"} `}
-        postion="absolute"
-        right="5%"
-        top="5vh"
-        onClick={() => {
-          setIsClicked(!isClicked);
-        }}
-        icon={faBars}
-      />
-
-      <Div
-        position="fixed"
-        top="0"
-        left="0"
-        width="100vw"
-        height="100vh"
-        zIndex="1"
-        pointerEvents="none"
-      >
-        <Div
-          alignItems="flex-start"
-          gap="5%"
-          padding="20px"
-          zIndex="5"
-          pointerEvents="all"
-          position="absolute"
-          top="0"
-          left="-110%"
-          opacity="0"
-          height="100%"
-          width="100%"
-          backgroundColor=" #000000cc"
-          transition="left 0.5s ease, opacity 0.5s ease"
-          display="flex"
-          flexDirection="column"
-          className={`${isClicked ? "show-menu" : "hide-menu"}`}
-        >
-          <Div
-            width="100%"
-            flexDirection="row"
-            justifyContent="space-between"
-            height="50px"
-          >
-            <Span
-              id="menuHeading"
-              fontSize="30pt"
-              color="white"
-              fontType="Montez"
-            >
-              Meny
-            </Span>
->>>>>>> 1e6137ff75bcaf747389a64631a5e37b34fd0a92
 
     return (
         <>
+            {/* MENU ICON */}
             <Icon
-        cursor="pointer"
+                cursor="pointer"
                 displayLaptop="none"
                 transition="transform 0.2s ease"
                 className={`${isClicked ? "hidden" : "visible"} `}
@@ -94,6 +33,7 @@ export const Layout = () => {
                 shadow="0px 0px 3px hsla(0, 0%, 0%, 0.5)"
             />
 
+            {/* MOBILE / TABLET MENU */}
             <Div
                 position="fixed"
                 top="0"
@@ -137,8 +77,9 @@ export const Layout = () => {
                         </Span>
 
                         <Icon
+                            right="20px"
                             cursor="pointer"
-              icon={faXmark}
+                            icon={faXmark}
                             onClick={() => {
                                 setIsClicked(false);
                             }}
@@ -182,10 +123,11 @@ export const Layout = () => {
                 </Div>
             </Div>
 
+            {/* OUTLET */}
             <Div flexGrow="1" height="auto" id="scrollToMain">
                 <Outlet />
             </Div>
-
+            {/* FOOTER */}
             <Div
                 height="auto"
                 width="100%"
@@ -263,7 +205,7 @@ export const Layout = () => {
                         </Div>
 
                         <Image
-              cursor="pointer"
+                            cursor="pointer"
                             onClick={() => {
                                 document
                                     .querySelector("#scrollToMain")
