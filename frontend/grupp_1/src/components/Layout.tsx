@@ -150,7 +150,7 @@ export const Layout = () => {
                 width="30%"
                 src="/svg/fluent_contact-card-48-regular.svg"
               ></Image>
-              <Link to={"/contact"}>
+              <Link to={"/contact"} id="footer-contact-link">
                 <Span fontSizeLaptop="1.5rem" fontSize="1.8rem" color="white">
                   kontakt
                 </Span>
@@ -197,6 +197,7 @@ export const Layout = () => {
               src="/svg/bi_arrow-down-circle-fill.svg"
               width="100px"
               padding="20px"
+              id="page-up"
             ></Image>
           </Div>
         </Div>
