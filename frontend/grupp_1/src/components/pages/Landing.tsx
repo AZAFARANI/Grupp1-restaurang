@@ -27,7 +27,7 @@ export default function Landing() {
                 alt="Logotype"
               ></Image>
 
-              <Link to={"/booking"} id="landing-booking-button">
+              <Link to={"/bookings"} id="landing-booking-button">
                 <Button
                   borderTop="solid 1px hsla(0, 14%, 82%, 1)"
                   borderLeft="solid 1px hsla(0, 14%, 82%, 1)"

@@ -38,7 +38,7 @@ describe("Tramonto Landingpage Test", () => {
     cy.get("#navigation-menu").click();
     cy.get("#link-to-boka-bord").click();
     //ASSERT
-    cy.location("pathname").should("eq", "/booking");
+    cy.location("pathname").should("eq", "/bookings");
 
     //ACT
     cy.get("#navigation-menu").click();
