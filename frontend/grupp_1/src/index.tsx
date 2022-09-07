@@ -14,28 +14,28 @@ import { PersonalsingleBooking } from "./components/pages/PersonalSingleBooking"
 import Edit from "./components/pages/Edit";
 
 const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+    document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Landing />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/bookings/:id" element={<Edit />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/PersonalPage" element={<PersonalPage />} />
-          <Route
-            path="/booking/:id"
-            element={<PersonalsingleBooking />}
-          ></Route>
-          <Route path="*" element={<NotFound />}></Route>
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  </React.StrictMode>
+    <React.StrictMode>
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Landing />} />
+                    <Route path="/bookings" element={<Booking />} />
+                    <Route path="/bookings/:id" element={<Edit />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/personal" element={<PersonalPage />} />
+                    <Route
+                        path="/personal/bookings/:id"
+                        element={<PersonalsingleBooking />}
+                    ></Route>
+                    <Route path="*" element={<NotFound />}></Route>
+                </Route>
+            </Routes>
+        </BrowserRouter>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
