@@ -23,6 +23,14 @@ router.get("/", async (req, res) => {
     });
 });
 
+router.get("/all", utils.forceAuthorize, async (req, res) => {
+  const bookings = await BookingsModel.find().populate("customerId").lean();
+  res.status(200).send({
+    msg: "All bookings",
+    bookings: bookings,
+  });
+});
+
 // ### GET SINGLE BOOKING ###
 router.get("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
     try {
