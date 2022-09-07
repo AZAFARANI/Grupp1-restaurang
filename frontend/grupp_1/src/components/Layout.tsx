@@ -28,6 +28,7 @@ export const Layout = () => {
                     setIsClicked(!isClicked);
                 }}
                 icon={faBars}
+                shadow="0px 0px 3px hsla(0, 0%, 0%, 0.5)"
             />
 
             <Div

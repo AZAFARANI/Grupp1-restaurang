@@ -52,7 +52,8 @@ export const PersonalPage = () => {
                 gap="20px"
                 padding="10px"
                 height="auto"
-                flexDirection="row"
+                flexDirection="column"
+                flexDirectionTablet="row"
                 justifyContent="space-between"
                 boxShadow="rgba(0, 0, 0, 0.35) 0px 15px 20px"
                 key={i}
@@ -60,7 +61,7 @@ export const PersonalPage = () => {
                 <Span>
                     {booking.customerId.firstName} {booking.customerId.lastName}
                 </Span>
-                <Span>
+                <Span textAlign="center">
                     {date.toLocaleDateString() +
                         " " +
                         date.toLocaleTimeString()}
@@ -83,13 +84,13 @@ export const PersonalPage = () => {
                 gap="20px"
                 padding="10px"
                 height="auto"
-                flexDirection="row"
+                flexDirection="column"
+                flexDirectionTablet="row"
                 justifyContent="space-between"
                 boxShadow="rgba(0, 0, 0, 0.35) 0px 15px 20px"
                 key={i}
             >
                 <Span>{personal.firstName + " " + personal.lastName}</Span>
-                <Span>{personal.email}</Span>
                 <Link to={"/personal/bookings/" + personal.id}>
                     <Button background="hsl(60, 16%, 57%)" padding="5px 10px">
                         <Span>Visa mer</Span>
@@ -111,7 +112,6 @@ export const PersonalPage = () => {
 
     return (
         <Div
-            height="auto"
             width="100%"
             backgroundImage="url(/images/pexels-shann-3933128.jpg)"
         >

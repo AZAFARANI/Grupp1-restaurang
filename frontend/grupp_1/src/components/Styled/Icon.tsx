@@ -29,8 +29,9 @@ export const Icon = styled(FontAwesomeIcon)`
 
     color: ${(props: IIconProps) => props.color || "#cfc99b"};
     font-size: ${(props: IIconProps) => props.color || "39px"};
-    text-shadow: ${(props: IIconProps) =>
-        props.color || "0px 4px 4px hsla(0, 0%, 0%, 0.25)"};
+
+    filter: ${(props: IIconProps) => `drop-shadow(${props.shadow})` || ""};
+
     z-index: ${(props: IIconProps) => props.zIndex || "1"};
 
     transition: ${(props: IIconProps) => props.transition || ""};
@@ -44,7 +45,7 @@ export const Icon = styled(FontAwesomeIcon)`
     }
 
     &.hidden {
-        transform: translateX(200%);
+        transform: translateX(25vw);
     }
 
     &.visible {

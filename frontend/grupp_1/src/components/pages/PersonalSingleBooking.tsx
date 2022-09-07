@@ -33,7 +33,6 @@ export const PersonalsingleBooking = () => {
 
     return (
         <Div
-            height="auto"
             width="100%"
             backgroundImage="url(/images/pexels-shann-3933128.jpg)"
         >
