@@ -10,6 +10,7 @@ import { Contact } from "./components/pages/Contact";
 import Login from "./components/pages/Login";
 import { NotFound } from "./components/pages/NotFound";
 import { PersonalPage } from "./components/pages/PersonalPage";
+import { PersonalsingleBooking } from "./components/pages/PersonalSingleBooking";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -24,6 +25,10 @@ root.render(
           <Route path="/contact" element={<Contact />} />
           <Route path="/login" element={<Login />} />
           <Route path="/PersonalPage" element={<PersonalPage />} />
+          <Route
+            path="/booking/:id"
+            element={<PersonalsingleBooking />}
+          ></Route>
           <Route path="*" element={<NotFound />}></Route>
         </Route>
       </Routes>

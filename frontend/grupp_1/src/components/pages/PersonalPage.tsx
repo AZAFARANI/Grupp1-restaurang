@@ -8,6 +8,8 @@ import { Button } from "../Styled/Button";
 import ITramontoResponse from "../../interfaces/ITramontoResponse";
 import { CookiesProvider, useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { Link } from "../Styled/Link";
+import { PersonalsingleBooking } from "./PersonalSingleBooking";
 
 let service = new TramontoService();
 
@@ -55,10 +57,12 @@ export const PersonalPage = () => {
           {bookings[i].customerId.firstName} {bookings[i].customerId.lastName}
         </Span>
         <Span>{bookings[i].timestamp}</Span>
-        <Button background="blue" padding="5px 10px">
-          {" "}
-          <Span>Visa mer</Span>
-        </Button>
+        <Link to={"/booking/" + bookings[i]._id}>
+          <Button background="blue" padding="5px 10px">
+            {" "}
+            <Span>Visa mer</Span>
+          </Button>
+        </Link>
       </Div>
     );
   });
