@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import ITramontoResponse from "../../interfaces/ITramontoResponse";
@@ -8,28 +8,41 @@ import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
 import { Input } from "../Styled/Input";
 import { Span } from "../Styled/Span";
-import { PersonalPage } from "./PersonalPage";
+
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+
+import { Icon } from "../Styled/Icon";
 
 const service = new TramontoService();
 
 export default function Login() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    let navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();
+
+    const formRef = useRef<HTMLFormElement>(null);
 
     function submit(e: FormEvent) {
+        setIsLoading(true);
         e.preventDefault();
-        console.log(email, password);
-
-        service
-            .tryLogin(email, password)
-            .then((response: ITramontoResponse) => {
-                if (response.error) {
-                    alert("Något gick fel vid inloggningen.");
-                } else {
-                    navigate("/personal");
-                }
-            });
+        const form = formRef.current;
+        if (form) {
+            form.reportValidity();
+            if (form.checkValidity()) {
+                service
+                    .tryLogin(email, password)
+                    .then((response: ITramontoResponse) => {
+                        if (response.error) {
+                            alert("Något gick fel vid inloggningen.");
+                        } else {
+                            navigate("/personal");
+                        }
+                        setIsLoading(false);
+                    });
+            }
+        }
     }
 
     return (
@@ -39,44 +52,79 @@ export default function Login() {
                 justifyContent="start"
                 widthTablet="80%"
             >
-                <Div backgroundColor="hsla(0, 0%, 0%, 0.5)" height="auto">
-                    <img src="/svg/Logo.svg" alt="Logotype" />
+                <Div
+                    backgroundColor="hsla(0, 0%, 0%, 0.5)"
+                    height="auto"
+                    padding="10px"
+                >
+                    <Div alignItems="start" alignItemsTablet="center">
+                        <Span
+                            shadow="none"
+                            fontSize="40pt"
+                            fontSizeTablet="50pt"
+                            fontSizeLaptop="40pt"
+                            padding="10px"
+                            color="white"
+                        >
+                            Login
+                        </Span>
+                    </Div>
                 </Div>
-                <Div justifyContent="start" padding="100px 20px 200px 20px">
-                    <Form gap="20px" onSubmit={submit} applyToNthChild="even">
-                        <Span fontSize="20pt" fontSizeLaptop="20pt">
-                            Email
-                        </Span>
-                        <Input
-                            width="80%"
-                            type="text"
-                            id="email"
-                            value={email}
-                            onChange={(e) => {
-                                setEmail(e.target.value);
-                            }}
-                        ></Input>
-                        <Span fontSize="20pt" fontSizeLaptop="20pt">
-                            Lösenord
-                        </Span>
-                        <Input
-                            width="80%"
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => {
-                                setPassword(e.target.value);
-                            }}
-                        ></Input>
+                <Div justifyContent="start" padding="20px" height="auto">
+                    <Form gap="20px" onSubmit={submit} ref={formRef}>
+                        <Div widthLaptop="50%" gap="10px">
+                            <Span fontSize="20pt" fontSizeLaptop="20pt">
+                                Email
+                            </Span>
+                            <Input
+                                required
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
+                            />
+                            <Span fontSize="20pt" fontSizeLaptop="20pt">
+                                Lösenord
+                            </Span>
+                            <Input
+                                required
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => {
+                                    setPassword(e.target.value);
+                                }}
+                            />
+                        </Div>
                         <Button
-                            background="blue"
+                            background="hsl(357, 28%, 63%)"
                             type="submit"
                             onSubmit={submit}
-                            padding="20px"
+                            width="200px"
+                            height="70px"
+                            display="flex"
+                            alignItems="center"
+                            justifyContent="center"
                         >
-                            <Span color="white" fontSize="20pt">
-                                Logga In
-                            </Span>
+                            {isLoading ? (
+                                <Icon
+                                    fontSize="20pt"
+                                    color="white"
+                                    icon={faSpinner}
+                                    className="spinner"
+                                ></Icon>
+                            ) : (
+                                <Span
+                                    color="white"
+                                    fontSize="17pt"
+                                    fontSizeTablet="18pt"
+                                    fontSizeLaptop="14pt"
+                                >
+                                    Logga in
+                                </Span>
+                            )}
                         </Button>
                     </Form>
                 </Div>

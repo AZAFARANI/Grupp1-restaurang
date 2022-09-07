@@ -90,7 +90,7 @@ export const PersonalPage = () => {
             >
                 <Span>{personal.firstName + " " + personal.lastName}</Span>
                 <Span>{personal.email}</Span>
-                <Link to={"/personal/bookings/" + bookings[i]._id}>
+                <Link to={"/personal/bookings/" + personal.id}>
                     <Button background="hsl(60, 16%, 57%)" padding="5px 10px">
                         <Span>Visa mer</Span>
                     </Button>
@@ -122,6 +122,7 @@ export const PersonalPage = () => {
                 backgroundColor="rgba(255, 255, 255, 0.75)"
                 alignItems="center"
                 padding="20px"
+                height="auto"
             >
                 <Button
                     onClick={logOut}
