@@ -28,6 +28,7 @@ export const Layout = () => {
           setIsClicked(!isClicked);
         }}
         icon={faBars}
+        id="navigation-menu"
       />
 
       <Div
@@ -86,6 +87,7 @@ export const Layout = () => {
                 setIsClicked(false);
               }}
               to={"/"}
+              id="link-to-startsida"
             >
               <Span color="white" fontSize="30px">
                 Startsida
@@ -97,6 +99,7 @@ export const Layout = () => {
                 setIsClicked(false);
               }}
               to={"/booking"}
+              id="link-to-boka-bord"
             >
               <Span color="white" fontSize="30px">
                 Boka bord
@@ -108,6 +111,7 @@ export const Layout = () => {
                 setIsClicked(false);
               }}
               to={"/contact"}
+              id="link-to-kontaktsida"
             >
               <Span color="white" fontSize="30px">
                 Kontaktsida
