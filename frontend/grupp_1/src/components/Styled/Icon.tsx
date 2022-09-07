@@ -18,6 +18,7 @@ interface IIconProps {
     display?: string;
     displayTablet?: string;
     displayLaptop?: string;
+    cursor?: string;
 }
 
 export const Icon = styled(FontAwesomeIcon)`
@@ -26,6 +27,7 @@ export const Icon = styled(FontAwesomeIcon)`
     left: ${(props: IIconProps) => props.left || ""};
     bottom: ${(props: IIconProps) => props.bottom || ""};
     right: ${(props: IIconProps) => props.right || ""};
+    cursor: ${(props: IIconProps) => props.cursor || "auto"};
 
     color: ${(props: IIconProps) => props.color || "#cfc99b"};
     font-size: ${(props: IIconProps) => props.color || "39px"};
