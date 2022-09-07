@@ -18,6 +18,10 @@ interface IButtonProps {
   right?: string;
   bottom?: string;
   flexGrow?: string;
+  borderLeft?: string;
+  borderRight?: string;
+  borderTop?: string;
+  borderBottom?: string;
 
   width?: string;
   widthTablet?: string;
@@ -46,6 +50,10 @@ export const Button = styled.button`
   background-color: ${(props: IButtonProps) => props.background || "none"};
 
   border: ${(props: IButtonProps) => props.border || "none"};
+  border-top: ${(props: IButtonProps) => props.borderTop || "none"};
+  border-right: ${(props: IButtonProps) => props.borderRight || "none"};
+  border-bottom: ${(props: IButtonProps) => props.borderBottom || "none"};
+  border-left: ${(props: IButtonProps) => props.borderLeft || "none"};
   border-radius: ${(props: IButtonProps) => props.borderRadius || "10px"};
 
   box-shadow: ${(props: IButtonProps) =>

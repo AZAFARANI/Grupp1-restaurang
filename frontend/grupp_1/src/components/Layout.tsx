@@ -18,6 +18,7 @@ export const Layout = () => {
   return (
     <>
       <Icon
+        cursor="pointer"
         displayLaptop="none"
         transition="transform 0.2s ease"
         className={`${isClicked ? "hidden" : "visible"} `}
@@ -73,6 +74,7 @@ export const Layout = () => {
             </Span>
 
             <Icon
+              cursor="pointer"
               icon={faXmark}
               onClick={() => {
                 setIsClicked(false);
@@ -186,6 +188,7 @@ export const Layout = () => {
             </Div>
 
             <Image
+              cursor="pointer"
               onClick={() => {
                 document.querySelector("#scrollToMain")?.scrollIntoView(true);
               }}

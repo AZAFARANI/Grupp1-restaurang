@@ -5,6 +5,7 @@ import { GlassmorphDiv } from "../Styled/GlassmorphDiv";
 import { Image } from "../Styled/Image";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
+import { Button } from "../Styled/Button";
 
 export default function Landing() {
   return (
@@ -27,16 +28,15 @@ export default function Landing() {
               ></Image>
 
               <Link to={"/booking"}>
-                <GlassmorphDiv
-                  className="bookingButton"
-                  border="solid 0px 1px 1px 0px hsla(0, 14%, 82%, 1)"
+                <Button
+                  borderTop="solid 1px hsla(0, 14%, 82%, 1)"
+                  borderLeft="solid 1px hsla(0, 14%, 82%, 1)"
+                  padding="20px 25px"
                   background="hsla(357, 48%, 70%, 0.85)"
-                  blur="hsla(0, 0%, 0%, 0.25)"
+                  backdropFilter="hsla(0, 0%, 0%, 0.25)"
                 >
-                  <Span fontSize="1.4rem" color="white">
-                    Boka bord
-                  </Span>
-                </GlassmorphDiv>
+                  <Span fontSize="1.5rem">Boka bord</Span>
+                </Button>
               </Link>
             </Div>
             <A width="60%" href="#menuLandning">
