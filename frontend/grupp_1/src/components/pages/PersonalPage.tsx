@@ -66,9 +66,11 @@ export const PersonalPage = () => {
                         " " +
                         date.toLocaleTimeString()}
                 </Span>
-                <Link to={"/personal/bookings/" + bookings[i]._id}>
+                <Link
+                    to={"/personal/bookings/" + bookings[i]._id}
+                    id={`personal-bookings-${i}`}
+                >
                     <Button background="hsl(60, 16%, 57%)" padding="5px 10px">
-                        {" "}
                         <Span>Visa mer</Span>
                     </Button>
                 </Link>
@@ -91,7 +93,10 @@ export const PersonalPage = () => {
                 key={i}
             >
                 <Span>{personal.firstName + " " + personal.lastName}</Span>
-                <Link to={"/personal/bookings/" + personal.id}>
+                <Link
+                    to={"/personal/bookings/" + personal.id}
+                    id={`personal-employee-${i}`}
+                >
                     <Button background="hsl(60, 16%, 57%)" padding="5px 10px">
                         <Span>Visa mer</Span>
                     </Button>
@@ -125,6 +130,7 @@ export const PersonalPage = () => {
                 height="auto"
             >
                 <Button
+                    id="personal-logout-button"
                     onClick={logOut}
                     background="hsl(357, 28%, 63%)"
                     padding="10px 10px"
@@ -132,7 +138,7 @@ export const PersonalPage = () => {
                     logga ut
                 </Button>
 
-                <Link to={"/bookings"}>
+                <Link to={"/bookings"} id="personal-bookings-button">
                     <Button background="#A3A380" padding="10px 10px">
                         Ny Bokning
                     </Button>

@@ -71,15 +71,20 @@ export default function Login() {
                     </Div>
                 </Div>
                 <Div justifyContent="start" padding="20px" height="auto">
-                    <Form gap="20px" onSubmit={submit} ref={formRef}>
+                    <Form
+                        gap="20px"
+                        onSubmit={submit}
+                        ref={formRef}
+                        id="form-login"
+                    >
                         <Div widthLaptop="50%" gap="10px">
                             <Span fontSize="20pt" fontSizeLaptop="20pt">
                                 Email
                             </Span>
                             <Input
+                                id="login-email-span"
                                 required
                                 type="email"
-                                id="email"
                                 value={email}
                                 onChange={(e) => {
                                     setEmail(e.target.value);
@@ -89,9 +94,9 @@ export default function Login() {
                                 Lösenord
                             </Span>
                             <Input
+                                id="login-password-span"
                                 required
                                 type="password"
-                                id="password"
                                 value={password}
                                 onChange={(e) => {
                                     setPassword(e.target.value);
@@ -99,6 +104,7 @@ export default function Login() {
                             />
                         </Div>
                         <Button
+                            id="login-forward-button"
                             background="hsl(357, 28%, 63%)"
                             type="submit"
                             onSubmit={submit}

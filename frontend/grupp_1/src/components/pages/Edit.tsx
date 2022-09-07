@@ -160,12 +160,20 @@ export default function Edit() {
                             </Div>
                             <Div padding="40px 0px">
                                 <Div padding="0 0 10px 0" paddingLaptop="0">
-                                    <Span fontSize="20pt" color="#686868">
+                                    <Span
+                                        fontSize="20pt"
+                                        color="#686868"
+                                        id="edit-day-span"
+                                    >
                                         {getValuesFromTimeStamp(timestamp)}
                                     </Span>
                                 </Div>
                                 <Div>
-                                    <Span fontSize="18pt" color="#686868">
+                                    <Span
+                                        fontSize="18pt"
+                                        color="#686868"
+                                        id="edit-date-span"
+                                    >
                                         {new Date(
                                             timestamp
                                         ).toLocaleTimeString()}
@@ -223,6 +231,7 @@ export default function Edit() {
                                     <Div flexDirection="row" gap="10px">
                                         {/* FIRST NAME */}
                                         <Input
+                                            id="edit-firstName-span"
                                             required
                                             padding="5px"
                                             borderRadius="5px"
@@ -235,6 +244,7 @@ export default function Edit() {
                                         />
                                         {/* LAST NAME */}
                                         <Input
+                                            id="edit-lastName-span"
                                             required
                                             padding="5px"
                                             borderRadius="5px"
@@ -256,6 +266,7 @@ export default function Edit() {
                                         Epost
                                     </Span>
                                     <Input
+                                        id="edit-email-span"
                                         required
                                         padding="5px"
                                         borderRadius="5px"
@@ -277,6 +288,7 @@ export default function Edit() {
                                     </Span>
 
                                     <Input
+                                        id="edit-phone-span"
                                         required
                                         padding="5px"
                                         borderRadius="5px"
@@ -296,7 +308,11 @@ export default function Edit() {
                                     >
                                         Antal Personer
                                     </Span>
-                                    <Span padding="0 0 0 10px" color="gray">
+                                    <Span
+                                        padding="0 0 0 10px"
+                                        color="gray"
+                                        id="edit-guestCount-span"
+                                    >
                                         {guestCount}st
                                     </Span>
                                 </Div>
@@ -309,6 +325,7 @@ export default function Edit() {
                                         Allergier
                                     </Span>
                                     <Textarea
+                                        id="edit-allergies-span"
                                         height="200px"
                                         padding="5px"
                                         borderRadius="5px"
@@ -326,6 +343,7 @@ export default function Edit() {
                                     padding="40px 0 40px 0"
                                 >
                                     <Button
+                                        id="edit-delete-button"
                                         display="flex"
                                         justifyContent="center"
                                         alignItems="center"
@@ -355,6 +373,7 @@ export default function Edit() {
                                         )}
                                     </Button>
                                     <Button
+                                        id="edit-save-button"
                                         display="flex"
                                         justifyContent="center"
                                         alignItems="center"

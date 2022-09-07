@@ -58,7 +58,7 @@ export const DateData = (props: IDateDataProps) => {
     // ------------------------------------------------------
     // ### CALCULATE CURRENT WEEK ###
     useEffect(() => {
-        let week = seatingHandler.getWeek(new Date());
+        let week = seatingHandler.getWeek(new Date()) - 1;
         let currentMonday = seatingHandler.getDateOfISOWeek(
             week,
             new Date().getFullYear()
@@ -175,6 +175,7 @@ export const DateData = (props: IDateDataProps) => {
                 >
                     {/* FIRST SEATING */}
                     <Button
+                        id={`form-3-${day}-first-seating`}
                         width="95%"
                         height="80px"
                         onClick={() => {
@@ -200,6 +201,7 @@ export const DateData = (props: IDateDataProps) => {
                     </Button>
                     {/* LAST SEATING */}
                     <Button
+                        id={`form-3-${day}-second-seating`}
                         width="95%"
                         height="80px"
                         onClick={() => {
@@ -252,7 +254,7 @@ export const DateData = (props: IDateDataProps) => {
 
     let startOfSelectedWeek = new Date(currentWeekMonday);
     return (
-        <Form>
+        <Form id="form-3">
             {doneFetching ? (
                 <Div>
                     {/* SELECT WEEK */}
@@ -268,6 +270,7 @@ export const DateData = (props: IDateDataProps) => {
                             widthLaptop="100%"
                         >
                             <Button
+                                id="prevoius-week-button"
                                 type="button"
                                 padding="8px 14px"
                                 background="#A3A380"
@@ -286,6 +289,7 @@ export const DateData = (props: IDateDataProps) => {
                                 </Span>
                             </Div>
                             <Button
+                                id="next-week-button"
                                 type="button"
                                 padding="8px 14px"
                                 background="#A3A380"
@@ -305,6 +309,7 @@ export const DateData = (props: IDateDataProps) => {
                             alignItemsLaptop="flex-end"
                         >
                             <Button
+                                id="form-3-refresh-button"
                                 type="button"
                                 background="#A3A380"
                                 padding="8px 14px"
@@ -374,6 +379,7 @@ export const DateData = (props: IDateDataProps) => {
                     >
                         {/* BACKWARD BUTTON */}
                         <Button
+                            id="form-3-back-button"
                             type="button"
                             padding="15px 35px"
                             paddingTablet="12px 38px"
@@ -392,6 +398,7 @@ export const DateData = (props: IDateDataProps) => {
                         </Button>
                         {/* FORWARD BUTTON */}
                         <Button
+                            id="form-3-forward-button"
                             type="button"
                             padding="15px 24px"
                             paddingTablet="9px 27px"

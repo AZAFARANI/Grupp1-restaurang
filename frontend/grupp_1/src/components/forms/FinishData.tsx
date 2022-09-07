@@ -44,14 +44,22 @@ export const FinishData = (props: IFinishDataProps) => {
                     </Div>
                     <Div padding="40px 0px">
                         <Div padding="0 0 10px 0" paddingLaptop="0">
-                            <Span fontSize="20pt" color="#686868">
+                            <Span
+                                fontSize="20pt"
+                                color="#686868"
+                                id="form-5-day-span"
+                            >
                                 {getValuesFromTimeStamp(
                                     props.currentBooking.timestamp
                                 )}
                             </Span>
                         </Div>
                         <Div>
-                            <Span fontSize="18pt" color="#686868">
+                            <Span
+                                fontSize="18pt"
+                                color="#686868"
+                                id="form-5-time-span"
+                            >
                                 {new Date(
                                     props.currentBooking.timestamp
                                 ).toLocaleTimeString()}
@@ -104,6 +112,7 @@ export const FinishData = (props: IFinishDataProps) => {
                                 Bokad av
                             </Span>
                             <Span
+                                id="form-5-name-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -118,6 +127,7 @@ export const FinishData = (props: IFinishDataProps) => {
                                 Epost
                             </Span>
                             <Span
+                                id="form-5-email-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -131,6 +141,7 @@ export const FinishData = (props: IFinishDataProps) => {
                                 Mobilnummer
                             </Span>
                             <Span
+                                id="form-5-phone-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -144,6 +155,7 @@ export const FinishData = (props: IFinishDataProps) => {
                                 Antal Personer
                             </Span>
                             <Span
+                                id="form-5-guestCount-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -157,6 +169,7 @@ export const FinishData = (props: IFinishDataProps) => {
                                 Allergier
                             </Span>
                             <Span
+                                id="form-5-allergies-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -171,6 +184,7 @@ export const FinishData = (props: IFinishDataProps) => {
             </Div>
             <Div padding="30px">
                 <Button
+                    id="form-5-done-button"
                     display="flex"
                     justifyContent="center"
                     alignItems="center"

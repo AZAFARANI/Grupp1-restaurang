@@ -44,7 +44,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
         }
     }
     return (
-        <Form height="auto" onSubmit={submitHandler}>
+        <Form height="auto" onSubmit={submitHandler} id="form-4">
             <Div
                 flexDirectionLaptop="row"
                 justifyContentLaptop="center"
@@ -70,14 +70,22 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                     </Div>
                     <Div padding="40px 0px">
                         <Div padding="0 0 10px 0" paddingLaptop="0">
-                            <Span fontSize="20pt" color="#686868">
+                            <Span
+                                fontSize="20pt"
+                                color="#686868"
+                                id="form-4-day-span"
+                            >
                                 {getValuesFromTimeStamp(
                                     props.currentBooking.timestamp
                                 )}
                             </Span>
                         </Div>
                         <Div>
-                            <Span fontSize="18pt" color="#686868">
+                            <Span
+                                fontSize="18pt"
+                                color="#686868"
+                                id="form-4-time-span"
+                            >
                                 {new Date(
                                     props.currentBooking.timestamp
                                 ).toLocaleTimeString()}
@@ -130,6 +138,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 Bokad av
                             </Span>
                             <Span
+                                id="form-4-name-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -144,6 +153,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 Epost
                             </Span>
                             <Span
+                                id="form-4-email-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -157,6 +167,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 Mobilnummer
                             </Span>
                             <Span
+                                id="form-4-phone-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -170,6 +181,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 Antal Personer
                             </Span>
                             <Span
+                                id="form-4-guestCount-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -183,6 +195,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 Allergier
                             </Span>
                             <Span
+                                id="form-4-allergies-span"
                                 fontSize="12pt"
                                 color="#808080"
                                 padding="0 0 0 20px"
@@ -199,6 +212,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                             padding="40px 0 40px 0"
                         >
                             <Button
+                                id="form-4-back-button"
                                 display="flex"
                                 justifyContent="center"
                                 alignItems="center"
@@ -217,6 +231,7 @@ export const ConfirmData = (props: IConfirmDataProps) => {
                                 ></Image>
                             </Button>
                             <Button
+                                id="form-4-forward-button"
                                 display="flex"
                                 justifyContent="center"
                                 alignItems="center"
