@@ -130,7 +130,11 @@ function validatePersonal(personal) {
 }
 function validateAllowedPropertiesBooking(booking) {
     Object.keys(booking).forEach((key) => {
-        if (!["guestCount", "allergies", "timestamp"].includes(key))
+        if (
+            !["firstName", "lastName", "email", "phone", "allergies"].includes(
+                key
+            )
+        )
             throw "Trying to change unallowed property.";
     });
 }
@@ -172,6 +176,15 @@ function validateCustomer(customer) {
     // ### SPECIFIC ###
     if (!emailRegexp.test(customer.email)) throw "Invalid email format.";
     // ---------------------------------------------------------
+}
+
+function hasCustomerChanges(booking) {
+    let hasChanges = false;
+    Object.keys(booking).forEach((key) => {
+        if (!["firstName", "lastName", "email", "phone"].includes(key))
+            hasChanges = true;
+    });
+    return hasChanges;
 }
 
 // ----------------------------------------------------------
@@ -262,6 +275,7 @@ module.exports = {
     validateCredentials,
     validateAllowedPropertiesBooking,
     validateAllowedPropertiesPersonal,
+    hasCustomerChanges,
     BLANK_BOOKING,
     BLANK_PERSONAL,
     BLANK_CUSTOMER,

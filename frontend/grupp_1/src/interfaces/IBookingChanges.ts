@@ -1,5 +1,7 @@
 export default interface IBookingChanges {
-    guestCount?: number;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    phone?: string;
     allergies?: string;
-    timestamp?: string;
 }

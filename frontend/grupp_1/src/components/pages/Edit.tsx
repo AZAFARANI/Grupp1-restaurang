@@ -1,6 +1,6 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import INewBooking from "../../interfaces/INewBooking";
+import IBookingChanges from "../../interfaces/IBookingChanges";
 import ITramontoResponse from "../../interfaces/ITramontoResponse";
 import BookingModel from "../../models/Booking";
 import TramontoService from "../../services/Tramonto";
@@ -8,11 +8,13 @@ import { getValuesFromTimeStamp } from "../../utils";
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
+import { Icon } from "../Styled/Icon";
 import { Image } from "../Styled/Image";
 import { Input } from "../Styled/Input";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 import { Textarea } from "../Styled/Textarea";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const service = new TramontoService();
 
@@ -20,6 +22,8 @@ export default function Edit() {
     const params = useParams();
     const location = useLocation();
     const navigate = useNavigate();
+
+    const [booking, setBooking] = useState<BookingModel | null>(null);
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -30,6 +34,8 @@ export default function Edit() {
     const [timestamp, setTimestamp] = useState("");
 
     const [doneFetching, setDoneFetching] = useState(false);
+    const [isLoadingEdit, setIsLoadingEdit] = useState(false);
+    const [isLoadingDelete, setIsLoadingDelete] = useState(false);
 
     let shouldFetch = true;
 
@@ -45,6 +51,7 @@ export default function Edit() {
                     .then((booking: BookingModel | null) => {
                         if (booking) {
                             setDoneFetching(true);
+                            setBooking(booking);
                             setFirstName(booking.customer.firstName);
                             setLastName(booking.customer.lastName);
                             setEmail(booking.customer.email);
@@ -63,7 +70,10 @@ export default function Edit() {
         }
     }, []);
 
+    const formRef = useRef<HTMLFormElement>(null);
+
     function deleteBooking(e: FormEvent) {
+        setIsLoadingDelete(true);
         e.preventDefault();
         const customerId = new URLSearchParams(location.search).get(
             "customerId"
@@ -84,18 +94,37 @@ export default function Edit() {
         }
     }
     function editBooking(e: FormEvent) {
-        e.preventDefault();
-        const changes: INewBooking = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            phone: phone,
-            guestCount: guestCount,
-            allergies: allergies,
-            timestamp: timestamp,
-        };
-        console.table(changes);
-        console.log("EDIT");
+        const form = formRef.current;
+        if (form) {
+            form.reportValidity();
+            if (form.checkValidity()) {
+                setIsLoadingEdit(true);
+                e.preventDefault();
+                const changes: IBookingChanges = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    phone: phone,
+                    allergies: allergies,
+                };
+                if (booking) {
+                    service
+                        .editBooking(booking.id, booking.customer.id, changes)
+                        .then((res: ITramontoResponse) => {
+                            console.log(res);
+                            if (res.error) {
+                                alert(
+                                    "Något gick fel vid uppdateringen av bokningen."
+                                );
+                                setIsLoadingEdit(false);
+                            } else {
+                                alert("Din bokning är uppdaterad.");
+                                setIsLoadingEdit(false);
+                            }
+                        });
+                } else console.log("No booking found to use for edit.");
+            }
+        }
     }
 
     return (
@@ -105,7 +134,7 @@ export default function Edit() {
             justifyContent="center"
         >
             {doneFetching ? (
-                <Form height="auto">
+                <Form height="auto" ref={formRef}>
                     <Div
                         flexDirectionLaptop="row"
                         justifyContentLaptop="center"
@@ -194,6 +223,7 @@ export default function Edit() {
                                     <Div flexDirection="row" gap="10px">
                                         {/* FIRST NAME */}
                                         <Input
+                                            required
                                             padding="5px"
                                             borderRadius="5px"
                                             type="text"
@@ -205,6 +235,7 @@ export default function Edit() {
                                         />
                                         {/* LAST NAME */}
                                         <Input
+                                            required
                                             padding="5px"
                                             borderRadius="5px"
                                             type="text"
@@ -225,6 +256,7 @@ export default function Edit() {
                                         Epost
                                     </Span>
                                     <Input
+                                        required
                                         padding="5px"
                                         borderRadius="5px"
                                         type="text"
@@ -245,6 +277,7 @@ export default function Edit() {
                                     </Span>
 
                                     <Input
+                                        required
                                         padding="5px"
                                         borderRadius="5px"
                                         type="tel"
@@ -303,14 +336,23 @@ export default function Edit() {
                                         background="#A3A380"
                                         onClick={deleteBooking}
                                     >
-                                        <Span
-                                            color="white"
-                                            fontSize="17pt"
-                                            fontSizeTablet="18pt"
-                                            fontSizeLaptop="14pt"
-                                        >
-                                            Avboka
-                                        </Span>
+                                        {isLoadingDelete ? (
+                                            <Icon
+                                                fontSize="20pt"
+                                                color="white"
+                                                icon={faSpinner}
+                                                className="spinner"
+                                            ></Icon>
+                                        ) : (
+                                            <Span
+                                                color="white"
+                                                fontSize="17pt"
+                                                fontSizeTablet="18pt"
+                                                fontSizeLaptop="14pt"
+                                            >
+                                                Avboka
+                                            </Span>
+                                        )}
                                     </Button>
                                     <Button
                                         display="flex"
@@ -323,14 +365,23 @@ export default function Edit() {
                                         background="#A3A380"
                                         onClick={editBooking}
                                     >
-                                        <Span
-                                            color="white"
-                                            fontSize="17pt"
-                                            fontSizeTablet="18pt"
-                                            fontSizeLaptop="14pt"
-                                        >
-                                            Spara
-                                        </Span>
+                                        {isLoadingEdit ? (
+                                            <Icon
+                                                fontSize="20pt"
+                                                color="white"
+                                                icon={faSpinner}
+                                                className="spinner"
+                                            ></Icon>
+                                        ) : (
+                                            <Span
+                                                color="white"
+                                                fontSize="17pt"
+                                                fontSizeTablet="18pt"
+                                                fontSizeLaptop="14pt"
+                                            >
+                                                Spara
+                                            </Span>
+                                        )}
                                     </Button>
                                 </Div>
                             </Div>

@@ -24,11 +24,11 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/all", utils.forceAuthorize, async (req, res) => {
-  const bookings = await BookingsModel.find().populate("customerId").lean();
-  res.status(200).send({
-    msg: "All bookings",
-    bookings: bookings,
-  });
+    const bookings = await BookingsModel.find().populate("customerId").lean();
+    res.status(200).send({
+        msg: "All bookings",
+        bookings: bookings,
+    });
 });
 
 // ### GET SINGLE BOOKING ###
@@ -139,32 +139,52 @@ router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
 
         const { booking } = req.body;
 
+        utils.validateAllowedPropertiesBooking(booking);
         utils.validateBooking({ ...utils.BLANK_BOOKING, ...booking });
 
-        const foundBooking = await BookingsModel.findById(
-            req.params.id
-        ).populate("customerId");
+        const foundBooking = await BookingsModel.findById(req.params.id);
         if (!foundBooking) throw "No booking found with id " + req.params.id;
 
-        await foundBooking.update(booking);
+        if (utils.hasCustomerChanges(booking)) {
+            const customer = Object.assign({}, booking);
+            if (customer.allergies) delete customer.allergies;
+            utils.validateCustomer({ ...utils.BLANK_CUSTOMER, ...customer });
+
+            const foundCustomer = await CustomerModel.findById(
+                foundBooking.customerId
+            );
+            if (!foundCustomer)
+                throw `No customer found with id: ${req.params.id}.`;
+
+            await foundCustomer.updateOne(customer);
+            await foundCustomer.save();
+        }
+        await foundBooking.updateOne({ allergies: booking.allergies });
         await foundBooking.save();
 
+        const updatedBooking = await BookingsModel.findById(req.params.id);
+        const customer = await CustomerModel.findById(
+            updatedBooking.customerId
+        );
         mailer
-            .sendMail(foundBooking.customer.email, foundBooking)
+            .sendMail(
+                customer.email,
+                updatedBooking,
+                "/templates/EmailEdited.hbs"
+            )
             .then(async (result) => {
-                // newBooking.mailId = result
-                // await newBooking.save();
                 if (result.status === 400) {
                     res.status(400).send({
                         msg:
                             "Failed to send confirmation email to " +
-                            customer.email,
+                            customer.email +
+                            ", but booking was update.",
                         error: error,
                     });
                 } else {
                     res.send({
                         msg: "Updated booking",
-                        bookingId: foundBooking._id,
+                        bookingId: updatedBooking._id,
                         result: result,
                     });
                 }
@@ -174,16 +194,12 @@ router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
                 res.status(400).send({
                     msg:
                         "Failed to send confirmation email to " +
-                        foundBooking.customer.email,
+                        customer.email,
                     error: error,
                 });
             });
-
-        // res.send({
-        //     msg: "Updated booking.",
-        //     bookingId: foundBooking._id,
-        // });
     } catch (error) {
+        console.log(error);
         res.status(400).send({
             msg: "ERROR",
             error: error,
