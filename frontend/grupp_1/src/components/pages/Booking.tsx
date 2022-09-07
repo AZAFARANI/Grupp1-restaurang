@@ -64,6 +64,7 @@ export const Booking = () => {
                         alt="logotype"
                         display="none"
                         displayTablet="none"
+                        displayLaptop="block"
                     ></Image>
                 </Div>
                 {/* MAIN */}
