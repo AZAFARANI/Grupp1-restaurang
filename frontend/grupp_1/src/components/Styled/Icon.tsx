@@ -15,10 +15,11 @@ interface IIconProps {
     left?: string;
     bottom?: string;
     right?: string;
+    cursor?: string;
+
     display?: string;
     displayTablet?: string;
     displayLaptop?: string;
-    cursor?: string;
 }
 
 export const Icon = styled(FontAwesomeIcon)`
