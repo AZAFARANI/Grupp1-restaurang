@@ -15,8 +15,12 @@ import { Modal } from "./Modal";
 export const Layout = () => {
     const [isClicked, setIsClicked] = useState<boolean>(false);
 
+    function scrollTop() {
+        document.querySelector("#scrollToMain")?.scrollIntoView(true);
+    }
+
     return (
-        <>
+        <Div overflowX="hidden">
             {/* MENU ICON */}
             <Icon
                 cursor="pointer"
@@ -157,7 +161,11 @@ export const Layout = () => {
                                 width="30%"
                                 src="/svg/fluent_contact-card-48-regular.svg"
                             ></Image>
-                            <Link to={"/contact"} id="footer-contact-link">
+                            <Link
+                                to={"/contact"}
+                                id="footer-contact-link"
+                                onClick={scrollTop}
+                            >
                                 <Span
                                     fontSizeLaptop="1.5rem"
                                     fontSize="1.8rem"
@@ -177,7 +185,7 @@ export const Layout = () => {
                             displayLaptop="flex"
                         >
                             <Image width="15%" src="/svg/Vector-2.svg"></Image>
-                            <Link to={"/"}>
+                            <Link to={"/"} onClick={scrollTop}>
                                 <Span
                                     fontSizeLaptop="1.5rem"
                                     fontSize="1.8rem"
@@ -197,7 +205,7 @@ export const Layout = () => {
                             displayLaptop="flex"
                         >
                             <Image width="13%" src="/svg/Vector.svg"></Image>
-                            <Link to={"/bookings"}>
+                            <Link to={"/bookings"} onClick={scrollTop}>
                                 <Span
                                     fontSizeLaptop="1.5rem"
                                     fontSize="1.8rem"
@@ -210,11 +218,7 @@ export const Layout = () => {
 
                         <Image
                             cursor="pointer"
-                            onClick={() => {
-                                document
-                                    .querySelector("#scrollToMain")
-                                    ?.scrollIntoView(true);
-                            }}
+                            onClick={scrollTop}
                             displayLaptop="none"
                             src="/svg/bi_arrow-down-circle-fill.svg"
                             width="100px"
@@ -246,6 +250,6 @@ export const Layout = () => {
                 </Div>
             </Div>
             <Modal></Modal>
-        </>
+        </Div>
     );
 };
