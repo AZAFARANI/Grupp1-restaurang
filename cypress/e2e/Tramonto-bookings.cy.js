@@ -162,19 +162,128 @@ describe("Tramonto BookingsPage Test", () => {
   //   cy.get("#form-3").should("be.visible");
   // });
 
-  //-- Checking the validation of reduce button -//
+  // //-- Checking that previous button is working -//
+  // it("Testing previous button  (Step-3)", () => {
+  //   //ARRANGE
+  //   cy.get("#form-1-email").type("filip792@hotmail.com");
+  //   cy.get("#form-1-number").type("0707712715");
+  //   cy.get("#form-1-firstname").type("Filip");
+  //   cy.get("#form-1-lastname").type("Engberg");
+  //   cy.get("#form-1-allergies").type("Nötter");
+  //   cy.get("#form-1-forward-button").click();
+  //   cy.get("#form-2-increase-button").click();
+  //   cy.get("#form-2-forward-button").click();
+  //   //ACT
+  //   cy.get("#prevoius-week-button").click();
+  //   //ASSERT
+  //   cy.get("#form-3-week-span").contains("Vecka");
+  //   cy.get("#form-3").should("be.visible");
+  // });
 
-  it("Testing week  (Step-3)", () => {
-    //ARRANGE
+  // //-- Checking that next button is working -//
+  // it("Testing next button (Step-3)", () => {
+  //   //ARRANGE
+  //   cy.get("#form-1-email").type("filip792@hotmail.com");
+  //   cy.get("#form-1-number").type("0707712715");
+  //   cy.get("#form-1-firstname").type("Filip");
+  //   cy.get("#form-1-lastname").type("Engberg");
+  //   cy.get("#form-1-allergies").type("Nötter");
+  //   cy.get("#form-1-forward-button").click();
+  //   cy.get("#form-2-increase-button").click();
+  //   cy.get("#form-2-forward-button").click();
+  //   //ACT
+  //   cy.get("#prevoius-week-button").click();
+  //   //ASSERT
+  //   cy.get("#form-3-week-span").contains("Vecka");
+  //   cy.get("#form-3").should("be.visible");
+  // });
+
+  // //-- Checking that refresh button is working -//
+  // it("Testing refresh button (Step-3)", () => {
+  //   //ARRANGE
+  //   cy.get("#form-1-email").type("filip792@hotmail.com");
+  //   cy.get("#form-1-number").type("0707712715");
+  //   cy.get("#form-1-firstname").type("Filip");
+  //   cy.get("#form-1-lastname").type("Engberg");
+  //   cy.get("#form-1-allergies").type("Nötter");
+  //   cy.get("#form-1-forward-button").click();
+  //   cy.get("#form-2-increase-button").click();
+  //   cy.get("#form-2-forward-button").click();
+  //   //ACT
+  //   cy.get("#form-3-refresh-button").click();
+  //   //ASSERT
+  //   cy.get("#form-3-week-span").contains("Vecka");
+  //   cy.get("#form-3").should("be.visible");
+  // });
+
+  // //-- Checking back button -//
+  // it("Testing back button (Step-3)", () => {
+  //   //ARRANGE
+  //   cy.get("#form-1-email").type("filip792@hotmail.com");
+  //   cy.get("#form-1-number").type("0707712715");
+  //   cy.get("#form-1-firstname").type("Filip");
+  //   cy.get("#form-1-lastname").type("Engberg");
+  //   cy.get("#form-1-allergies").type("Nötter");
+  //   cy.get("#form-1-forward-button").click();
+  //   cy.get("#form-2-increase-button").click();
+  //   cy.get("#form-2-forward-button").click();
+  //   //ACT
+  //   cy.get("#form-3-back-button").click();
+  //   //ASSERT
+  //   cy.get("#form-2").should("be.visible");
+  //   cy.get("#form-2-quantity").should("have.value", "2 st");
+  // });
+
+  // //-- Checking booking button for bookingsystem -//
+  // it("Testing take a specific time and get correct value in booking information (Step-3)", () => {
+  //   //ARRANGE
+  //   cy.get("#form-1-email").type("filip792@hotmail.com");
+  //   cy.get("#form-1-number").type("0707712715");
+  //   cy.get("#form-1-firstname").type("Filip");
+  //   cy.get("#form-1-lastname").type("Engberg");
+  //   cy.get("#form-1-allergies").type("Nötter");
+  //   cy.get("#form-1-forward-button").click();
+  //   cy.get("#form-2-increase-button").click();
+  //   cy.get("#form-2-forward-button").click();
+  //   //ACT
+  //   cy.get("#form-3-monday-first-seating").click();
+  //   //ASSERT
+  //   cy.get("#form-3-chosen-time-span").contains("Klockan: 18:00");
+  // });
+
+  // //-- Checking next button -//
+  // it("Testing take a specific time and get correct value in booking information (Step-3)", () => {
+  //   cy.get("#form-1-email").type("filip792@hotmail.com");
+  //   cy.get("#form-1-number").type("0707712715");
+  //   cy.get("#form-1-firstname").type("Filip");
+  //   cy.get("#form-1-lastname").type("Engberg");
+  //   cy.get("#form-1-allergies").type("Nötter");
+  //   cy.get("#form-1-forward-button").click();
+  //   cy.get("#form-2-increase-button").click();
+  //   cy.get("#form-2-forward-button").click();
+  //   //ACT
+  //   cy.get("#form-3-monday-first-seating").click();
+  //   cy.get("#form-3-forward-button").click();
+  //   //ASSERT
+  //   cy.get("#form-3-chosen-time-span").contains("Klockan: 18:00");
+  //   cy.get("#form-4").should("be.visible");
+  // });
+
+  //-- Checking that each value is correct in form-4 (Step-4) -//
+  it("Checks if all input fields in the form have the correct value (Step-3)", () => {
     cy.get("#form-1-email").type("filip792@hotmail.com");
     cy.get("#form-1-number").type("0707712715");
     cy.get("#form-1-firstname").type("Filip");
     cy.get("#form-1-lastname").type("Engberg");
     cy.get("#form-1-allergies").type("Nötter");
     cy.get("#form-1-forward-button").click();
-    //ACT
+    cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
+    //ACT
+    cy.get("#form-3-monday-first-seating").click();
+    cy.get("#form-3-forward-button").click();
     //ASSERT
-    cy.get("#form-3").should("be.visible");
+    cy.get("#form-3-chosen-time-span").contains("Klockan: 18:00");
+    cy.get("#form-4").should("be.visible");
   });
 });

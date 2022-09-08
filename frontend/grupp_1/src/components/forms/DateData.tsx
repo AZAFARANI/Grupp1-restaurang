@@ -271,7 +271,7 @@ export const DateData = (props: IDateDataProps) => {
                   height="30px"
                 ></Image>
               </Button>
-              <Div justifyContent="center">
+              <Div justifyContent="center" id="form-3-week-span">
                 <Span fontSize="12pt" fontSizeTablet="16pt">
                   Vecka {week}
                 </Span>
@@ -340,7 +340,11 @@ export const DateData = (props: IDateDataProps) => {
                 </Span>
               </Div>
               <Div width="auto" height="auto">
-                <Span fontSize="18pt" color="#686868">
+                <Span
+                  fontSize="18pt"
+                  color="#686868"
+                  id="form-3-chosen-time-span"
+                >
                   {chosenTime
                     ? "Klockan: " +
                       chosenTime?.toLocaleTimeString().substring(0, 5)
