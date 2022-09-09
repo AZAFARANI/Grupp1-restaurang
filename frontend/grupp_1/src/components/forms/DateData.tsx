@@ -267,6 +267,7 @@ export const DateData = (props: IDateDataProps) => {
                         flexDirectionLaptop="row"
                         justifyContentLaptop="space-between"
                     >
+                        {/* SELECT WEEK */}
                         <Div
                             flexDirection="row"
                             justifyContent="space-between"
@@ -307,6 +308,7 @@ export const DateData = (props: IDateDataProps) => {
                                 ></Image>
                             </Button>
                         </Div>
+                        {/* REFRESH */}
                         <Div
                             padding="60px 0 0 0"
                             paddingLaptop="0"
