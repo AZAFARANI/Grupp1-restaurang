@@ -87,17 +87,6 @@ export const DateData = (props: IDateDataProps) => {
         }
     }, [week]);
 
-    useEffect(() => {
-        if (doneFetching) {
-            seatingHandler.filterCurrentWeekBookings(week);
-            let currentMonday = seatingHandler.getDateOfISOWeek(
-                week,
-                new Date().getFullYear()
-            );
-            setCurrentWeekMonday(currentMonday);
-        }
-    }, [week]);
-
     function triggerFetch() {
         seatingHandler.fetchBookings(week).then(() => {
             seatingHandler.filterCurrentWeekBookings(week);
@@ -117,11 +106,8 @@ export const DateData = (props: IDateDataProps) => {
         let day = NUMBER_TO_DAY[currentWeekMonday.getDay()];
         let dayBookings = seatingHandler.week[day as keyof ISeatings];
 
-        // CHECK IF FIRST SEATING IS AVALIBLE
         let showFirstSeating = calculateAvalibility(dayBookings.firstSeating);
-        // CHECK IF LAST SEATING IS AVALIBLE
         let showLastSeating = calculateAvalibility(dayBookings.lastSeating);
-
         let dayAlreadyPassed = false;
 
         if (currentWeekMonday.getTime() < new Date().getTime()) {
