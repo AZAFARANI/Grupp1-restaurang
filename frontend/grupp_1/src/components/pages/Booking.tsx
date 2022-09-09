@@ -1,12 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
+// ### INTERFACES ###
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
-import "../../scss/Booking.scss";
+// ### FORMS ###
 import { ConfirmData } from "../forms/ConfirmData";
 import { DateData } from "../forms/DateData";
 import { FinishData } from "../forms/FinishData";
 import { PersonalData } from "../forms/PersonalData";
 import { PersonCounter } from "../forms/PersonCounter";
+// ### STYLED COMPONENTS ###
 import { Div } from "../Styled/Div";
 import { Image } from "../Styled/Image";
 import { SeperatorLine } from "../Styled/SeperatorLine";

@@ -1,10 +1,12 @@
 import { FormEvent, useEffect, useState } from "react";
+// ### INTERFACES ###
 import IBookingMinimized from "../../interfaces/IBookingMinimized";
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import ISeatings from "../../interfaces/ISeatings";
+// ### MODELS ###
 import SeatingHandler, { NUMBER_TO_DAY } from "../../models/SeatingHandler";
-import "../../scss/Booking.scss";
+// ### STYLED COMPONENTS ###
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";

@@ -171,7 +171,7 @@ export const Layout = () => {
                                     fontSize="1.8rem"
                                     color="white"
                                 >
-                                    kontakt
+                                    Kontakt
                                 </Span>
                             </Link>
                         </Div>

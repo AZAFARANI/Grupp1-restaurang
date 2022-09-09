@@ -1,17 +1,18 @@
 import { FormEvent, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+// ### INTERFACE ###
 import ITramontoResponse from "../../interfaces/ITramontoResponse";
+// ### SERVICE ###
 import TramontoService from "../../services/Tramonto";
+// ### STYLED COMPONENTS ###
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
 import { Input } from "../Styled/Input";
 import { Span } from "../Styled/Span";
-
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-
 import { Icon } from "../Styled/Icon";
+// ### FONT AWSOME ICON ###
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const service = new TramontoService();
 

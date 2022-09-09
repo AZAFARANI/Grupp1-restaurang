@@ -1,15 +1,17 @@
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useCookies } from "react-cookie";
+// ### SERVICE ###
+import TramontoService from "../../services/Tramonto";
+// ### INTERFACES ###
+import IBookingExtended from "../../interfaces/IBookingExtended";
+import ITramontoResponse from "../../interfaces/ITramontoResponse";
+// ### STYLED COMPONENTS ###
 import { Div } from "../Styled/Div";
 import { Span } from "../Styled/Span";
-import TramontoService from "../../services/Tramonto";
-
-import IBookingExtended from "../../interfaces/IBookingExtended";
-import { useEffect, useState } from "react";
-import { Button } from "../Styled/Button";
-import ITramontoResponse from "../../interfaces/ITramontoResponse";
-import { CookiesProvider, useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 import { Link } from "../Styled/Link";
-import { PersonalsingleBooking } from "./PersonalSingleBooking";
+import { Button } from "../Styled/Button";
+// ### MODELS ###
 import PersonalModel from "../../models/Personal";
 
 let service = new TramontoService();
@@ -22,10 +24,7 @@ export const PersonalPage = () => {
     let navigate = useNavigate();
 
     if (isEmpty) {
-        console.log("not found");
         navigate("/");
-    } else {
-        console.log("exists");
     }
 
     const [bookings, setBookings] = useState<IBookingExtended[]>([]);

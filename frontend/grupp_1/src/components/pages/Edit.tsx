@@ -1,10 +1,15 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
+// ### INTERFACES ###
 import IBookingChanges from "../../interfaces/IBookingChanges";
 import ITramontoResponse from "../../interfaces/ITramontoResponse";
+// ### MODELS ###
 import BookingModel from "../../models/Booking";
+// ### SERVICE ###
 import TramontoService from "../../services/Tramonto";
+// ### UTILS ###
 import { getValuesFromTimeStamp } from "../../utils";
+// ### STYLED COMPONENTS ###
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
@@ -14,6 +19,7 @@ import { Input } from "../Styled/Input";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 import { Textarea } from "../Styled/Textarea";
+// ### FONT AWSOME ICON ###
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 const service = new TramontoService();

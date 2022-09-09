@@ -1,7 +1,7 @@
+// ### STYLED COMPONENTS ###
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
-import { GlassmorphDiv } from "../Styled/GlassmorphDiv";
 import { Input } from "../Styled/Input";
 import { Span } from "../Styled/Span";
 

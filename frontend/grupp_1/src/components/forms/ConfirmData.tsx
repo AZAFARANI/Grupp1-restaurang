@@ -1,6 +1,9 @@
 import { FormEvent, useState } from "react";
+// ### INTERFACE ###
 import INewBooking from "../../interfaces/INewBooking";
+// ### SERVICE ###
 import TramontoService from "../../services/Tramonto";
+// ### STYLED COMPONENTS ###
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
@@ -8,9 +11,9 @@ import { Icon } from "../Styled/Icon";
 import { Image } from "../Styled/Image";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
-
+// ### UTILS ###
 import { getValuesFromTimeStamp } from "../../utils";
-
+// ### FONT AWSOME ICONS ###
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 
 interface IConfirmDataProps {

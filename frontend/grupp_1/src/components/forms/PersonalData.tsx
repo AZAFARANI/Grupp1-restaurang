@@ -1,9 +1,12 @@
 import { FormEvent, useRef, useState } from "react";
+// ### INTERFACES ###
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
+// ### MODELS ###
 import CustomerModel from "../../models/Customer";
-import "../../scss/Booking.scss";
+// ### SERVICE ###
 import TramontoService from "../../services/Tramonto";
+// ### STYLED COMPONENTS ###
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";

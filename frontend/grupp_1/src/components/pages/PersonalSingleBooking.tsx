@@ -1,11 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+// ### INTERFACES ###
 import TramontoService from "../../services/Tramonto";
+// ### STYLED COMPONENTS ###
 import { Div } from "../Styled/Div";
 import { Span } from "../Styled/Span";
-import { useEffect, useState } from "react";
 import { Image } from "../Styled/Image";
 import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Button } from "../Styled/Button";
+// ### MODELS ###
 import BookingModel from "../../models/Booking";
 
 const service = new TramontoService();
@@ -16,18 +19,15 @@ export const PersonalsingleBooking = () => {
     const [booking, setBooking] = useState<BookingModel | null>(null);
     const [shouldFetch, setShouldFetch] = useState(false);
 
-    // console.log(index);
-
     useEffect(() => {
         if (!shouldFetch) {
             const bookingId = params.id;
             if (bookingId) {
                 service.getBookingById(bookingId).then((booking) => {
                     setBooking(booking);
+                    setShouldFetch(false);
                 });
             }
-        } else {
-            return;
         }
     });
 

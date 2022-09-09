@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
+// ### INTERFACES ###
 import INewBooking from "../../interfaces/INewBooking";
+// ### UTILS ###
 import { getValuesFromTimeStamp } from "../../utils";
+// ### STYLED COMPONENTS ###
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
 import { Form } from "../Styled/Form";
