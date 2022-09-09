@@ -34,7 +34,6 @@ export const ConfirmData = (props: IConfirmDataProps) => {
         if (!hasSent) {
             service.addBooking(props.currentBooking).then((response) => {
                 if (response.error) {
-                    console.log(response.error);
                     alert(`Något gick fel med din bokning.`);
                     hasSent = false;
                 } else {

@@ -202,7 +202,6 @@ router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
                 });
             });
     } catch (error) {
-        console.log(error);
         res.status(400).send({
             msg: "ERROR",
             error: error,
@@ -221,8 +220,6 @@ router.delete("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
         ).populate("customerId");
 
         if (!bookingToDelete) throw "No booking found with ID" + req.params.id;
-
-        console.log(bookingToDelete.customerId.email);
 
         mailer
             .sendMail(
@@ -256,7 +253,6 @@ router.delete("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
                 });
             });
     } catch (error) {
-        console.log("ERROR:\n\n", error);
         res.status(400).send({
             msg: "ERROR",
             error: error,

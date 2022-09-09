@@ -108,7 +108,7 @@ export default function Edit() {
                 .deleteBooking(bookingId, customerId)
                 .then((res: ITramontoResponse) => {
                     if (res.error) {
-                        console.log(res.error);
+                        throw res.error;
                     } else {
                         alert("Din bokning togs bort.");
                         navigate("/");
@@ -127,7 +127,6 @@ export default function Edit() {
                     service
                         .editBooking(bookingId, customerID, currentBooking)
                         .then((res: ITramontoResponse) => {
-                            console.log(res);
                             if (res.error) {
                                 alert(
                                     "Något gick fel vid uppdateringen av bokningen."
@@ -140,7 +139,8 @@ export default function Edit() {
                                 navigate("/");
                             }
                         });
-                } else console.log("No booking found to use for edit.");
+                }
+                // else console.log("No booking found to use for edit.");
             }
         }
     }

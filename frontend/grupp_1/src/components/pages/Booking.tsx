@@ -62,7 +62,6 @@ export const Booking = () => {
         setGoBack(true);
     }
 
-    console.log("STEP: ", step);
     return (
         <Div
             backgroundImage="url(images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)"
