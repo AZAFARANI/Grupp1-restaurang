@@ -30,7 +30,6 @@ export const PersonCounter = (props: IPersonCounterProps) => {
 
     function submitHandler(e: FormEvent) {
         e.preventDefault();
-        document.querySelector("#scrollToStartOfForm")?.scrollIntoView(true);
         props.handleNewBooking({ guestCount: guestCount });
     }
 

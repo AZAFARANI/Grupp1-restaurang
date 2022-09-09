@@ -17,19 +17,19 @@ export const PersonalsingleBooking = () => {
     const navigate = useNavigate();
 
     const [booking, setBooking] = useState<BookingModel | null>(null);
-    const [shouldFetch, setShouldFetch] = useState(false);
+    const [shouldFetch, setShouldFetch] = useState(true);
 
     useEffect(() => {
-        if (!shouldFetch) {
+        if (shouldFetch) {
+            setShouldFetch(false);
             const bookingId = params.id;
             if (bookingId) {
                 service.getBookingById(bookingId).then((booking) => {
                     setBooking(booking);
-                    setShouldFetch(false);
                 });
             }
         }
-    });
+    }, []);
 
     return (
         <Div
@@ -92,7 +92,7 @@ export const PersonalsingleBooking = () => {
                                 Antal Personer
                             </Span>
 
-                            <Span>{booking.guestCount}</Span>
+                            <Span>{booking.guestCount}st</Span>
                         </Div>
 
                         <Div gap="5px">
@@ -117,7 +117,7 @@ export const PersonalsingleBooking = () => {
                         </Button>
                     </Div>
                 ) : (
-                    <Span>inga bokningar</Span>
+                    <Div className="spinner" />
                 )}
             </Div>
         </Div>

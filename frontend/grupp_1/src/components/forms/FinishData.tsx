@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 // ### INTERFACES ###
 import INewBooking from "../../interfaces/INewBooking";
 // ### UTILS ###
-import { getValuesFromTimeStamp } from "../../utils";
+import { getValuesFromTimeStamp, scrollToMain } from "../../utils";
 // ### STYLED COMPONENTS ###
 import { Button } from "../Styled/Button";
 import { Div } from "../Styled/Div";
@@ -197,6 +197,7 @@ export const FinishData = (props: IFinishDataProps) => {
                     type="submit"
                     background="#A3A380"
                     onClick={(e) => {
+                        scrollToMain();
                         e.preventDefault();
                         navigate("/");
                     }}

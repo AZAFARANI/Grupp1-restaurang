@@ -34,3 +34,17 @@ export function getValuesFromTimeStamp(bookingTimestamp: string): string {
     let monthName = MONTH_NAMES_SWEDISH[bookingDateToDateObjekt.getMonth()];
     return `${dayName} ${dayNumber} ${monthName}`;
 }
+
+export function scrollToMain() {
+    document.querySelector("#scrollToMain")?.scrollIntoView(true);
+}
+
+export function getDivClassNames(
+    step: number,
+    targetStep: number,
+    shouldSwitch: boolean
+) {
+    return `${step === targetStep ? "visible" : "hidden"} ${
+        shouldSwitch ? "fadeOut" : ""
+    }`;
+}

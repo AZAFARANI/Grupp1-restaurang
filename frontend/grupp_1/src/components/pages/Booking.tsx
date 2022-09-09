@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 // ### INTERFACES ###
 import INewBooking from "../../interfaces/INewBooking";
 import INewBookingOptional from "../../interfaces/INewBookingOptional";
+import { getDivClassNames, scrollToMain } from "../../utils";
 // ### FORMS ###
 import { ConfirmData } from "../forms/ConfirmData";
 import { DateData } from "../forms/DateData";
@@ -35,6 +36,8 @@ export const Booking = () => {
     function handleNewBooking(changes: INewBookingOptional) {
         setNewBooking({ ...newBooking, ...changes });
     }
+
+    function divOnAnimationEnd() {}
 
     return (
         <Div
@@ -77,97 +80,6 @@ export const Booking = () => {
                     id="scrollToStartOfForm"
                     minHeight="100vh"
                 >
-                    {/* LÅT OSS BOKA */}
-                    <Div
-                        className={`${step === 1 ? "visible" : "hidden"} ${
-                            shouldSwitch ? "fadeOut" : ""
-                        }`}
-                        padding="10px"
-                        height="auto"
-                    >
-                        <Span
-                            fontSize="40px"
-                            shadow="none"
-                            fontSizeTablet="40px"
-                            fontSizeLaptop="40px"
-                            padding="10px"
-                        >
-                            {title}
-                        </Span>
-                        <SeperatorLine></SeperatorLine>
-                    </Div>
-                    <Div
-                        className={`${step === 2 ? "visible" : "hidden"} ${
-                            shouldSwitch ? "fadeOut" : ""
-                        }`}
-                        padding="10px"
-                        height="auto"
-                    >
-                        <Span
-                            fontSize="40px"
-                            shadow="none"
-                            fontSizeTablet="40px"
-                            fontSizeLaptop="40px"
-                            padding="10px"
-                        >
-                            {title}
-                        </Span>
-                        <SeperatorLine></SeperatorLine>
-                    </Div>
-                    <Div
-                        className={`${step === 3 ? "visible" : "hidden"} ${
-                            shouldSwitch ? "fadeOut" : ""
-                        }`}
-                        padding="10px"
-                        height="auto"
-                    >
-                        <Span
-                            fontSize="40px"
-                            shadow="none"
-                            fontSizeTablet="40px"
-                            fontSizeLaptop="40px"
-                            padding="10px"
-                        >
-                            {title}
-                        </Span>
-                        <SeperatorLine></SeperatorLine>
-                    </Div>
-                    <Div
-                        className={`${step === 4 ? "visible" : "hidden"} ${
-                            shouldSwitch ? "fadeOut" : ""
-                        }`}
-                        padding="10px"
-                        height="auto"
-                    >
-                        <Span
-                            fontSize="40px"
-                            shadow="none"
-                            fontSizeTablet="40px"
-                            fontSizeLaptop="40px"
-                            padding="10px"
-                        >
-                            {title}
-                        </Span>
-                        <SeperatorLine></SeperatorLine>
-                    </Div>
-                    <Div
-                        className={`${step === 5 ? "visible" : "hidden"} ${
-                            shouldSwitch ? "fadeOut" : ""
-                        }`}
-                        padding="10px"
-                        height="auto"
-                    >
-                        <Span
-                            fontSize="40px"
-                            shadow="none"
-                            fontSizeTablet="40px"
-                            fontSizeLaptop="40px"
-                            padding="10px"
-                        >
-                            {title}
-                        </Span>
-                        <SeperatorLine></SeperatorLine>
-                    </Div>
                     {/* FORM STEPS */}
                     <Div width="90%">
                         {(function () {
@@ -179,21 +91,30 @@ export const Booking = () => {
                                             onAnimationEnd={() => {
                                                 if (shouldSwitch) {
                                                     setStep(2);
-                                                    setTitle(
-                                                        "Hur många är ni?"
-                                                    );
                                                     setShouldSwitch(false);
                                                 }
                                             }}
-                                            className={`${
-                                                step === 1
-                                                    ? "visible"
-                                                    : "hidden"
-                                            } ${shouldSwitch ? "fadeOut" : ""}`}
+                                            className={`${getDivClassNames(
+                                                step,
+                                                1,
+                                                shouldSwitch
+                                            )}`}
                                         >
+                                            <Span
+                                                textAlign="center"
+                                                fontSize="40px"
+                                                shadow="none"
+                                                fontSizeTablet="40px"
+                                                fontSizeLaptop="40px"
+                                                padding="10px"
+                                            >
+                                                Låt oss boka!
+                                            </Span>
+                                            <SeperatorLine />
                                             <PersonalData
                                                 currentBooking={newBooking}
                                                 moveForward={() => {
+                                                    scrollToMain();
                                                     setShouldSwitch(true);
                                                 }}
                                                 handleNewBooking={(
@@ -212,32 +133,39 @@ export const Booking = () => {
                                                 if (shouldSwitch) {
                                                     if (compareButtons)
                                                         setStep(3);
-                                                    setTitle(
-                                                        "När vill ni äta?"
-                                                    );
                                                     setShouldSwitch(false);
                                                 }
                                                 if (!compareButtons) {
                                                     setStep(1);
-                                                    setTitle("Låt oss boka!");
                                                     setShouldSwitch(false);
                                                     setCompareButtons(true);
                                                 }
                                             }}
-                                            className={`${
-                                                step === 2
-                                                    ? "visible"
-                                                    : "hidden"
-                                            } ${
-                                                shouldSwitch ? "fadeOut" : ""
-                                            } `}
+                                            className={`${getDivClassNames(
+                                                step,
+                                                2,
+                                                shouldSwitch
+                                            )}`}
                                         >
+                                            <Span
+                                                textAlign="center"
+                                                fontSize="40px"
+                                                shadow="none"
+                                                fontSizeTablet="40px"
+                                                fontSizeLaptop="40px"
+                                                padding="10px"
+                                            >
+                                                Hur många är ni?
+                                            </Span>
+                                            <SeperatorLine></SeperatorLine>
                                             <PersonCounter
                                                 currentBooking={newBooking}
                                                 moveForward={() => {
+                                                    scrollToMain();
                                                     setShouldSwitch(true);
                                                 }}
                                                 moveBackward={() => {
+                                                    scrollToMain();
                                                     setShouldSwitch(true);
                                                     setCompareButtons(false);
                                                 }}
@@ -257,31 +185,38 @@ export const Booking = () => {
                                                 if (shouldSwitch) {
                                                     if (compareButtons)
                                                         setStep(4);
-                                                    setTitle(
-                                                        "Ser allt bra ut?"
-                                                    );
                                                     setShouldSwitch(false);
                                                 }
                                                 if (!compareButtons) {
                                                     setStep(2);
-                                                    setTitle(
-                                                        "Hur många är ni?"
-                                                    );
                                                     setShouldSwitch(false);
                                                     setCompareButtons(true);
                                                 }
                                             }}
-                                            className={`${
-                                                step === 3
-                                                    ? "visible"
-                                                    : "hidden"
-                                            } ${shouldSwitch ? "fadeOut" : ""}`}
+                                            className={`${getDivClassNames(
+                                                step,
+                                                3,
+                                                shouldSwitch
+                                            )}`}
                                         >
+                                            <Span
+                                                fontSize="40px"
+                                                shadow="none"
+                                                fontSizeTablet="40px"
+                                                fontSizeLaptop="40px"
+                                                padding="10px"
+                                                textAlign="center"
+                                            >
+                                                När vill ni äta?
+                                            </Span>
+                                            <SeperatorLine></SeperatorLine>
                                             <DateData
                                                 moveForward={() => {
+                                                    scrollToMain();
                                                     setShouldSwitch(true);
                                                 }}
                                                 moveBackward={() => {
+                                                    scrollToMain();
                                                     setShouldSwitch(true);
                                                     setCompareButtons(false);
                                                 }}
@@ -302,30 +237,39 @@ export const Booking = () => {
                                                 if (shouldSwitch) {
                                                     if (compareButtons)
                                                         setStep(5);
-                                                    setTitle("Klar!");
                                                     setShouldSwitch(false);
                                                 }
                                                 if (!compareButtons) {
                                                     setStep(3);
-                                                    setTitle(
-                                                        "När vill ni äta?"
-                                                    );
                                                     setShouldSwitch(false);
                                                     setCompareButtons(true);
                                                 }
                                             }}
-                                            className={`${
-                                                step === 4
-                                                    ? "visible"
-                                                    : "hidden"
-                                            } ${shouldSwitch ? "fadeOut" : ""}`}
+                                            className={`${getDivClassNames(
+                                                step,
+                                                4,
+                                                shouldSwitch
+                                            )}}`}
                                         >
+                                            <Span
+                                                textAlign="center"
+                                                fontSize="40px"
+                                                shadow="none"
+                                                fontSizeTablet="40px"
+                                                fontSizeLaptop="40px"
+                                                padding="10px"
+                                            >
+                                                Ser allt bra ut?
+                                            </Span>
+                                            <SeperatorLine></SeperatorLine>
                                             <ConfirmData
                                                 currentBooking={newBooking}
                                                 moveForward={() => {
+                                                    scrollToMain();
                                                     setShouldSwitch(true);
                                                 }}
                                                 moveBackward={() => {
+                                                    scrollToMain();
                                                     setShouldSwitch(true);
                                                     setCompareButtons(false);
                                                 }}
@@ -336,12 +280,23 @@ export const Booking = () => {
                                     // STEP %
                                     return (
                                         <Div
-                                            className={`${
-                                                step === 5
-                                                    ? "visible"
-                                                    : "hidden"
-                                            }`}
+                                            className={`${getDivClassNames(
+                                                step,
+                                                5,
+                                                shouldSwitch
+                                            )}`}
                                         >
+                                            <Span
+                                                textAlign="center"
+                                                fontSize="40px"
+                                                shadow="none"
+                                                fontSizeTablet="40px"
+                                                fontSizeLaptop="40px"
+                                                padding="10px"
+                                            >
+                                                Klar!
+                                            </Span>
+                                            <SeperatorLine></SeperatorLine>
                                             <FinishData
                                                 currentBooking={newBooking}
                                                 setStep={setStep}

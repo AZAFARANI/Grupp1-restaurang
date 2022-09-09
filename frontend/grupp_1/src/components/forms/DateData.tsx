@@ -51,7 +51,6 @@ export const DateData = (props: IDateDataProps) => {
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
-        document.querySelector("#scrollToStartOfForm")?.scrollIntoView(true);
         if (chosenTime) {
             props.handleNewBooking({ timestamp: chosenTime.toISOString() });
         }
@@ -275,6 +274,7 @@ export const DateData = (props: IDateDataProps) => {
                 <Div>
                     {/* SELECT WEEK */}
                     <Div
+                        padding="20px 0 0 0"
                         height="auto"
                         flexDirectionLaptop="row"
                         justifyContentLaptop="space-between"
@@ -392,6 +392,7 @@ export const DateData = (props: IDateDataProps) => {
                         flexDirection="row"
                         justifyContent="space-between"
                         height="auto"
+                        padding="0 0 20px 0"
                     >
                         {/* BACKWARD BUTTON */}
                         <Button

@@ -11,13 +11,10 @@ import { Span } from "./Styled/Span";
 import { Image } from "./Styled/Image";
 // ### MODAL ###
 import { Modal } from "./Modal";
+import { scrollToMain } from "../utils";
 
 export const Layout = () => {
     const [isClicked, setIsClicked] = useState<boolean>(false);
-
-    function scrollTop() {
-        document.querySelector("#scrollToMain")?.scrollIntoView(true);
-    }
 
     return (
         <Div overflowX="hidden">
@@ -164,7 +161,7 @@ export const Layout = () => {
                             <Link
                                 to={"/contact"}
                                 id="footer-contact-link"
-                                onClick={scrollTop}
+                                onClick={scrollToMain}
                             >
                                 <Span
                                     fontSizeLaptop="1.5rem"
@@ -185,7 +182,7 @@ export const Layout = () => {
                             displayLaptop="flex"
                         >
                             <Image width="15%" src="/svg/Vector-2.svg"></Image>
-                            <Link to={"/"} onClick={scrollTop}>
+                            <Link to={"/"} onClick={scrollToMain}>
                                 <Span
                                     fontSizeLaptop="1.5rem"
                                     fontSize="1.8rem"
@@ -205,7 +202,7 @@ export const Layout = () => {
                             displayLaptop="flex"
                         >
                             <Image width="13%" src="/svg/Vector.svg"></Image>
-                            <Link to={"/bookings"} onClick={scrollTop}>
+                            <Link to={"/bookings"} onClick={scrollToMain}>
                                 <Span
                                     fontSizeLaptop="1.5rem"
                                     fontSize="1.8rem"
@@ -218,7 +215,7 @@ export const Layout = () => {
 
                         <Image
                             cursor="pointer"
-                            onClick={scrollTop}
+                            onClick={scrollToMain}
                             displayLaptop="none"
                             src="/svg/bi_arrow-down-circle-fill.svg"
                             width="100px"

@@ -45,7 +45,7 @@ export const PersonalData = (props: IPersonDataProps) => {
 
     function submitHandler(e: FormEvent) {
         e.preventDefault();
-        document.querySelector("#scrollToStartOfForm")?.scrollIntoView(true);
+
         const form = formRef.current;
         if (form) {
             form.reportValidity();
@@ -88,7 +88,12 @@ export const PersonalData = (props: IPersonDataProps) => {
     return (
         <Form id="form-1" gap="35px" ref={formRef}>
             {/* EMAIL / MOBILE */}
-            <Div flexDirectionLaptop="row" widthLaptop="80%" gap="35px">
+            <Div
+                flexDirectionLaptop="row"
+                widthLaptop="80%"
+                gap="35px"
+                padding="20px 0 0 0"
+            >
                 <Div>
                     <Span
                         fontSize="24px"

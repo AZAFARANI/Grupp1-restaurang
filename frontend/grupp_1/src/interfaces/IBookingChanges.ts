@@ -4,4 +4,6 @@ export default interface IBookingChanges {
     email?: string;
     phone?: string;
     allergies?: string;
+    timestamp?: string;
+    guestCount?: number;
 }

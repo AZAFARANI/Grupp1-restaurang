@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 // ### SERVICE ###
 import TramontoService from "../../services/Tramonto";
@@ -14,16 +14,13 @@ import { Button } from "../Styled/Button";
 // ### MODELS ###
 import PersonalModel from "../../models/Personal";
 
-let service = new TramontoService();
+const service = new TramontoService();
 
 export const PersonalPage = () => {
-    let cookie = useCookies();
+    const [cookies] = useCookies(["TramontoToken"]);
+    const navigate = useNavigate();
 
-    const isEmpty = Object.keys(cookie[0]).length === 0;
-
-    let navigate = useNavigate();
-
-    if (isEmpty) {
+    if (!cookies.TramontoToken) {
         navigate("/");
     }
 
@@ -31,16 +28,19 @@ export const PersonalPage = () => {
     const [personal, setPersonal] = useState<PersonalModel[]>([]);
     const [shouldFetch, setShouldFetch] = useState(true);
 
-    if (shouldFetch) {
-        service.getBookingsAuthorized().then((bookings: IBookingExtended[]) => {
-            setBookings(bookings);
+    useEffect(() => {
+        if (shouldFetch) {
             setShouldFetch(false);
-        });
-        service.getPersonal().then((personal: PersonalModel[]) => {
-            setPersonal(personal);
-            setShouldFetch(false);
-        });
-    }
+            service
+                .getBookingsAuthorized()
+                .then((bookings: IBookingExtended[]) => {
+                    setBookings(bookings);
+                });
+            service.getPersonal().then((personal: PersonalModel[]) => {
+                setPersonal(personal);
+            });
+        }
+    }, []);
 
     const bookingsHtml = bookings.map((booking, i) => {
         const date = new Date(booking.timestamp);

@@ -131,9 +131,15 @@ function validatePersonal(personal) {
 function validateAllowedPropertiesBooking(booking) {
     Object.keys(booking).forEach((key) => {
         if (
-            !["firstName", "lastName", "email", "phone", "allergies"].includes(
-                key
-            )
+            ![
+                "firstName",
+                "lastName",
+                "email",
+                "phone",
+                "allergies",
+                "guestCount",
+                "timestamp",
+            ].includes(key)
         )
             throw "Trying to change unallowed property.";
     });

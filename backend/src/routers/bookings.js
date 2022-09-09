@@ -146,8 +146,8 @@ router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
         if (!foundBooking) throw "No booking found with id " + req.params.id;
 
         if (utils.hasCustomerChanges(booking)) {
-            const customer = Object.assign({}, booking);
-            if (customer.allergies) delete customer.allergies;
+            const { firstName, lastName, email, phone } = booking;
+            const customer = { firstName, lastName, email, phone };
             utils.validateCustomer({ ...utils.BLANK_CUSTOMER, ...customer });
 
             const foundCustomer = await CustomerModel.findById(
@@ -159,7 +159,10 @@ router.put("/:id", utils.forceLoggedInOrOwnBooking, async (req, res) => {
             await foundCustomer.updateOne(customer);
             await foundCustomer.save();
         }
-        await foundBooking.updateOne({ allergies: booking.allergies });
+        const { allergies, timestamp, guestCount } = booking;
+        const changes = { allergies, timestamp, guestCount };
+
+        await foundBooking.updateOne(changes);
         await foundBooking.save();
 
         const updatedBooking = await BookingsModel.findById(req.params.id);
