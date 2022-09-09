@@ -1,15 +1,15 @@
 import { Outlet } from "react-router-dom";
-
+import { useState } from "react";
+// ### ICONS ###
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
-
-// import { Link } from "react-router-dom";
+// ### STYLED COMPONENTS ###
 import { Link } from "./Styled/Link";
 import { Icon } from "./Styled/Icon";
 import { Div } from "./Styled/Div";
 import { Span } from "./Styled/Span";
 import { Image } from "./Styled/Image";
+// ### MODAL ###
 import { Modal } from "./Modal";
 
 export const Layout = () => {

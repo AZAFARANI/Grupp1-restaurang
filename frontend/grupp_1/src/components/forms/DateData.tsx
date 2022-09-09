@@ -103,8 +103,6 @@ export const DateData = (props: IDateDataProps) => {
         seatingHandler.fetchBookings(week).then(() => {
             seatingHandler.filterCurrentWeekBookings(week);
             setDoneFetching(true);
-            // console.log(seatingHandler.week);
-            // console.table(props.currentBooking);
         });
     }
 
@@ -124,6 +122,14 @@ export const DateData = (props: IDateDataProps) => {
         let showFirstSeating = calculateAvalibility(dayBookings.firstSeating);
         // CHECK IF LAST SEATING IS AVALIBLE
         let showLastSeating = calculateAvalibility(dayBookings.lastSeating);
+
+        let dayAlreadyPassed = false;
+
+        if (currentWeekMonday.getTime() < new Date().getTime()) {
+            showFirstSeating = false;
+            showLastSeating = false;
+            dayAlreadyPassed = true;
+        }
 
         // ### CREATE DATE STRING ###
         const timeString = currentWeekMonday.toLocaleDateString();
@@ -198,7 +204,11 @@ export const DateData = (props: IDateDataProps) => {
                             textAlign="center"
                             fontSizeLaptop="10pt"
                         >
-                            {showFirstSeating ? "18:00-21:00" : "Fullbokat"}
+                            {dayAlreadyPassed
+                                ? "---"
+                                : showFirstSeating
+                                ? "18:00-21:00"
+                                : "Fullbokat"}
                         </Span>
                     </Button>
                     {/* LAST SEATING */}
@@ -223,7 +233,11 @@ export const DateData = (props: IDateDataProps) => {
                             textAlign="center"
                             fontSizeLaptop="10pt"
                         >
-                            {showLastSeating ? "21:00-00:00" : "Fullbokat"}{" "}
+                            {dayAlreadyPassed
+                                ? "---"
+                                : showLastSeating
+                                ? "21:00-00:00"
+                                : "Fullbokat"}
                         </Span>
                     </Button>
                 </Div>
