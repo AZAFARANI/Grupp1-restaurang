@@ -192,7 +192,7 @@ describe("Tramonto BookingsPage Test", () => {
     cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
     //ACT
-    cy.get("#prevoius-week-button").click();
+    cy.get("#next-week-button").click();
     //ASSERT
     cy.get("#form-3-week-span").contains("Vecka");
     cy.get("#form-3").should("be.visible");
@@ -245,6 +245,7 @@ describe("Tramonto BookingsPage Test", () => {
     cy.get("#form-1-forward-button").click();
     cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     //ACT
     cy.get("#form-3-monday-first-seating").click();
     //ASSERT
@@ -261,6 +262,7 @@ describe("Tramonto BookingsPage Test", () => {
     cy.get("#form-1-forward-button").click();
     cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     //ACT
     cy.get("#form-3-monday-first-seating").click();
     cy.get("#form-3-forward-button").click();
@@ -279,6 +281,7 @@ describe("Tramonto BookingsPage Test", () => {
     cy.get("#form-1-forward-button").click();
     cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     //ACT
     cy.get("#form-3-monday-first-seating").click();
     cy.get("#form-3-forward-button").click();
@@ -303,6 +306,7 @@ describe("Tramonto BookingsPage Test", () => {
     cy.get("#form-1-forward-button").click();
     cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     cy.get("#form-3-monday-first-seating").click();
     cy.get("#form-3-forward-button").click();
     //ACT
@@ -322,12 +326,13 @@ describe("Tramonto BookingsPage Test", () => {
     cy.get("#form-1-forward-button").click();
     cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     //ACT
     cy.get("#form-3-monday-first-seating").click();
     cy.get("#form-3-forward-button").click();
     cy.get("#form-4-forward-button").click();
     //ASSERT
-    cy.get("#form-5").should("be.visible");
+    cy.get("#form-5").invoke("css", "overflow").should("equal", "visible");
   });
 
   //-- Checking that each value is correct in form-5 (Step-5) -//
@@ -340,6 +345,7 @@ describe("Tramonto BookingsPage Test", () => {
     cy.get("#form-1-forward-button").click();
     cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     //ACT
     cy.get("#form-3-monday-first-seating").click();
     cy.get("#form-3-forward-button").click();
@@ -365,6 +371,7 @@ describe("Tramonto BookingsPage Test", () => {
     cy.get("#form-1-forward-button").click();
     cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     cy.get("#form-3-monday-first-seating").click();
     cy.get("#form-3-forward-button").click();
     cy.get("#form-4-forward-button").click();
@@ -388,6 +395,7 @@ describe("Tramonto BookingsPage Test", () => {
       cy.get("#form-2-increase-button").click();
     }
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     cy.get("#form-3-tuesday-first-seating").click();
     cy.get("#form-3-forward-button").click();
     cy.get("#form-4-forward-button").click();
@@ -406,6 +414,7 @@ describe("Tramonto BookingsPage Test", () => {
       cy.get("#form-2-increase-button").click();
     }
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     cy.get("#form-3-tuesday-first-seating").click();
     cy.get("#form-3-forward-button").click();
     cy.get("#form-4-forward-button").click();
@@ -421,6 +430,7 @@ describe("Tramonto BookingsPage Test", () => {
     cy.get("#form-1-forward-button").click();
     cy.get("#form-2-increase-button").click();
     cy.get("#form-2-forward-button").click();
+    cy.get("#next-week-button").click();
     //ASSERT
     cy.get("#form-3-tuesday-first-seating")
       .invoke("css", "pointer-events")
