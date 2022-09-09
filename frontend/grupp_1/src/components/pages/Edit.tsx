@@ -137,6 +137,7 @@ export default function Edit() {
                                 alert("Din bokning är uppdaterad.");
                                 setIsLoadingEdit(false);
                                 setShouldFetch(true);
+                                navigate("/");
                             }
                         });
                 } else console.log("No booking found to use for edit.");
@@ -259,7 +260,7 @@ export default function Edit() {
                 ) : (
                     <>
                         {!shouldFetch ? (
-                            <Form height="auto" ref={formRef}>
+                            <Form height="100%" ref={formRef}>
                                 <Div
                                     flexDirectionLaptop="row"
                                     justifyContentLaptop="center"
@@ -267,7 +268,6 @@ export default function Edit() {
                                 >
                                     {/* FIRST PART */}
                                     <Div
-                                        width="90%"
                                         widthTablet="70%"
                                         widthLaptop="40%"
                                         backgroundImage="linear-gradient(0deg,#F3EFD8, #FFFFFF, #F3EFD8)"
@@ -373,7 +373,6 @@ export default function Edit() {
                                     </Div>
                                     {/* SECOND PART */}
                                     <Div
-                                        width="90%"
                                         widthTablet="70%"
                                         widthLaptop="40%"
                                         backgroundImage="linear-gradient(0deg,#F3EFD8, #FFFFFF, #F3EFD8)"
