@@ -57,7 +57,7 @@ describe("Tramonto Landingpage Test", () => {
     //ACT
     cy.get("#page-up").click();
     //ASSERT
-    cy.get("#landing-logo").should("be.visible");
+    cy.get("#menuLandning").should("be.visible");
   });
 
   //-- Testing contact link in footer -//
@@ -73,6 +73,6 @@ describe("Tramonto Landingpage Test", () => {
     //ACT
     cy.get("#landing-booking-button").click();
     //ASSERT
-    cy.location("pathname").should("eq", "/booking");
+    cy.location("pathname").should("eq", "/bookings");
   });
 });
