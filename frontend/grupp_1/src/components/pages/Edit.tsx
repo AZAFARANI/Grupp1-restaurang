@@ -2,6 +2,8 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 // ### INTERFACES ###
 import ITramontoResponse from "../../interfaces/ITramontoResponse";
+import INewBookingOptional from "../../interfaces/INewBookingOptional";
+import INewBooking from "../../interfaces/INewBooking";
 // ### MODELS ###
 import BookingModel from "../../models/Booking";
 // ### SERVICE ###
@@ -26,9 +28,7 @@ import { Textarea } from "../Styled/Textarea";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 // ### FORM ###
 import { DateData } from "../forms/DateData";
-import INewBookingOptional from "../../interfaces/INewBookingOptional";
 import { PersonCounter } from "../forms/PersonCounter";
-import INewBooking from "../../interfaces/INewBooking";
 
 const service = new TramontoService();
 
@@ -160,7 +160,7 @@ export default function Edit() {
             <>
                 {isChoosingNewDate ? (
                     <Div
-                        widthLaptop="80%"
+                        widthLaptop="70%"
                         backgroundColor="rgba(255, 255, 255, 0.75)"
                         padding="20px"
                         justifyContent="center"
@@ -182,9 +182,13 @@ export default function Edit() {
                                                 shouldSwitch
                                             )}`}
                                         >
-                                            <Span fontSize="20pt">
+                                            <Span
+                                                fontSize="20pt"
+                                                padding="0 0 20px 0"
+                                            >
                                                 Hur många är ni?
                                             </Span>
+                                            <SeperatorLine />
                                             <PersonCounter
                                                 moveBackward={() => {
                                                     scrollToMain();
@@ -229,6 +233,7 @@ export default function Edit() {
                                             >
                                                 När vill ni äta?
                                             </Span>
+                                            <SeperatorLine />
                                             <DateData
                                                 moveBackward={() => {
                                                     scrollToMain();

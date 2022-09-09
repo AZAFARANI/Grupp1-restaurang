@@ -47,7 +47,7 @@ export const DateData = (props: IDateDataProps) => {
         new Date(0)
     );
 
-    const [doneFetching, setDoneFetching] = useState(false);
+    const [shouldFetch, setShouldFetch] = useState(true);
 
     function handleSubmit(e: FormEvent) {
         e.preventDefault();
@@ -56,41 +56,47 @@ export const DateData = (props: IDateDataProps) => {
         }
     }
 
+    const CURRENT_YEAR = new Date().getFullYear();
+
     // ------------------------------------------------------
     // ### CALCULATE CURRENT WEEK ###
     useEffect(() => {
-        let week = seatingHandler.getWeek(new Date()) - 1;
-        let currentMonday = seatingHandler.getDateOfISOWeek(
-            week,
-            new Date().getFullYear()
-        );
-        setCurrentWeekMonday(currentMonday);
-        setEarliestWeek(week);
-        setWeek(week);
+        const currentWeek = seatingHandler.getWeek(new Date()) - 1;
+        setEarliestWeek(currentWeek);
+        setWeek(currentWeek);
         if (props.currentBooking.timestamp.length > 0)
             setChosenTime(new Date(props.currentBooking.timestamp));
+        triggerFetch(currentWeek);
+        setCurrentWeekMonday(
+            seatingHandler.getDateOfISOWeek(currentWeek, CURRENT_YEAR)
+        );
     }, []);
     function nextWeek() {
         setWeek(week + 1);
+        seatingHandler.filterCurrentWeekBookings(week + 1);
+        setCurrentWeekMonday(
+            seatingHandler.getDateOfISOWeek(week + 1, CURRENT_YEAR)
+        );
     }
     function previousWeek() {
-        if (week > earliestWeek) setWeek(week - 1);
+        if (week > earliestWeek) {
+            setWeek(week - 1);
+            seatingHandler.filterCurrentWeekBookings(week - 1);
+            setCurrentWeekMonday(
+                seatingHandler.getDateOfISOWeek(week - 1, CURRENT_YEAR)
+            );
+        }
     }
 
     // ------------------------------------------------------
 
     // ------------------------------------------------------
     // ### BOOKINGS ###
-    useEffect(() => {
-        if (!doneFetching && week !== -1) {
-            triggerFetch();
-        }
-    }, [week]);
 
-    function triggerFetch() {
+    function triggerFetch(week: number) {
         seatingHandler.fetchBookings(week).then(() => {
             seatingHandler.filterCurrentWeekBookings(week);
-            setDoneFetching(true);
+            setShouldFetch(false);
         });
     }
 
@@ -110,7 +116,7 @@ export const DateData = (props: IDateDataProps) => {
         let showLastSeating = calculateAvalibility(dayBookings.lastSeating);
         let dayAlreadyPassed = false;
 
-        if (currentWeekMonday.getTime() < new Date().getTime()) {
+        if (currentWeekMonday.getTime() <= Date.now()) {
             showFirstSeating = false;
             showLastSeating = false;
             dayAlreadyPassed = true;
@@ -121,7 +127,7 @@ export const DateData = (props: IDateDataProps) => {
         const isoString = currentWeekMonday.toISOString();
         // ### INCREASE DATE BY ONE DAY ###
         currentWeekMonday.setDate(currentWeekMonday.getDate() + 1);
-        let html = (
+        const html = (
             <Div
                 width="100%"
                 widthLaptop="calc(100% / 7)"
@@ -228,7 +234,6 @@ export const DateData = (props: IDateDataProps) => {
                 </Div>
             </Div>
         );
-
         return html;
     }
 
@@ -244,19 +249,16 @@ export const DateData = (props: IDateDataProps) => {
             neededTables += Math.ceil(booking.guestCount / TABLE_CAPACITY);
         });
 
-        // console.log("TOTAL GUESTS: ", totalGuests);
-        // console.log("TOTAL TABLES: ", neededTables);
-
         if (neededTables + newTablesRequired <= AVALIBLE_TABLES) {
             if (totalGuests + guestsToAdd <= MAX_GUEST_COUNT) return true;
         }
         return false;
     }
 
-    let startOfSelectedWeek = new Date(currentWeekMonday);
+    const startOfSelectedWeek = new Date(currentWeekMonday.toISOString());
     return (
         <Form id="form-3">
-            {doneFetching ? (
+            {!shouldFetch ? (
                 <Div>
                     {/* SELECT WEEK */}
                     <Div
@@ -265,6 +267,7 @@ export const DateData = (props: IDateDataProps) => {
                         flexDirectionLaptop="row"
                         justifyContentLaptop="space-between"
                     >
+                        {/* SELECT WEEK */}
                         <Div
                             flexDirection="row"
                             justifyContent="space-between"
@@ -305,6 +308,7 @@ export const DateData = (props: IDateDataProps) => {
                                 ></Image>
                             </Button>
                         </Div>
+                        {/* REFRESH */}
                         <Div
                             padding="60px 0 0 0"
                             paddingLaptop="0"
@@ -316,9 +320,9 @@ export const DateData = (props: IDateDataProps) => {
                                 background="#A3A380"
                                 padding="8px 14px"
                                 onClick={() => {
-                                    setDoneFetching(false);
+                                    setShouldFetch(true);
                                     setTimeout(() => {
-                                        triggerFetch();
+                                        triggerFetch(week);
                                     }, REFRESH_DELAY);
                                 }}
                             >
@@ -339,7 +343,7 @@ export const DateData = (props: IDateDataProps) => {
                     >
                         {/* SINGLE DAY*/}
                         {DAYS_OF_WEEK.map((day, index) => {
-                            if (currentWeekMonday) {
+                            if (startOfSelectedWeek) {
                                 return createDay(
                                     day,
                                     startOfSelectedWeek,

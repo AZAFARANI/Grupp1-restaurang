@@ -63,7 +63,7 @@ export default class SeatingHandler {
                 new Date().getFullYear() // We decided that we cannot book more than 1 year ahead.
             );
             const weekEnd = new Date(weekStart);
-            weekEnd.setDate(weekEnd.getDate() + 6);
+            weekEnd.setDate(weekStart.getDate() + 7);
 
             // ### CHECK SO DATE IS CURRENT WEEKS MONDAY OR LATER ###
             if (bookDate.getTime() >= weekStart.getTime()) {

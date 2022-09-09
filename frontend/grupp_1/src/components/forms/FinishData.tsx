@@ -15,12 +15,13 @@ interface IFinishDataProps {
     setStep(step: number): void;
     bookingStep: number;
     currentBooking: INewBooking;
+    moveForward(): void;
 }
 
 export const FinishData = (props: IFinishDataProps) => {
     const navigate = useNavigate();
     return (
-        <Form id="form-5">
+        <Form id="form-5" padding="20px 0 0 0">
             <Div
                 flexDirectionLaptop="row"
                 justifyContentLaptop="center"
@@ -197,7 +198,7 @@ export const FinishData = (props: IFinishDataProps) => {
                     type="submit"
                     background="#A3A380"
                     onClick={(e) => {
-                        scrollToMain();
+                        props.moveForward();
                         e.preventDefault();
                         navigate("/");
                     }}

@@ -16,10 +16,9 @@ import { SeperatorLine } from "../Styled/SeperatorLine";
 import { Span } from "../Styled/Span";
 
 export const Booking = () => {
-    const [step, setStep] = useState(1);
-    const [title, setTitle] = useState<string>("Låt oss boka!");
+    const [step, setStep] = useState<number>(1);
     const [shouldSwitch, setShouldSwitch] = useState<boolean>(false);
-    const [compareButtons, setCompareButtons] = useState<boolean>(true);
+    const [goBack, setGoBack] = useState<boolean>(false);
 
     const [newBooking, setNewBooking] = useState<INewBooking>({
         email: "",
@@ -37,8 +36,33 @@ export const Booking = () => {
         setNewBooking({ ...newBooking, ...changes });
     }
 
-    function divOnAnimationEnd() {}
+    function scrollToStartOfForm() {
+        document.querySelector("#scrollToStartOfForm")?.scrollIntoView(true);
+    }
 
+    function onAnimationEnd(forwardStep: number, backStep: number) {
+        if (shouldSwitch) {
+            setShouldSwitch(false);
+            if (goBack) {
+                setStep(backStep);
+                setGoBack(false);
+            } else {
+                setStep(forwardStep);
+            }
+        }
+    }
+
+    function goForwards() {
+        scrollToStartOfForm();
+        setShouldSwitch(true);
+    }
+    function goBackwards() {
+        scrollToStartOfForm();
+        setShouldSwitch(true);
+        setGoBack(true);
+    }
+
+    console.log("STEP: ", step);
     return (
         <Div
             backgroundImage="url(images/jorge-zapata-4nXkhLCrkLo-unsplash.jpg)"
@@ -89,10 +113,7 @@ export const Booking = () => {
                                     return (
                                         <Div
                                             onAnimationEnd={() => {
-                                                if (shouldSwitch) {
-                                                    setStep(2);
-                                                    setShouldSwitch(false);
-                                                }
+                                                onAnimationEnd(2, 1);
                                             }}
                                             className={`${getDivClassNames(
                                                 step,
@@ -113,15 +134,10 @@ export const Booking = () => {
                                             <SeperatorLine />
                                             <PersonalData
                                                 currentBooking={newBooking}
-                                                moveForward={() => {
-                                                    scrollToMain();
-                                                    setShouldSwitch(true);
-                                                }}
-                                                handleNewBooking={(
-                                                    changes: INewBookingOptional
-                                                ) => {
-                                                    handleNewBooking(changes);
-                                                }}
+                                                moveForward={goForwards}
+                                                handleNewBooking={
+                                                    handleNewBooking
+                                                }
                                             ></PersonalData>
                                         </Div>
                                     );
@@ -130,16 +146,7 @@ export const Booking = () => {
                                     return (
                                         <Div
                                             onAnimationEnd={() => {
-                                                if (shouldSwitch) {
-                                                    if (compareButtons)
-                                                        setStep(3);
-                                                    setShouldSwitch(false);
-                                                }
-                                                if (!compareButtons) {
-                                                    setStep(1);
-                                                    setShouldSwitch(false);
-                                                    setCompareButtons(true);
-                                                }
+                                                onAnimationEnd(3, 1);
                                             }}
                                             className={`${getDivClassNames(
                                                 step,
@@ -160,20 +167,11 @@ export const Booking = () => {
                                             <SeperatorLine></SeperatorLine>
                                             <PersonCounter
                                                 currentBooking={newBooking}
-                                                moveForward={() => {
-                                                    scrollToMain();
-                                                    setShouldSwitch(true);
-                                                }}
-                                                moveBackward={() => {
-                                                    scrollToMain();
-                                                    setShouldSwitch(true);
-                                                    setCompareButtons(false);
-                                                }}
-                                                handleNewBooking={(
-                                                    changes: INewBookingOptional
-                                                ) => {
-                                                    handleNewBooking(changes);
-                                                }}
+                                                moveForward={goForwards}
+                                                moveBackward={goBackwards}
+                                                handleNewBooking={
+                                                    handleNewBooking
+                                                }
                                             ></PersonCounter>
                                         </Div>
                                     );
@@ -182,16 +180,7 @@ export const Booking = () => {
                                     return (
                                         <Div
                                             onAnimationEnd={() => {
-                                                if (shouldSwitch) {
-                                                    if (compareButtons)
-                                                        setStep(4);
-                                                    setShouldSwitch(false);
-                                                }
-                                                if (!compareButtons) {
-                                                    setStep(2);
-                                                    setShouldSwitch(false);
-                                                    setCompareButtons(true);
-                                                }
+                                                onAnimationEnd(4, 2);
                                             }}
                                             className={`${getDivClassNames(
                                                 step,
@@ -211,20 +200,11 @@ export const Booking = () => {
                                             </Span>
                                             <SeperatorLine></SeperatorLine>
                                             <DateData
-                                                moveForward={() => {
-                                                    scrollToMain();
-                                                    setShouldSwitch(true);
-                                                }}
-                                                moveBackward={() => {
-                                                    scrollToMain();
-                                                    setShouldSwitch(true);
-                                                    setCompareButtons(false);
-                                                }}
-                                                handleNewBooking={(
-                                                    changes: INewBookingOptional
-                                                ) => {
-                                                    handleNewBooking(changes);
-                                                }}
+                                                moveForward={goForwards}
+                                                moveBackward={goBackwards}
+                                                handleNewBooking={
+                                                    handleNewBooking
+                                                }
                                                 currentBooking={newBooking}
                                             ></DateData>
                                         </Div>
@@ -234,22 +214,13 @@ export const Booking = () => {
                                     return (
                                         <Div
                                             onAnimationEnd={() => {
-                                                if (shouldSwitch) {
-                                                    if (compareButtons)
-                                                        setStep(5);
-                                                    setShouldSwitch(false);
-                                                }
-                                                if (!compareButtons) {
-                                                    setStep(3);
-                                                    setShouldSwitch(false);
-                                                    setCompareButtons(true);
-                                                }
+                                                onAnimationEnd(5, 3);
                                             }}
                                             className={`${getDivClassNames(
                                                 step,
                                                 4,
                                                 shouldSwitch
-                                            )}}`}
+                                            )}`}
                                         >
                                             <Span
                                                 textAlign="center"
@@ -264,15 +235,8 @@ export const Booking = () => {
                                             <SeperatorLine></SeperatorLine>
                                             <ConfirmData
                                                 currentBooking={newBooking}
-                                                moveForward={() => {
-                                                    scrollToMain();
-                                                    setShouldSwitch(true);
-                                                }}
-                                                moveBackward={() => {
-                                                    scrollToMain();
-                                                    setShouldSwitch(true);
-                                                    setCompareButtons(false);
-                                                }}
+                                                moveForward={goForwards}
+                                                moveBackward={goBackwards}
                                             ></ConfirmData>
                                         </Div>
                                     );
@@ -280,6 +244,9 @@ export const Booking = () => {
                                     // STEP %
                                     return (
                                         <Div
+                                            onAnimationEnd={() => {
+                                                onAnimationEnd(5, 4);
+                                            }}
                                             className={`${getDivClassNames(
                                                 step,
                                                 5,
@@ -298,6 +265,7 @@ export const Booking = () => {
                                             </Span>
                                             <SeperatorLine></SeperatorLine>
                                             <FinishData
+                                                moveForward={goForwards}
                                                 currentBooking={newBooking}
                                                 setStep={setStep}
                                                 bookingStep={step}
